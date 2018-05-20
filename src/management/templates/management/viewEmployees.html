@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p><a href="/addEmployee/">افزودن کاربر</a></p>
+<ul>
+    {% for employee in object_list %}
+    <li>
+        <a href="/editEmployee/{{ employee.national_id }}">{{ employee.national_id }} {{ employee.name }}</a>
+    </li>
+    {% endfor %}
+</ul>
+</body>
+</html>
