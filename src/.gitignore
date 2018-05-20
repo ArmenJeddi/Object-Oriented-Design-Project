@@ -1,4 +1,8 @@
 # python cache directories
+__pycache__/
 
 # migration directories
 migrations/
+
+# ignore database files
+db.sqlite3

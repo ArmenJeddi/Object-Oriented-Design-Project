@@ -1,0 +1,13 @@
+<!doctype html>
+
+<html>
+  <body>
+    <form method="post">
+      {% csrf_token %}
+      <table>
+	{{ form.as_table }}
+      </table>
+      <input type="submit" value="ورود">
+    </form>
+  </body>
+</html>
