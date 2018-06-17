@@ -6,3 +6,10 @@ migrations/
 
 # ignore database files
 db.sqlite3
+
+
+# pycharm config files
+.idea/
+
+# macOS DS_Store files
+*.DS_Store
