@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h2>کارمندان غیرارزیاب</h2>
+<p>بر روی فرد مورد نظر جهت افزودن وی به لیست ارزیاب‌ها کلیک کنید</p>
+<ul>
+    {% for employee in employees %}
+        <form action="/evaluators/" method="post">
+            {#            {{ form }}#}
+            <a href="#" onclick="this.parentNode.submit()">{{ employee.national_id }} {{ employee.name }}</a>
+            <input type="hidden" name="national_id" value="{{ employee.national_id }}">
+            <input type="hidden" name="action" value="add">
+            {% csrf_token %}
+
+        </form>
+    {% endfor %}
+</ul>
+
+<h2>کارمندان ارزیاب</h2>
+<p>بر روی فرد مورد نظر جهت حذف وی از لیست ارزیاب‌ها کلیک کنید</p>
+<ul>
+    {% for employee in evaluators %}
+        <form action="/evaluators/" method="post">
+            {#            {{ form }}#}
+            <a href="#" onclick="this.parentNode.submit()">{{ employee.national_id }} {{ employee.name }}</a>
+            <input type="hidden" name="national_id" value="{{ employee.national_id }}">
+            <input type="hidden" name="action" value="remove">
+            {% csrf_token %}
+
+        </form>
+    {% endfor %}
+</ul>
+
+</body>
+</html>
