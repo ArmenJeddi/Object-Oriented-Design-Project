@@ -1,14 +1,10 @@
 from django.db import models
+from auth.models import User
 
+class Employee(User):
+    asEvaluator = models.OneToOneField('Evaluator', on_delete=models.SET_NULL, null=True)
+    asEvaluatee = models.OneToOneField('Evaluatee', on_delete=models.SET_NULL, null=True)
+    unit = models.CharField(max_length=20)
 
-class Employee(models.Model):
-    name = models.CharField(max_length=100)
-    national_id = models.CharField(primary_key=True, max_length=10, unique=True)
-    evaluator = models.ForeignKey('Evaluator', on_delete=models.SET_NULL, related_name='evaluatee',
-                                  null=True)
-
-    def getID(self):
-        return self.national_id
-
-    def getName(self):
-        return self.name
+    def get_unit(self):
+        return unit
