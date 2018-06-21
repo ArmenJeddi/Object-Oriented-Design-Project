@@ -5,6 +5,6 @@ from django.template.loader import get_template
 
 class Main(View):
     def get(self, request):
-        t = get_template('index.html')
+        t = get_template('management/login.html')
         html = t.render({})
         return HttpResponse(html)

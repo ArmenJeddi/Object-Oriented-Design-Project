@@ -1,14 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="ثبت" />
-    </form>
-</body>
-</html>
+{% extends "navbar_signedin.html" %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="/static/styles/main.css" />
+	<title>Add Employee</title>
+{% endblock %}
+
+{% block main %}
+
+<div class = 'content-page'>
+
+	<div class = 'vertical-center'>
+	
+		<div class = 'contain'>
+
+			<h1 class='middle-header'>افزودن کارمند</h1>
+				
+			<form class = 'forms' method="post" action = "">
+				
+				{{ form.as_p }}
+				<input class = 'submitButton' type="submit" value="ثبت" />
+			</form>
+			
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+
+
+
+
+    
