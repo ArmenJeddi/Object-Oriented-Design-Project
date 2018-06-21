@@ -1,40 +1,96 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "navbar_signedin.html" %}
 
-<h2>کارمندان غیرارزیاب</h2>
-<p>بر روی فرد مورد نظر جهت افزودن وی به لیست ارزیاب‌ها کلیک کنید</p>
-<ul>
-    {% for employee in employees %}
-        <form action="/evaluators/" method="post">
-            {#            {{ form }}#}
-            <a href="#" onclick="this.parentNode.submit()">{{ employee.national_id }} {{ employee.name }}</a>
-            <input type="hidden" name="national_id" value="{{ employee.national_id }}">
-            <input type="hidden" name="action" value="add">
-            {% csrf_token %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="/static/styles/main.css" />
+	<title>Evaluators</title>
+{% endblock %}
 
-        </form>
-    {% endfor %}
-</ul>
+{% block main %}
 
-<h2>کارمندان ارزیاب</h2>
-<p>بر روی فرد مورد نظر جهت حذف وی از لیست ارزیاب‌ها کلیک کنید</p>
-<ul>
-    {% for employee in evaluators %}
-        <form action="/evaluators/" method="post">
-            {#            {{ form }}#}
-            <a href="#" onclick="this.parentNode.submit()">{{ employee.national_id }} {{ employee.name }}</a>
-            <input type="hidden" name="national_id" value="{{ employee.national_id }}">
-            <input type="hidden" name="action" value="remove">
-            {% csrf_token %}
+<div class = 'content-page'>
 
-        </form>
-    {% endfor %}
-</ul>
+	<div class = 'vertical-center'>
+	
+		<div class = 'well'>
 
-</body>
-</html>
+			<h1 class='middle-header'>ارزیابان فعلی</h1>
+			
+			<div class= 'ObjectList'>
+				<ul class='evaluator-unordered'>
+					
+					{% for employee in evaluators %}
+						<li class='person_member'>
+							<span class = 'employee-name'>{{ employee.name }}</span>
+							<span class = 'employee-id'>{{ employee.national_id }}</span>
+							<span>
+								<form class = 'evaluator-forms' action="/evaluators/" method="post">
+									<a class= 'order-option-link form-link' href="" onclick="this.parentNode.submit()">حذف از لیست ارزیابان</a>
+									<input type="hidden" name="national_id" value="{{ employee.national_id }}">
+									<input type="hidden" name="action" value="add">
+								</form>
+							</span>
+							
+						</li>
+					{% endfor %}
+					
+					<li class='person_member'>
+						<span class = 'employee-name'>احمدرضا جدی</span>
+						
+						<span class = 'employee-id'>93105534</span>
+						<span>
+						<form class = 'evaluator-forms' action="/evaluators/" method="post">
+							<a class= 'order-option-link form-link' href="" onclick="this.parentNode.submit()">حذف از لیست ارزیابان</a>
+							<input type="hidden" name="national_id" value="{{ employee.national_id }}">
+							<input type="hidden" name="action" value="add">
+						</form>
+						</span>
+					</li>
+					
+					
+				</ul>
+			</div>
+			
+			<h1 class='middle-header'>کارمندان غیر ارزیاب</h1>
+			
+			<div class= 'ObjectList'>
+				<ul class='evaluator-unordered'>
+					
+					{% for employee in employees %}
+						<li class='person_member'>
+							<span class = 'employee-name'>{{ employee.name }}</span>
+							<span class = 'employee-id'>{{ employee.national_id }}</span>
+							<span>
+								<form class = 'evaluator-forms' action="/evaluators/" method="post">
+									<a class= 'order-option-link form-link' href="" onclick="this.parentNode.submit()">افزودن به لیست ارزیاب</a>
+									<input type="hidden" name="national_id" value="{{ employee.national_id }}">
+									<input type="hidden" name="action" value="add">
+								</form>
+							</span>
+							
+						</li>
+					{% endfor %}
+					
+					<li class='person_member'>
+						<span class = 'employee-name'>احمدرضا جدی</span>
+						
+						<span class = 'employee-id'>93105534</span>
+						<span>
+						<form class = 'evaluator-forms' action="/evaluators/" method="post">
+							<a class= 'order-option-link form-link' href="" onclick="this.parentNode.submit()">افزودن به لیست ارزیاب</a>
+							<input type="hidden" name="national_id" value="{{ employee.national_id }}">
+							<input type="hidden" name="action" value="add">
+						</form>
+						</span>
+					</li>
+					
+					
+				</ul>
+			</div>
+
+			
+			
+		</div>
+	</div>
+</div>
+
+{% endblock %}
