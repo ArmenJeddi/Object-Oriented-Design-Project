@@ -1,0 +1,62 @@
+{% extends "navbar_signedin.html" %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="/static/styles/main.css" />
+	<title>Evaluation</title>
+{% endblock %}
+
+{% block main %}
+
+<div class = 'content-page'>
+
+	<div class = 'vertical-center'>
+	
+		<div class = 'well'>
+
+			<h1 class='middle-header'>ارزیابی کارمندان</h1>
+				
+			<blockquote class='darkBlock'>
+				<p class='xPara justify'>شما باید کارمندانی که ارزیابی شان بر عهده ی شماست را بر اساس معیارهای مشخص شده، ارزیابی فرمایید.
+				</p>
+			</blockquote>
+				
+			<div class= 'ObjectList'>
+				<ul class='evaluator-unordered'>
+					
+					{% for employee in evaluation_list %}
+						<li class='person_member'>
+							<span class = 'employee-name'>{{ employee.name }}</span>
+							<span class = 'employee-id'>{{ employee.national_id }}</span>
+							<span>
+								<form class = 'evaluator-forms' action="؟" method="post">
+									<a class= 'order-option-link form-link' href="" onclick="this.parentNode.submit()">ارزیابی</a>
+									<input type="hidden" name="national_id" value="{{ employee.national_id }}">
+									<input type="hidden" name="action" value="add">
+								</form>
+							</span>
+							
+						</li>
+					{% endfor %}
+					
+					<li class='person_member'>
+						<span class = 'employee-name'>احمدرضا جدی</span>
+						
+						<span class = 'employee-id'>93105534</span>
+						<span>
+						<form class = 'evaluator-forms' action="?" method="post">
+							<a class= 'order-option-link form-link' href="" onclick="this.parentNode.submit()">ارزیابی</a>
+							<input type="hidden" name="national_id" value="{{ employee.national_id }}">
+							<input type="hidden" name="action" value="add">
+						</form>
+						</span>
+					</li>
+					
+					
+				</ul>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+{% endblock %}

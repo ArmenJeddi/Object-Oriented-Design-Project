@@ -119,6 +119,7 @@ label {
 
 .person_member{
 	margin-bottom: 10px;
+	position:relative;
 }
 
 .employee-name{
@@ -155,3 +156,15 @@ label {
 	margin-right:10px;
 	
 }
+
+.list-p{
+	position:relative ;
+	margin-right: 10px;
+	font-size: 16px;
+	display: inline-block;
+	text-align: center ;
+	min-width: 100px;
+	width: 70%;
+}
+
+

@@ -16,8 +16,8 @@
 			<h1 class='middle-header'>افزودن کارمند</h1>
 				
 			<form class = 'forms' method="post" action = "">
-				
-				{{ form.as_p }}
+				<p><label for="id_name">نام:</label> <input type="text" name="name" required id="id_name" maxlength="100" /></p>
+				<p><label for="id_national_id">کد ملی:</label> <input type="text" name="national_id" required id="id_national_id" maxlength="10" /></p>
 				<input class = 'submitButton' type="submit" value="ثبت" />
 			</form>
 			

@@ -26,9 +26,8 @@ from management.views.assignEvaluatorToEmployee import AssignEvaluatorToEmployee
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('employee/', EmployeeListView.as_view()),
-    path('', Main.as_view()),
+    path('index', Main.as_view()),
     path('evaluators/', Evaluators.as_view()),
     path('assignEvaluatorToEmployee/', AssignEvaluatorToEmployee.as_view()),
     path('addEmployee/', AddEmployeeView.as_view()),
-    path('editEmployee/<str:pk>/', EmployeeEditView.as_view()),
 ]
