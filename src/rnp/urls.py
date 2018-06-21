@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.urls import path, include
 
+from .index import IndexRedirectView
+
 urlpatterns = [
+    path('', IndexRedirectView.as_view()),
     path('auth/', include('auth.urls')),
     path('management/', include('management.urls')),
 ]

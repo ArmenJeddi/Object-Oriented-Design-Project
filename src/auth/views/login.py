@@ -1,29 +1,19 @@
+from django.http import HttpResponseRedirect
 from django import forms
 from django.views.generic import FormView
+from django.conf import settings
+
 from auth import models
 import auth
-from . import REDIRECT_FIELD_NAME
+from auth import REDIRECT_FIELD_NAME
 
 class AuthenticationForm(forms.Form):
-    _username = forms.CharField(max_length=models.USERNAME_LENGTH)
-    _password = forms.CharField(max_length=models.PASSWORD_LENGTH)
-
-    def __init__(self, *args, **kwargs):
-        kwargs = dict(kwargs)
-
-        username = kwargs.pop('username', None)
-        password = kwargs.pop('password', None)
-
-        if username:
-            kwargs['_username'] = username
-        if password:
-            kwargs['_password'] = password
-
-        super().__init__(*args, **kwargs)
+    username = forms.CharField(max_length=models.USERNAME_LENGTH)
+    password = forms.CharField(max_length=models.PASSWORD_LENGTH)
 
     def clean(self):
-        username = self.cleaned_data.get('_username')
-        password = self.cleaned_data.get('_password')
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
 
         if username is not None and password:
             self._user_cache = models.User.authenticate(username=username, password=password)

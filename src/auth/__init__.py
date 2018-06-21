@@ -1,3 +1,4 @@
+REDIRECT_FIELD_NAME = 'next'
 SESSION_USERNAME_FIELD = '_username'
 
 def login(request, user):
