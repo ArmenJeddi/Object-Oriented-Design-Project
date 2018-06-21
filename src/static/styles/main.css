@@ -72,7 +72,7 @@ div a{
 	margin: auto;
 }
 
-input[type=text], select, textarea {
+input, select, textarea {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;
