@@ -1,5 +1,6 @@
 from auth.mixins import LoginRequiredMixin
 
+
 class ManagerRequiredMixin(LoginRequiredMixin):
 
     def test_func(self):

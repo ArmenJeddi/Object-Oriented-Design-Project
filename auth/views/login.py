@@ -1,11 +1,12 @@
-from django.http import HttpResponseRedirect
 from django import forms
-from django.views.generic import FormView
 from django.conf import settings
+from django.http import HttpResponseRedirect
+from django.views.generic import FormView
 
-from auth import models
 import auth
 from auth import REDIRECT_FIELD_NAME
+from auth import models
+
 
 class AuthenticationForm(forms.Form):
     username = forms.CharField(max_length=models.USERNAME_LENGTH)
@@ -21,7 +22,7 @@ class AuthenticationForm(forms.Form):
                 raise forms.ValidationError(
                     'The credentials were invalid',
                     code='invalid_login',
-                    )
+                )
 
         return self.cleaned_data
 
@@ -32,6 +33,7 @@ class AuthenticationForm(forms.Form):
 
     def get_user(self):
         return self._user_cache
+
 
 class LoginView(FormView):
     """

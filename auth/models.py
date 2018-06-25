@@ -3,6 +3,7 @@ from django.db import models
 USERNAME_LENGTH = 10
 PASSWORD_LENGTH = 20
 
+
 class User(models.Model):
     username = models.CharField(primary_key=True, max_length=USERNAME_LENGTH)
     password = models.CharField(max_length=PASSWORD_LENGTH)
