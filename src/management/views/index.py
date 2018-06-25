@@ -4,4 +4,4 @@ from management.mixins import ManagerRequiredMixin
 
 class IndexView(ManagerRequiredMixin, TemplateView):
 
-    template_name = 'management/index.html'
+    template_name = 'management/managerIndex.html'

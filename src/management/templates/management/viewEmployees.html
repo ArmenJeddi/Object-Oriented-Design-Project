@@ -25,32 +25,15 @@
 					{% for employee in object_list %}
 						<li class='person_member'>
 							<span class = 'employee-name'>{{ employee.name }}</span>
-							<span class = 'employee-id'>{{ employee.national_id }}</span>
+							<span class = 'employee-id'>{{ employee.username }}</span>
 						</li>
 					{% endfor %}
-					
-					
-					<li class='person_member'>
-						<span class = 'employee-name'>احمدرضا جدی</span>
-						
-						<span class = 'employee-id'>93105534</span>
-					</li>
-					<li class='person_member'>
-						<span class = 'employee-name'> بره </span>
-						
-						<span class = 'employee-id'> گاو </span>
-					</li>					
-					<li class='person_member'>
-						<span class = 'employee-name'> بره </span>
-						
-						<span class = 'employee-id'> گاو </span>
-					</li>					
 					
 				</ul>
 			</div>
 			
 			<div class='task-option'>
-				<a class='order-option-link' href=""><span class='productButtons'>افزودن کارمند</span></a>
+				<a class='order-option-link' href="/management/addEmployee/"><span class='productButtons'>افزودن کارمند</span></a>
 			</div>			
 			
 		</div>

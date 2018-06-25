@@ -1,8 +1,10 @@
 from django.views.generic import CreateView
-from ..models import Employee
 
-class AddEmployeeView(CreateView):
+from management.models import Employee
+from management.mixins import ManagerRequiredMixin
+
+class AddEmployeeView(ManagerRequiredMixin, CreateView):
     model = Employee
     template_name = 'management/addEmployee.html'
-    fields = ['name', 'national_id']
-    success_url = '/'
+    fields = ['username', 'password', 'name', 'unit',]
+    success_url = '/management/listEmployees/'

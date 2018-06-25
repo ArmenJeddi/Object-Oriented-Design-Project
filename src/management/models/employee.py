@@ -7,4 +7,4 @@ class Employee(User):
     unit = models.CharField(max_length=20)
 
     def get_unit(self):
-        return unit
+        return self.unit
