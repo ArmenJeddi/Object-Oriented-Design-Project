@@ -1,9 +1,10 @@
+from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView
-from django.conf import settings
 
 import auth
 from auth import REDIRECT_FIELD_NAME
+
 
 class LogoutView(TemplateView):
     """
@@ -31,7 +32,7 @@ class LogoutView(TemplateView):
         elif settings.LOGOUT_REDIRECT_URL:
             next_page = settings.LOGOUT_REDIRECT_URL
         elif (self.redirect_field_name in self.request.POST or
-                self.redirect_field_name in self.request.GET):
+              self.redirect_field_name in self.request.GET):
             next_page = self.request.POST.get(
                 self.redirect_field_name,
                 self.request.GET.get(self.redirect_field_name)

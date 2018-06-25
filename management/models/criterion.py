@@ -39,13 +39,16 @@
 
 from django.db import models
 
+
 class Option(models.Model):
     _name = models.CharField(max_length=30)
     _criterion = models.ForeignKey('EvaluationCriterion', on_delete=models.CASCADE, related_name='option_list')
 
+
 class RNPMethod(models.Model):
     pass
+
+
 class EvaluationCriterion(models.Model):
     _is_qualitative = models.BooleanField()
     _name = models.CharField(max_length=100)
-    

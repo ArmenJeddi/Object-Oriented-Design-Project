@@ -1,11 +1,12 @@
 from urllib.parse import urlparse, urlunparse
 
-from django.views.generic import View
-from django.http import HttpResponseRedirect, QueryDict
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
+from django.http import HttpResponseRedirect, QueryDict
+from django.views.generic import View
 
 from auth import REDIRECT_FIELD_NAME
+
 
 def redirect_to_login(next, login_url=None, redirect_field_name=REDIRECT_FIELD_NAME):
     """
@@ -20,6 +21,7 @@ def redirect_to_login(next, login_url=None, redirect_field_name=REDIRECT_FIELD_N
         login_url_parts[4] = querystring.urlencode(safe='/')
 
     return HttpResponseRedirect(urlunparse(login_url_parts))
+
 
 class AccessMixin:
     """
@@ -60,6 +62,7 @@ class AccessMixin:
             raise PermissionDenied(self.get_permission_denied_message())
         return redirect_to_login(self.request.get_full_path(), self.get_login_url(), self.get_redirect_field_name())
 
+
 class UserPassesTestMixin(View, AccessMixin):
     """
     Deny a request with a permission error if the test_func() method returns
@@ -82,6 +85,7 @@ class UserPassesTestMixin(View, AccessMixin):
         if not user_test_result:
             return self.handle_no_permission()
         return super().dispatch(request, *args, **kwargs)
+
 
 class LoginRequiredMixin(UserPassesTestMixin):
 

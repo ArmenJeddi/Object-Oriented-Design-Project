@@ -1,4 +1,5 @@
-from ..models import User
+from auth.models import User
+
 
 class EmployeeCatalog:
 
@@ -7,5 +8,6 @@ class EmployeeCatalog:
 
     def getAll(self):
         return self.users.all()
+
 
 EmployeeCatalog.instance = EmployeeCatalog()
