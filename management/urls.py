@@ -1,7 +1,4 @@
 from django.urls import path
-
-from management.views.addCriterionView import CriterionView
-
 from management.views.addEditCriterionView import AddEditCriterionView
 from management.views.viewEvaluatorView import ViewEvaluatorView
 from .views import *

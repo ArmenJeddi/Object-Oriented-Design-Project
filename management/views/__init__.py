@@ -6,4 +6,4 @@ from .viewEmployees import EmployeeListView
 from .addEvaluatorView import AddEvaluatorView
 from .removeEvaluatorView import RemoveEvaluatorView
 from .viewEvaluatorView import ViewEvaluatorView
-from .criterionView import AddEditCriterionView
+from .addEditCriterionView import AddEditCriterionView
