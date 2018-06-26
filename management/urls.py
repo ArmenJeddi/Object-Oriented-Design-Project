@@ -11,6 +11,7 @@ urlpatterns = [
     path('manageEvaluators/view', ViewEvaluatorView.as_view()),
     path('addCriterion', AddEditCriterionView.as_view()),
     path('editCriterion/<str:criterion_name>/', AddEditCriterionView.as_view()),
+    path('viewCriterion/', ViewCriterionView.as_view()),
     # path('addEvaluator/<str:username>/', AddEvaluatorView.as_view()),
     # path('deleteEvaluator/<str:username>/', DeleteEvaluatorView.as_view()),
     path('listEmployees/', EmployeeListView.as_view()),

@@ -52,3 +52,7 @@ class EvaluationCriterion(models.Model):
             'quantitative': quantitative_values
         }
         return data
+
+    @classmethod
+    def get_names(cls):
+        return cls.objects.all().values_list('_name', flat=True)
