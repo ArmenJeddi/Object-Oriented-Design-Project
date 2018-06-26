@@ -1,0 +1,234 @@
+{% extends "navbar_signedin.html" %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="/static/styles/main.css"/>
+    <title>Add Employee</title>
+{% endblock %}
+
+{% block main %}
+
+    <h3 class="center-align red lighten-3">{{ title }}</h3>
+
+
+    <div>
+        <label for="criterion_name">Criterion Name</label>
+        <input type="text" name="criterion_name" id="criterion_name" value="criterion name"><br>
+        <hr>
+
+        <label for="option_name">Option Name</label>
+        <input type="text" name="option_name" id="option_name" value="option name"><br>
+
+
+        <input type="radio" name="type" id="quan" value="quan" checked onchange="toggle_qualitative()">
+        <label for="quan">Quantitative</label><br>
+
+
+        <input type="radio" name="type" id="qual" value="qual" onchange="toggle_qualitative()">
+        <label for="qual">Qualitative</label><br>
+
+        <hr>
+
+        <label for="range_start" id="range_start_label">Range start</label>
+        <input type="number" name="range_start" id="range_start" value="range start"><br>
+
+        <label for="range_end" id="range_end_label">Range end</label>
+        <input type="number" name="range_end" id="range_end" value="range end"><br>
+
+
+        <hr>
+
+        <button onclick="add_option()">Add option</button>
+
+        <hr>
+
+        <h5>Quantitative options</h5>
+
+        <ol id="quan_options"></ol>
+
+
+        <h5>Qualitative options</h5>
+
+        <ol id="qual_options"></ol>
+
+        <hr>
+        <hr>
+
+        <button onclick="pack_and_submit()">Submit</button>
+    </div>
+
+    <hr>
+
+
+    <script>
+        function toggle_qualitative() {
+            var range_start_element = document.getElementById('range_start');
+            var range_end_element = document.getElementById('range_end');
+
+            range_start_element.disabled = !range_start_element.disabled;
+            range_end_element.disabled = !range_end_element.disabled
+        }
+
+        function delete_option(element) {
+            parent = element.parentNode;
+            parent.removeChild(element);
+        }
+
+        function get_qual_count() {
+            return document.getElementById('qual_options').childElementCount;
+        }
+
+        function get_quan_count() {
+            return document.getElementById('quan_options').childElementCount;
+        }
+
+        function add_option() {
+            var is_quantitative = document.getElementById('quan').checked;
+            var id;
+            var option_name = document.getElementById('option_name').value,
+                start_value = document.getElementById('range_start').value,
+                end_vaule = document.getElementById('range_end').value;
+
+            var space_separator = '    ';
+
+            if (is_quantitative) {
+                id = get_quan_count();
+            } else {
+                id = get_qual_count();
+            }
+
+            var li_element = document.createElement('li');
+            li_element.setAttribute('id', id);
+
+            var option_name_element = document.createElement('a');
+            option_name_element.setAttribute('id', 'option_name');
+            option_name_element.appendChild(document.createTextNode(option_name));
+
+            li_element.appendChild(option_name_element);
+            li_element.appendChild(document.createTextNode(space_separator));
+
+            if (is_quantitative) {
+
+                var start_value_element = document.createElement('a');
+                start_value_element.setAttribute('id', 'start_value');
+                start_value_element.appendChild(document.createTextNode(start_value));
+
+
+                var end_value_element = document.createElement('a');
+                end_value_element.setAttribute('id', 'end_value');
+                end_value_element.appendChild(document.createTextNode(end_vaule));
+
+
+                li_element.appendChild(option_name_element);
+                li_element.appendChild(document.createTextNode(space_separator));
+
+                li_element.appendChild(start_value_element);
+                li_element.appendChild(document.createTextNode(space_separator));
+
+                li_element.appendChild(end_value_element);
+                li_element.appendChild(document.createTextNode(space_separator));
+
+            }
+
+            var button_element = document.createElement('button');
+            button_element.setAttribute('onclick', "delete_option(this.parentNode)");
+            button_element.appendChild(document.createTextNode('Delete'));
+
+            li_element.appendChild(button_element);
+
+            if (is_quantitative) {
+                document.getElementById('quan_options').appendChild(li_element);
+            } else {
+                document.getElementById('qual_options').appendChild(li_element);
+            }
+
+            return false;
+        }
+
+
+        function pack_and_submit() {
+            var criterion_name = document.getElementById('criterion_name').value;
+
+            var qual_options_dom = Array.prototype.slice.call(
+                document.getElementById('qual_options').childNodes
+            );
+
+            var quan_options_dom = Array.prototype.slice.call(
+                document.getElementById('quan_options').childNodes
+            );
+
+            debugger;
+
+
+            var qual_options = qual_options_dom.map(function (value) {
+                return value.querySelector('#option_name').innerHTML;
+            });
+
+            var quan_options = quan_options_dom.map(function (value) {
+                var option_name = value.querySelector('#option_name').innerHTML;
+                var start_value = value.querySelector('#start_value').innerHTML;
+                var end_value = value.querySelector('#end_value').innerHTML;
+
+                return {
+                    option_name: option_name,
+                    start_value: start_value,
+                    end_value: end_value
+                }
+            });
+
+            var data = {
+                criterion_name: criterion_name,
+                qual_options: qual_options,
+                quan_options: quan_options
+            };
+
+
+            console.log(data);
+            sendData(data);
+
+        }
+
+        function sendData(data) {
+            var XHR = new XMLHttpRequest();
+            var urlEncodedData = "";
+            var urlEncodedDataPairs = [];
+            var name;
+
+            // Turn the data object into an array of URL-encoded key/value pairs.
+            for (name in data) {
+                urlEncodedDataPairs.push(encodeURIComponent(name) + '=' + encodeURIComponent(data[name]));
+            }
+
+            // Combine the pairs into a single string and replace all %-encoded spaces to
+            // the '+' character; matches the behaviour of browser form submissions.
+            urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g, '+');
+
+            // Define what happens on successful data submission
+            XHR.addEventListener('load', function (event) {
+                alert('Yeah! Data sent and response loaded.');
+            });
+
+            // Define what happens in case of error
+            XHR.addEventListener('error', function (event) {
+                alert('Oops! Something goes wrong.');
+            });
+
+            // Set up our request
+            XHR.open('POST', 'management/addCriterion/');
+
+            // Add the required HTTP header for form data POST requests
+            XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            // Finally, send our data.
+            XHR.send(urlEncodedData);
+        }
+
+    </script>
+
+
+{% endblock %}
+
+
+
+
+
+

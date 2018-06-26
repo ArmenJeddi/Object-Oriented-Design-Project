@@ -31,8 +31,8 @@ class RNPMethod(models.Model):
 
 
 class EvaluationCriterion(models.Model):
-    _is_qualitative = models.BooleanField()
-    _is_quantitative = models.BooleanField()
+    _is_qualitative = models.BooleanField(default=False)
+    _is_quantitative = models.BooleanField(default=True)
     _name = models.CharField(max_length=100)
 
     def dump_data(self):
