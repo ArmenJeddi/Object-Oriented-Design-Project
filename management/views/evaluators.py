@@ -20,7 +20,7 @@ class Evaluator(View):
         NID = request.POST.get('national_id')
         employee = Employee.objects.get(national_id=NID)
         # if action == 'add':
-        Evaluator.objects.create(employee=employee).save()
+        Evaluator.objects.create(asEmployee=employee).save()
 
         # if action == 'remove':
         #     Evaluator.objects.filter(employee=employee).delete()
@@ -30,5 +30,5 @@ class Evaluator(View):
     def delete(self, request):
         NID = request.POST.get('national_id')
         employee = Employee.objects.get(national_id=NID)
-        Evaluator.objects.filter(employee=employee).delete()
+        Evaluator.objects.get(asEmployee=employee).delete()
         return HttpResponseRedirect('/evaluators')
