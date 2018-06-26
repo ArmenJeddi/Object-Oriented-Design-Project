@@ -1,10 +1,12 @@
 from django.views import View
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import get_template
+
+from management.mixins import ManagerRequiredMixin
 from ..models import Employee, Evaluator
 
 
-class AssignEvaluatorToEmployee(View):
+class AssignEvaluatorToEmployee(ManagerRequiredMixin, View):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
