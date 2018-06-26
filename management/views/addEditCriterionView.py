@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import get_template
 from django.views import View
 from django.views.generic import CreateView
@@ -36,8 +36,9 @@ class AddEditCriterionView(ManagerRequiredMixin, View):
         criterion = EvaluationCriterion(
             _name=criterion_name,
             _is_quantitative=is_quantitative,
-            is_qualitative=is_qualitative
+            _is_qualitative=is_qualitative
         )
+        criterion.save()
         for val in qualitative_values:
             name = val['name']
             option = QualitativeOptions(_criterion=criterion, _name=name)
@@ -51,8 +52,8 @@ class AddEditCriterionView(ManagerRequiredMixin, View):
                 _beginning=beginning, _end=end
             )
             option.save()
+        return HttpResponseRedirect('/')
 
-        criterion.save()
 
 # json format:
 # {'name': "aaaa", 'qualitative':['aaa', 'aaa'], 'quantitative':[{'name': 'aaa', 'beginning': '1', 'end': 2}]}
