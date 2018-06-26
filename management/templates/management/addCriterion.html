@@ -156,8 +156,6 @@
                 document.getElementById('quan_options').childNodes
             );
 
-            debugger;
-
 
             var qual_options = qual_options_dom.map(function (value) {
                 return value.querySelector('#option_name').innerHTML;
@@ -169,57 +167,37 @@
                 var end_value = value.querySelector('#end_value').innerHTML;
 
                 return {
-                    option_name: option_name,
-                    start_value: start_value,
-                    end_value: end_value
+                    name: option_name,
+                    beginning: start_value,
+                    end: end_value
                 }
             });
 
             var data = {
-                criterion_name: criterion_name,
-                qual_options: qual_options,
-                quan_options: quan_options
+                name: criterion_name,
+                qualitative: qual_options,
+                quantitative: quan_options
             };
 
 
-            console.log(data);
-            sendData(data);
+            console.log(JSON.stringify(data));
+            sendData(JSON.stringify(data));
 
         }
 
         function sendData(data) {
-            var XHR = new XMLHttpRequest();
-            var urlEncodedData = "";
-            var urlEncodedDataPairs = [];
-            var name;
+            var xhr = new XMLHttpRequest();
+            var url = '';
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader("Content-type", "application/json");
 
-            // Turn the data object into an array of URL-encoded key/value pairs.
-            for (name in data) {
-                urlEncodedDataPairs.push(encodeURIComponent(name) + '=' + encodeURIComponent(data[name]));
-            }
-
-            // Combine the pairs into a single string and replace all %-encoded spaces to
-            // the '+' character; matches the behaviour of browser form submissions.
-            urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g, '+');
-
-            // Define what happens on successful data submission
-            XHR.addEventListener('load', function (event) {
-                alert('Yeah! Data sent and response loaded.');
-            });
-
-            // Define what happens in case of error
-            XHR.addEventListener('error', function (event) {
-                alert('Oops! Something goes wrong.');
-            });
-
-            // Set up our request
-            XHR.open('POST', 'management/addCriterion/');
-
-            // Add the required HTTP header for form data POST requests
-            XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-            // Finally, send our data.
-            XHR.send(urlEncodedData);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var json = JSON.parse(xhr.responseText);
+                    console.log(json)
+                }
+            };
+            xhr.send(data);
         }
 
     </script>
