@@ -31,7 +31,13 @@ class AddEditCriterionView(ManagerRequiredMixin, View):
         quantitative_values = json_data['quantitative']
         if EvaluationCriterion.objects.filter(_name=criterion_name).count() != 0:
             EvaluationCriterion.objects.get(_name=criterion_name).delete()
-        criterion = EvaluationCriterion(_name=criterion_name)
+        is_quantitative = (len(quantitative_values) != 0)
+        is_qualitative = (len(qualitative_values) != 0)
+        criterion = EvaluationCriterion(
+            _name=criterion_name,
+            _is_quantitative=is_quantitative,
+            is_qualitative=is_qualitative
+        )
         for val in qualitative_values:
             name = val['name']
             option = QualitativeOptions(_criterion=criterion, _name=name)

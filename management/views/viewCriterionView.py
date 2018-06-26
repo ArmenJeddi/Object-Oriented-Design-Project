@@ -13,5 +13,5 @@ class ViewCriterionView(ManagerRequiredMixin, View):
     def get(self, request):
         criterion_names = EvaluationCriterion.get_names()
         t = get_template('management/viewCriterion.html')
-        html = t.render(criterion_names, request)
+        html = t.render({'criterion_names':criterion_names}, request)
         return HttpResponse(html)
