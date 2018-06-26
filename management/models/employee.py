@@ -11,8 +11,8 @@ class Employee(User):
 
     # user_ptr = models.OneToOneField('User', on_delete=models.CASCADE)
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
         as_evaluatee = Evaluatee.objects.create(asEmployee=self)
         as_evaluatee.save()
 
