@@ -3,4 +3,6 @@ from .addEmployee import AddEmployeeView
 # from .manage_evaluators import ManageEvaluatorsView, AddEvaluatorView,\
 #     DeleteEvaluatorView
 from .viewEmployees import EmployeeListView
-from .evaluators import Evaluator
+from .addEvaluatorView import AddEvaluatorView
+from .removeEvaluatorView import RemoveEvaluatorView
+from .viewEvaluatorView import ViewEvaluatorView

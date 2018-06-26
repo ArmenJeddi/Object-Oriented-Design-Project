@@ -6,7 +6,7 @@ from management.mixins import ManagerRequiredMixin
 from ..models import Employee, Evaluator
 
 
-class ViewAddEvaluatorView(ManagerRequiredMixin, View):
+class ViewEvaluatorView(ManagerRequiredMixin, View):
 
     # GET method used for listing all evaluatee and evaluators
     def get(self, request):
