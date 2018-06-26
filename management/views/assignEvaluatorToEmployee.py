@@ -14,6 +14,7 @@ class AssignEvaluatorToEmployee(ManagerRequiredMixin, View):
         self.select_evaluator_mode = False
 
     def get(self, request):
+
         evaluatee = Employee.objects.filter(selfEvaluator__isnull=True)
         html = self.template.render({
             'persons': evaluatee,
