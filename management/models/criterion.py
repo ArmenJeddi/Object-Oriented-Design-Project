@@ -57,9 +57,11 @@ class EvaluationCriterion(models.Model):
 
     def set_reward_method(self, reward_method):
         self._reward = reward_method
+        self.save()
 
     def set_punishment_method(self, punishment_method):
         self._punishment = punishment_method
+        self.save()
 
     @classmethod
     def get_names(cls):

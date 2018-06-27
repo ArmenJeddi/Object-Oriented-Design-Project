@@ -9,3 +9,6 @@ from .viewEvaluatorView import ViewEvaluatorView
 from .addEditCriterionView import AddEditCriterionView
 from .viewCriterionView import ViewCriterionView
 from .removeCriterionView import RemoveCriterionView
+from .addRNPMethodView import AddRNPMethodView
+from .assignEvaluatorToEmployee import AssignEvaluatorToEmployee
+from .editEmployee import EmployeeEditView
