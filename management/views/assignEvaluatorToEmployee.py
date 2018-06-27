@@ -34,10 +34,10 @@ class AssignEvaluatorToEmployee(ManagerRequiredMixin, View):
                 'evaluatee_NID': NID
             }, request)
             response = HttpResponse(html)
-        if mode == 'evaluator':
+        else:
             evaluatee_NID = request.POST.get('evaluatee_NID')
             evaluator_NID = request.POST.get('national_id')
-            evaluator = Evaluator.get_evaluator(evaluator_NID)
+            evaluator = Evaluator.get_evaluator_by_nid(evaluator_NID)
             evaluator.add_evaluatee(evaluatee_NID)
             response = HttpResponseRedirect('/')
         return response

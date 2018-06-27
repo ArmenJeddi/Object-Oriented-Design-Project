@@ -25,15 +25,17 @@ class QuantitativeOption(models.Model):
         return self._end
 
 
-# TODO
-class RNPMethod(models.Model):
-    pass
+# # TODO
+# class RNPMethod(models.Model):
+#     pass
 
 
 class EvaluationCriterion(models.Model):
     _is_qualitative = models.BooleanField(default=False)
     _is_quantitative = models.BooleanField(default=True)
     _name = models.CharField(max_length=100)
+    _reward = models.CharField(max_length=100, null=True)
+    _punishment = models.CharField(max_length=100, null=True)
 
     def dump_data(self):
         qualitative_values = []
@@ -53,6 +55,16 @@ class EvaluationCriterion(models.Model):
         }
         return data
 
+    def set_reward_method(self, reward_method):
+        self._reward = reward_method
+
+    def set_punishment_method(self, punishment_method):
+        self._punishment = punishment_method
+
     @classmethod
     def get_names(cls):
         return list(cls.objects.all().values_list('_name', flat=True))
+
+    @classmethod
+    def get_by_name(cls, criterion_name: object):
+        return cls.objects.get(_name=criterion_name)
