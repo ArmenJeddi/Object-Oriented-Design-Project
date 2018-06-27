@@ -10,6 +10,18 @@
 	
 }
 
+.vertical-right{
+	width: 0%;
+	margin: auto ;
+	margin-top: 20px;
+	background-color: #F4F4F4;
+	border: 2px solid #B6B6B6;
+	padding: 20px;
+	border-radius: 5px;
+	color: black;
+
+}
+
 .darkBlock{
 	border-right: 10px solid #B4DAD7;
 	padding-left: 20px;
