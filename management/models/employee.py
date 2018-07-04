@@ -7,7 +7,7 @@ from management.models import Evaluatee
 class Employee(User):
     # asEvaluator = models.OneToOneField('Evaluator', on_delete=models.SET_NULL, null=True)
     # asEvaluatee = models.OneToOneField('Evaluatee', on_delete=models.SET_NULL, null=True)
-    unit = models.CharField(max_length=20, null=True)
+    _unit = models.CharField(max_length=20, null=True)
 
     # user_ptr = models.OneToOneField('User', on_delete=models.CASCADE)
 
@@ -17,7 +17,7 @@ class Employee(User):
         as_evaluatee.save()
 
     def get_unit(self):
-        return self.unit
+        return self._unit
 
     def get_as_evaluatee(self):
         return self.asEvaluatee

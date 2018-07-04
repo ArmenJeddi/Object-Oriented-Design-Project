@@ -4,7 +4,7 @@ from eval.models.evaluation import Evaluation
 
 
 class Evaluator(models.Model):
-    asEmployee = models.ForeignKey('Employee', on_delete=models.CASCADE, related_name='asEvaluator')
+    _asEmployee = models.ForeignKey('Employee', on_delete=models.CASCADE, related_name='asEvaluator')
 
     def evaluate_employee(self, evaluatee, evaluation_criterion, quantitative_result, qualitative_result):
         return Evaluation(
@@ -33,3 +33,7 @@ class Evaluator(models.Model):
     @classmethod
     def is_evaluator(cls, user):
         return cls.asEmployee.objects.filter(username=user.username).count() == 1
+
+    @classmethod
+    def delete_by_nid(cls, nid):
+        cls.objects.get(_asEmployee___username=nid).delete()

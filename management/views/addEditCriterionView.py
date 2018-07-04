@@ -18,8 +18,7 @@ class AddEditCriterionView(ManagerRequiredMixin, View):
         criterion_name = request.GET.get('criterion_name')
         data = None
         if criterion_name is not None:
-            criterion = EvaluationCriterion.objects.get(_name=criterion_name)
-            data = criterion.dump()
+            data = EvaluationCriterion.dump_by_name(criterion_name)
         t = get_template('management/addCriterion.html')
         html = t.render(data, request)
         return HttpResponse(html)
@@ -29,8 +28,7 @@ class AddEditCriterionView(ManagerRequiredMixin, View):
         criterion_name = json_data['name']
         qualitative_values = json_data['qualitative']
         quantitative_values = json_data['quantitative']
-        if EvaluationCriterion.objects.filter(_name=criterion_name).count() != 0:
-            EvaluationCriterion.objects.get(_name=criterion_name).delete()
+        EvaluationCriterion.delete_if_exists(criterion_name)
         is_quantitative = (len(quantitative_values) != 0)
         is_qualitative = (len(qualitative_values) != 0)
         criterion = EvaluationCriterion(
@@ -53,7 +51,6 @@ class AddEditCriterionView(ManagerRequiredMixin, View):
             )
             option.save()
         return HttpResponseRedirect('/')
-
 
 # json format:
 # {'name': "aaaa", 'qualitative':['aaa', 'aaa'], 'quantitative':[{'name': 'aaa', 'beginning': '1', 'end': 2}]}

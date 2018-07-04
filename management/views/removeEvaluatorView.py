@@ -7,12 +7,12 @@ from management.mixins import ManagerRequiredMixin
 from ..models import Employee, Evaluator
 
 
-
 class RemoveEvaluatorView(ManagerRequiredMixin, View):
 
     # DELETE method used for taking back evaluator position
     def post(self, request):
-        NID = request.POST.get('national_id')
-        employee = Employee.objects.get(national_id=NID)
-        Evaluator.objects.get(asEmployee=employee).delete()
+        nid = request.POST.get('national_id')
+        # employee = Employee.objects.get(national_id=nid)
+        Evaluator.delete_by_nid(nid)
+        # Evaluator.objects.get(asEmployee=employee).delete()
         return HttpResponseRedirect('/evaluators')

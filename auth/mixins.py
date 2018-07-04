@@ -95,3 +95,6 @@ class LoginRequiredMixin(UserPassesTestMixin):
 
     def get_employee(self):
         return Employee.find(self.request.user)
+
+    def get_as_evaluatee(self):
+        return self.get_employee().get_as_evaluatee()

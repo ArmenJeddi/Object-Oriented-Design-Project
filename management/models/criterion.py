@@ -55,21 +55,25 @@ class EvaluationCriterion(models.Model):
         }
         return data
 
-    def set_reward_method(self, reward_method):
-        self._reward = reward_method
-        self.save()
+    @classmethod
+    def set_reward_method(cls, criterion_name, reward_method):
+        criterion = cls.objects.get(_name=criterion_name)
+        criterion._reward = reward_method
+        criterion.save()
 
-    def set_punishment_method(self, punishment_method):
-        self._punishment = punishment_method
-        self.save()
+    @classmethod
+    def set_punishment_method(cls, criterion_name, punishment_method):
+        criterion = cls.objects.get(_name=criterion_name)
+        criterion._punishment = punishment_method
+        criterion.save()
 
     @classmethod
     def get_names(cls):
         return list(cls.objects.all().values_list('_name', flat=True))
 
-    @classmethod
-    def get_by_name(cls, criterion_name: object):
-        return cls.objects.get(_name=criterion_name)
+    # @classmethod
+    # def get_by_name(cls, criterion_name: object):
+    #     return cls.objects.get(_name=criterion_name)
 
     @classmethod
     def dump_all(cls):
@@ -78,6 +82,20 @@ class EvaluationCriterion(models.Model):
             criterion_array.append(criterion.dump())
         return criterion_array
 
+    @classmethod
+    def dump_by_name(cls, name):
+        return cls.objects.get(_name=name).dump()
+
     def get_name(self):
         return self._name
 
+    def get_is_qualitative(self):
+        return self._is_qualitative
+
+    def get_is_quantitative(self):
+        return self._is_quantitative
+
+    @classmethod
+    def delete_if_exists(cls, criterion_name):
+        if cls.objects.filter(_name=criterion_name).count() != 0:
+            cls.objects.get(_name=criterion_name).delete()

@@ -3,7 +3,7 @@ from django.db import models
 
 class Evaluatee(models.Model):
     _evaluator = models.ForeignKey('Evaluator', on_delete=models.CASCADE, related_name='_evaluatee_list', null=True)
-    asEmployee = models.ForeignKey('Employee', on_delete=models.CASCADE, related_name='asEvaluatee')
+    _asEmployee = models.ForeignKey('Employee', on_delete=models.CASCADE, related_name='asEvaluatee')
 
     def dump_evaluation_list(self):
         evaluation_list = []

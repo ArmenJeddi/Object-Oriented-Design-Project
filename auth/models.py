@@ -5,10 +5,10 @@ PASSWORD_LENGTH = 20
 
 
 class User(models.Model):
-    username = models.CharField(primary_key=True, max_length=USERNAME_LENGTH)
-    password = models.CharField(max_length=PASSWORD_LENGTH)
-    is_manager = models.BooleanField(default=False)
-    name = models.CharField(max_length=100)
+    _username = models.CharField(primary_key=True, max_length=USERNAME_LENGTH, unique=True)
+    _password = models.CharField(max_length=PASSWORD_LENGTH)
+    _is_manager = models.BooleanField(default=False)
+    _name = models.CharField(max_length=100)
     
     def get_id(self):
         return self.username

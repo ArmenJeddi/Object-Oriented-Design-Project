@@ -13,5 +13,5 @@ import json
 class RemoveCriterionView(ManagerRequiredMixin, View):
     def get(self, request):
         criterion_name = request.GET.get('criterion_name')
-        EvaluationCriterion.objects.get(_name=criterion_name).delete()
+        EvaluationCriterion.delete_if_exists(criterion_name)
         return redirect('/')
