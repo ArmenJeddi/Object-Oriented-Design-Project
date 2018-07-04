@@ -33,7 +33,7 @@ class QuantitativeOption(models.Model):
 class EvaluationCriterion(models.Model):
     _is_qualitative = models.BooleanField(default=False)
     _is_quantitative = models.BooleanField(default=True)
-    _name = models.CharField(max_length=100)
+    _name = models.CharField(max_length=100, unique=True)
     _reward = models.CharField(max_length=100, null=True)
     _punishment = models.CharField(max_length=100, null=True)
 

@@ -1,3 +1,4 @@
+from django.core.validators import RegexValidator
 from django.db import models
 
 USERNAME_LENGTH = 10
@@ -9,12 +10,12 @@ class User(models.Model):
     _password = models.CharField(max_length=PASSWORD_LENGTH)
     _is_manager = models.BooleanField(default=False)
     _name = models.CharField(max_length=100)
-    
+
     def get_id(self):
-        return self.username
+        return self._username
 
     def get_name(self):
-        return self.name
+        return self._name
 
     @classmethod
     def authenticate(cls, username, password):
