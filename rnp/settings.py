@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.staticfiles',
     'management.apps.ManagementConfig',
+    'eval.apps.EvalConfig',
     'auth.apps.AuthConfig',
 ]
 

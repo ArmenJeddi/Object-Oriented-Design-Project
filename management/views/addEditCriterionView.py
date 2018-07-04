@@ -19,7 +19,7 @@ class AddEditCriterionView(ManagerRequiredMixin, View):
         data = None
         if criterion_name is not None:
             criterion = EvaluationCriterion.objects.get(_name=criterion_name)
-            data = criterion.dump_data()
+            data = criterion.dump()
         t = get_template('management/addCriterion.html')
         html = t.render(data, request)
         return HttpResponse(html)

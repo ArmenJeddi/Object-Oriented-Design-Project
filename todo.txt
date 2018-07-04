@@ -1,3 +1,6 @@
 encapsulation
 unique parameter in models
 _is_qualitative
+
+فقط یک ارزیابی به ازای هر کارمند وجود دارد
+دید ترایا حذف شود

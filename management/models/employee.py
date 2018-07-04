@@ -19,6 +19,9 @@ class Employee(User):
     def get_unit(self):
         return self.unit
 
+    def get_as_evaluatee(self):
+        return self.asEvaluatee
+
     @classmethod
     def get_all_evaluator_employee(cls):
         return cls.objects.filter(asEvaluator__isnull=False)
@@ -26,3 +29,7 @@ class Employee(User):
     @classmethod
     def get_all_evaluatee_employee(cls):
         return cls.objects.filter(asEvaluatee__isnull=False)
+
+    @classmethod
+    def find(cls, user):
+        return cls.objects.get(username=user)

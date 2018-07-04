@@ -10,9 +10,14 @@ from management.models.criterion import QuantitativeOption, QualitativeOptions
 import json
 
 
-class ViewCriterionView(LoginRequiredMixin, View):
+class ViewEmployeeEvaluationView(ManagerRequiredMixin, View):
     def get(self, request):
-        criterion_names = EvaluationCriterion.get_names()
-        t = get_template('management/viewCriterion.html')
-        html = t.render({'criterion_names':criterion_names}, request)
+        evaluatee = self.get_employee().get_as_evaluatee()
+        evaluation_list = evaluatee.dump_evaluation_list()
+        t = get_template('management/viewEmployeeEvaluation.html')
+        html = t.render(evaluation_list, request)
         return HttpResponse(html)
+
+#   [
+#   {}
+#   ]

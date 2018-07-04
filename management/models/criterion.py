@@ -37,7 +37,7 @@ class EvaluationCriterion(models.Model):
     _reward = models.CharField(max_length=100, null=True)
     _punishment = models.CharField(max_length=100, null=True)
 
-    def dump_data(self):
+    def dump(self):
         qualitative_values = []
         quantitative_values = []
         for val in self.qualitative_list:
@@ -70,3 +70,14 @@ class EvaluationCriterion(models.Model):
     @classmethod
     def get_by_name(cls, criterion_name: object):
         return cls.objects.get(_name=criterion_name)
+
+    @classmethod
+    def dump_all(cls):
+        criterion_array = []
+        for criterion in cls.objects.all():
+            criterion_array.append(criterion.dump())
+        return criterion_array
+
+    def get_name(self):
+        return self._name
+
