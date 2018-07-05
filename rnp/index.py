@@ -8,7 +8,7 @@ class IndexRedirectView(LoginRequiredMixin):
     http_method_names = ['get']
     
     def get(self, request, *args, **kwargs):
-        if request.user.is_manager:
+        if request.user.get_is_manager():
             return redirect('/management/')
         else:
             return redirect('/eval/')

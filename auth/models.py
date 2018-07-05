@@ -17,9 +17,12 @@ class User(models.Model):
     def get_name(self):
         return self._name
 
+    def get_is_manager(self):
+        return self._is_manager
+
     @classmethod
     def authenticate(cls, username, password):
         try:
-            return cls.objects.get(username=username, password=password)
+            return cls.objects.get(_username=username, _password=password)
         except cls.DoesNotExist:
             return None
