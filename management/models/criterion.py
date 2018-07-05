@@ -55,6 +55,12 @@ class EvaluationCriterion(models.Model):
         }
         return data
 
+    def get_reward(self):
+        return self._reward
+
+    def get_punishment(self):
+        return self._punishment
+
     @classmethod
     def set_reward_method(cls, criterion_name, reward_method):
         criterion = cls.objects.get(_name=criterion_name)
@@ -99,3 +105,13 @@ class EvaluationCriterion(models.Model):
     def delete_if_exists(cls, criterion_name):
         if cls.objects.filter(_name=criterion_name).count() != 0:
             cls.objects.get(_name=criterion_name).delete()
+
+    @classmethod
+    def get_names_and_rnp(cls):
+        criteria = []
+        for criterion in cls.objects.all():
+            criteria.append({
+                'name': criterion.get_name(),
+                'reward': criterion.get_reward(),
+                'punishment': criterion.get_punishment()
+            })

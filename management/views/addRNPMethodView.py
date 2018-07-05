@@ -16,9 +16,9 @@ class AddRNPMethodView(ManagerRequiredMixin, View):
         self.select_evaluator_mode = False
 
     def get(self, request):
-        criterion_names = EvaluationCriterion.get_names()
+        criteria = EvaluationCriterion.get_names_and_rnp()
         html = self.template.render({
-            'criterion_names': criterion_names,
+            'criteria': criteria,
         }, request
         )
         return HttpResponse(html)
@@ -31,3 +31,6 @@ class AddRNPMethodView(ManagerRequiredMixin, View):
         EvaluationCriterion.set_reward_method(criterion_name, reward_method)
         EvaluationCriterion.set_punishment_method(criterion_name, punishment_method)
         return HttpResponseRedirect('/')
+# criteria[
+#     {}
+# ]
