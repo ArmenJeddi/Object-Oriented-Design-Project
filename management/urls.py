@@ -1,6 +1,6 @@
 from django.urls import path
-from management.views.addEditCriterionView import AddEditCriterionView
-from management.views.viewEvaluatorView import ViewEvaluatorView
+
+from eval.views.evaluateEmployeeView import EvaluateEmployeeView
 from .views import *
 
 urlpatterns = [
@@ -16,4 +16,7 @@ urlpatterns = [
     # path('addEvaluator/<str:username>/', AddEvaluatorView.as_view()),
     # path('deleteEvaluator/<str:username>/', DeleteEvaluatorView.as_view()),
     path('listEmployees/', EmployeeListView.as_view()),
+    path('evaluate/', EvaluateEmployeeView.as_view()),
+    path('addrnpmethod/', AddRNPMethodView.as_view()),
+
 ]

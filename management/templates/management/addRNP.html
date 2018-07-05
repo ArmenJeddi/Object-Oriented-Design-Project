@@ -1,0 +1,37 @@
+{% extends "navbar_signedin.html" %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="/static/styles/main.css"/>
+    <title>Add Employee</title>
+{% endblock %}
+
+{% block main %}
+
+
+    <div class="content-page">
+        <select id="criterion_list">
+            {% for criterion in criteria %}
+                <option id='{{ criterion.name }}_select' value="{{ criterion.name }}"></option>
+            {% endfor %}
+        </select>
+
+    <hr>
+
+    {% for criterion in criteria %}
+        <label id = '{{ criterion.name }}_reward'>Reward</label><br>
+        <input id = '{{ criterion.name }}_reward' type="text"><br>
+
+        <label id = '{{ criterion.name }}_reward'>Punishment</label><br>
+        <input id = '{{ criterion.name }}_punishment' type="text">
+    {% endfor %}
+
+
+    </div>
+
+{% endblock %}
+
+
+
+
+
+

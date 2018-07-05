@@ -32,7 +32,7 @@ class Evaluator(models.Model):
 
     @classmethod
     def is_evaluator(cls, user):
-        return cls.asEmployee.objects.filter(username=user.username).count() == 1
+        return cls.objects.filter(_asEmployee_id__username=user.get_id()).count() == 1
 
     @classmethod
     def delete_by_nid(cls, nid):

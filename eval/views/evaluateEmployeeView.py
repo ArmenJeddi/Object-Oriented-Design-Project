@@ -15,7 +15,7 @@ class EvaluateEmployeeView(EvaluatorRequiredMixin, View):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.template = get_template('evaluateEmployee.html')
+        self.template = get_template('management/evaluateEmployeeByCriterion.html')
 
     def get(self, request):
         evaluator = self.get_evaluator()
