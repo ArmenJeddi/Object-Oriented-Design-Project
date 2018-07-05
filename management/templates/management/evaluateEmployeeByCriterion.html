@@ -1,0 +1,261 @@
+{% extends "navbar_signedin.html" %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="/static/styles/main.css"/>
+    <title>Add Employee</title>
+{% endblock %}
+
+{% block main %}
+
+
+    <div class="content-page">
+
+        <div class="vertical-center">
+
+
+            <select name="employee_select">
+                {% for person in evaluatee %}
+                    <option id='{{ person.id }}_select' value="{{ person.name }}"></option>
+                {% endfor %}
+            </select>
+
+
+            <select name="criterion_select">
+                {% for crit in criterion %}
+                    <option id='{{ crit.name }}_select' value="{{ crit.name }}"></option>
+                {% endfor %}
+            </select>
+
+
+
+
+            {% for c in criterion %}
+                <label id='{{ c.name }}_label'> {{ c.name }} </label>
+                <label id='{{ c.name }}_qual_label'> qualitative options </label>
+
+                {% for option in c.qualitative %}
+                    <input id='{{ c.name }}_qual_option_{{ option }}' type="radio" name="type">
+                    <label id='{{ c.name }}_qual_option_{{ option }}_label'
+                           for="{{ c.name }}_qual_option_{{ option }}">{{ option }}</label><br>
+                {% endfor %}
+
+                <hr>
+
+                {% for option in c.quantitative %}
+                    <label id="{{ c.name }}_quan_option_{{ option.name }}_label">{{ option.name }}</label><br>
+                    <input type="number" id="{{ c.name }}_quan_option_{{ option.name }}_value"
+                           min="{{ option.beginning }}" max="{{ option.end }}"><br>
+                {% endfor %}
+
+
+
+            {% endfor %}
+
+
+
+            <hr>
+
+
+
+{#            <div class="darkBlock">#}
+{#                <label for="criterion_name">نام معیار ارزیابی</label>#}
+{#                <input type="text" required name="criterion_name" id="criterion_name" , placeholder="نام معیار ارزیابی"><br>#}
+{#            </div>#}
+{#            <hr>#}
+{##}
+{#            <div class="middle-header">افزودن گزینه</div>#}
+{##}
+{#            <div class="darkBlock">#}
+{##}
+{#                <label for="option_name">نام گزینه</label>#}
+{#                <input type="text" name="option_name" id="option_name" placeholder="نام گزینه"><br>#}
+{##}
+{##}
+{#                <input class="vertical-right" type="radio" name="type" id="quan" value="quan" checked#}
+{#                       onchange="toggle_qualitative()">#}
+{#                <label for="quan">گزینه کمّی است</label><br>#}
+{##}
+{##}
+{#                <input class='vertical-right' type="radio" name="type" id="qual" value="qual"#}
+{#                       onchange="toggle_qualitative()">#}
+{#                <label for="qual">گزینه کیفی است</label><br>#}
+{##}
+{##}
+{#                <label for="range_start" id="range_start_label">شروع بازه</label>#}
+{#                <input type="number" name="range_start" id="range_start" value="0"><br>#}
+{##}
+{#                <label for="range_end" id="range_end_label">پایان بازه</label>#}
+{#                <input type="number" name="range_end" id="range_end" value="100"><br>#}
+{##}
+{##}
+{#                <br>#}
+{##}
+{#                <button class="submitButton" onclick="add_option()">افزودن گزینه</button>#}
+{##}
+{#                <hr>#}
+{##}
+{#                <h5>گزینه‌های کمّی</h5>#}
+{##}
+{#                <ol id="quan_options"></ol>#}
+{##}
+{##}
+{#                <h5>گزینه‌های کیفی</h5>#}
+{##}
+{#                <ol id="qual_options"></ol>#}
+{##}
+{#            </div>#}
+{#            <hr>#}
+{##}
+{#            <button class="submitButton" onclick="pack_and_submit()">ثبت</button>#}
+{#        </div>#}
+    </div>
+
+
+    <script>
+        function toggle_qualitative() {
+            var range_start_element = document.getElementById('range_start');
+            var range_end_element = document.getElementById('range_end');
+
+            range_start_element.disabled = !range_start_element.disabled;
+            range_end_element.disabled = !range_end_element.disabled
+        }
+
+        function delete_option(element) {
+            parent = element.parentNode;
+            parent.removeChild(element);
+        }
+
+        function get_qual_count() {
+            return document.getElementById('qual_options').childElementCount;
+        }
+
+        function get_quan_count() {
+            return document.getElementById('quan_options').childElementCount;
+        }
+
+        function add_option() {
+            var is_quantitative = document.getElementById('quan').checked;
+            var id;
+            var option_name = document.getElementById('option_name').value,
+                start_value = document.getElementById('range_start').value,
+                end_vaule = document.getElementById('range_end').value;
+
+            var space_separator = '    ';
+
+            if (is_quantitative) {
+                id = get_quan_count();
+            } else {
+                id = get_qual_count();
+            }
+
+            var li_element = document.createElement('li');
+            li_element.setAttribute('id', id);
+
+
+            var button_element = document.createElement('button');
+            button_element.setAttribute('onclick', "delete_option(this.parentNode)");
+            button_element.appendChild(document.createTextNode('حذف گزینه'));
+
+            li_element.appendChild(button_element);
+            li_element.appendChild(document.createTextNode(space_separator));
+
+
+            var option_name_element = document.createElement('a');
+            option_name_element.setAttribute('id', 'option_name');
+            option_name_element.appendChild(document.createTextNode(option_name));
+
+            li_element.appendChild(option_name_element);
+            li_element.appendChild(document.createTextNode(space_separator));
+
+            if (is_quantitative) {
+
+                var start_value_element = document.createElement('a');
+                start_value_element.setAttribute('id', 'start_value');
+                start_value_element.appendChild(document.createTextNode(start_value));
+
+
+                var end_value_element = document.createElement('a');
+                end_value_element.setAttribute('id', 'end_value');
+                end_value_element.appendChild(document.createTextNode(end_vaule));
+
+
+                li_element.appendChild(start_value_element);
+                li_element.appendChild(document.createTextNode(space_separator));
+                li_element.appendChild(end_value_element);
+            }
+
+            if (is_quantitative) {
+                document.getElementById('quan_options').appendChild(li_element);
+            } else {
+                document.getElementById('qual_options').appendChild(li_element);
+            }
+
+            return false;
+        }
+
+
+        function pack_and_submit() {
+            var criterion_name = document.getElementById('criterion_name').value;
+
+            var qual_options_dom = Array.prototype.slice.call(
+                document.getElementById('qual_options').childNodes
+            );
+
+            var quan_options_dom = Array.prototype.slice.call(
+                document.getElementById('quan_options').childNodes
+            );
+
+
+            var qual_options = qual_options_dom.map(function (value) {
+                return value.querySelector('#option_name').innerHTML;
+            });
+
+            var quan_options = quan_options_dom.map(function (value) {
+                var option_name = value.querySelector('#option_name').innerHTML;
+                var start_value = value.querySelector('#start_value').innerHTML;
+                var end_value = value.querySelector('#end_value').innerHTML;
+
+                return {
+                    name: option_name,
+                    beginning: start_value,
+                    end: end_value
+                }
+            });
+
+            var data = {
+                name: criterion_name,
+                qualitative: qual_options,
+                quantitative: quan_options
+            };
+
+
+            {#console.log(JSON.stringify(data));#}
+            sendData(JSON.stringify(data));
+
+        }
+
+        function sendData(data) {
+            var xhr = new XMLHttpRequest();
+            var url = '';
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader("Content-type", "application/json");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    {#var json = JSON.parse(xhr.responseText);#}
+                    {#console.log(xhr.responseText);#}
+                }
+            };
+            xhr.send(data);
+        }
+
+    </script>
+
+
+{% endblock %}
+
+
+
+
+
+
