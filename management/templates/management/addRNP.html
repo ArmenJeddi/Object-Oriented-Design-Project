@@ -9,24 +9,100 @@
 
 
     <div class="content-page">
-        <select id="criterion_list">
+        <select id="criterion_list" , onchange="select_change()">
             {% for criterion in criteria %}
-                <option id='{{ criterion.name }}_select' value="{{ criterion.name }}"></option>
+                <option id='{{ criterion.name }}_select' value="{{ criterion.name }}">{{ criterion.name }}</option>
             {% endfor %}
         </select>
 
-    <hr>
+        <hr>
 
-    {% for criterion in criteria %}
-        <label id = '{{ criterion.name }}_reward'>Reward</label><br>
-        <input id = '{{ criterion.name }}_reward' type="text"><br>
+        <div id='methods'>
 
-        <label id = '{{ criterion.name }}_reward'>Punishment</label><br>
-        <input id = '{{ criterion.name }}_punishment' type="text">
-    {% endfor %}
+            {% for criterion in criteria %}
+
+                {% if forloop.counter0 == 0 %}
+                    <label id='{{ criterion.name }}_reward_label'>Reward</label>
+                    <input id='{{ criterion.name }}_reward' type="text">
+
+                    <label id='{{ criterion.name }}_punishment_label'>Punishment</label>
+                    <input id='{{ criterion.name }}_punishment' type="text">
+                {% else %}
+                    <label id='{{ criterion.name }}_reward_label' style="display: none">Reward</label>
+                    <input id='{{ criterion.name }}_reward' type="text" style="display: none">
+
+                    <label id='{{ criterion.name }}_punishment_label' style="display: none">Punishment</label>
+                    <input id='{{ criterion.name }}_punishment' type="text" style="display: none">
+                {% endif %}
+
+            {% endfor %}
+
+
+            <button class="submitButton" onclick="pack_and_submit()">Submit</button>
+
+
+        </div>
 
 
     </div>
+
+    <script>
+        function select_change() {
+
+            let selected_name = document.getElementById('criterion_list').selectedOptions[0].label;
+
+            let target_names = [
+                `${selected_name}_reward`,
+                `${selected_name}_reward_label`,
+                `${selected_name}_punishment`,
+                `${selected_name}_punishment_label`,
+            ];
+
+            let option_names = get_option_names();
+
+            for (let index in option_names) {
+                let name = option_names[index];
+                if (target_names.includes(name)) {
+                    document.getElementById(name).style.display = 'block';
+                } else {
+                    document.getElementById(name).style.display = 'none';
+                }
+            }
+        }
+
+        function get_option_names() {
+            let option_names = [];
+
+            let methods = document.getElementById('methods').children;
+            for (let item in methods) {
+                let id = methods[item].id;
+                if (id !== '' && id !== undefined) {
+                    option_names.push(id);
+                }
+            }
+
+            return option_names;
+        }
+
+        function pack_and_submit() {
+            let package_data = django_var_parse('{{ criteria }}');
+            for (let index in package_data) {
+                let criterion_name = package_data[index].name;
+                let reward = document.getElementById(`${criterion_name}_reward`).value;
+                let punishment = document.getElementById(`${criterion_name}_punishment`).value;
+                package_data[index].reward = reward;
+                package_data[index].punishment = punishment;
+            }
+
+            console.log(package_data);
+        }
+
+        function django_var_parse(string) {
+            return JSON.parse(string.replace(/&#39;/g, '"'));
+        }
+
+
+    </script>
 
 {% endblock %}
 

@@ -108,10 +108,13 @@ class EvaluationCriterion(models.Model):
 
     @classmethod
     def get_names_and_rnp(cls):
-        criteria = []
-        for criterion in cls.objects.all():
-            criteria.append({
-                'name': criterion.get_name(),
-                'reward': criterion.get_reward(),
-                'punishment': criterion.get_punishment()
-            })
+        criteria = [{'name': '1', 'reward': 'aaa', 'punishment': 'bbb'}, {'name': '3', 'reward': 'aaa', 'punishment': 'bbb'},
+                    {'name': '2', 'reward': 'aaa', 'punishment': 'bbb'}, {'name': '4', 'reward': 'aaa', 'punishment': 'bbb'}]
+        # for criterion in cls.objects.all():
+        #     criteria.append({
+        #         'name': criterion.get_name(),
+        #         'reward': criterion.get_reward(),
+        #         'punishment': criterion.get_punishment()
+        #     })
+
+        return criteria
