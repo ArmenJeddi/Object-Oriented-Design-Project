@@ -1,12 +1,12 @@
+import json
+
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import get_template
 from django.views import View
-from django.views.generic import CreateView
 
 from management.mixins import ManagerRequiredMixin
 from management.models import EvaluationCriterion
 from management.models.criterion import QuantitativeOption, QualitativeOptions
-import json
 
 
 class AddEditCriterionView(ManagerRequiredMixin, View):
@@ -19,6 +19,12 @@ class AddEditCriterionView(ManagerRequiredMixin, View):
         data = None
         if criterion_name is not None:
             data = EvaluationCriterion.dump_by_name(criterion_name)
+            data = {"name": "meyar",
+                    "qualitative": ["gozine3", "gozine4"],
+                    "quantitative": [{"name": "gozine1", "beginning": "0", "end": "100"},
+                                     {"name": "gozine2", "beginning": "100", "end": "200"}]
+                    }
+
         t = get_template('management/addCriterion.html')
         html = t.render(data, request)
         return HttpResponse(html)

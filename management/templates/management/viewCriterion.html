@@ -1,3 +1,71 @@
-{% for name in criterion_names %}
-    <p>{{ name }}</p>
-{% endfor %}
+{% extends "navbar_signedin.html" %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="/static/styles/main.css"/>
+    <title>Add Employee</title>
+{% endblock %}
+
+{% block main %}
+
+
+    <div class="content-page">
+
+        <div class="vertical-center">
+
+            {% for criterion_name in criterion_names %}
+
+                <div class="darkBlock">
+                    <label for="criterion_name">نام معیار ارزیابی</label>
+                    <input type="text" name="criterion_name" disabled value="{{ criterion_name }}"><br>
+                </div>
+
+                <button class="submitButton" onclick="view_and_edit_criterion({{ forloop.counter0 }})">مشاهده / ویرایش
+                </button>
+                <button class="submitButton" onclick="delete_criterion({{ forloop.counter0 }})">حذف</button>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    <script>
+        function view_and_edit_criterion(index) {
+            console.log(`delete ${index}`);
+
+
+            {#    TODO GET DATA FOR CRITERION AND PASS IT#}
+        }
+
+        function delete_criterion(index) {
+            console.log(`view/update ${index}`);
+
+            let package_data = django_var_parse('{{ criterion_names }}');
+
+            sendData('{}', `/management/removeCriterion/${package_data[index]}/`);
+        }
+
+        function django_var_parse(string) {
+            return JSON.parse(string.replace(/&#39;/g, '"'));
+        }
+
+        function sendData(data, url) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.setRequestHeader("Content-type", "application/json");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    {#var json = JSON.parse(xhr.responseText);#}
+                    {#console.log(xhr.responseText);#}
+                }
+            };
+            xhr.send(data);
+        }
+    </script>
+
+{% endblock %}
+
+
+
+
+
+

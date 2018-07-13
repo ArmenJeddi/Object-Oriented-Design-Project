@@ -15,7 +15,8 @@
 
             <div class="darkBlock">
                 <label for="criterion_name">نام معیار ارزیابی</label>
-                <input type="text" required name="criterion_name" id="criterion_name" , placeholder="نام معیار ارزیابی"><br>
+                <input type="text" required name="criterion_name" id="criterion_name" placeholder="نام معیار ارزیابی"
+                       value="{{ name }}"><br>
             </div>
             <hr>
 
@@ -52,12 +53,23 @@
 
                 <h5>گزینه‌های کمّی</h5>
 
-                <ol id="quan_options"></ol>
-
+                <ol id="quan_options">{% for option in quantitative %}
+                    <li id="{{ forloop.counter0 }}">
+                        <button onclick="delete_option(this.parentNode)">حذف گزینه</button>
+                        <a id="option_name">{{ option.name }}</a>
+                        <a id="start_value">{{ option.beginning }}</a>
+                        <a id="end_value">{{ option.end }}</a>
+                    </li>
+                {% endfor %}</ol>
 
                 <h5>گزینه‌های کیفی</h5>
 
-                <ol id="qual_options"></ol>
+                <ol id="qual_options">{% for option in qualitative %}
+                    <li id="{{ forloop.counter0 }}">
+                        <button onclick="delete_option(this.parentNode)">حذف گزینه</button>
+                        <a id="option_name">{{ option }}</a>
+
+                {% endfor %}</ol>
 
             </div>
             <hr>
@@ -68,6 +80,12 @@
 
 
     <script>
+        console.log(django_var_parse({{ name }}));
+
+        function django_var_parse(string) {
+            return JSON.parse(string.replace(/&#39;/g, '"'));
+        }
+
         function toggle_qualitative() {
             var range_start_element = document.getElementById('range_start');
             var range_end_element = document.getElementById('range_end');
@@ -151,6 +169,8 @@
 
 
         function pack_and_submit() {
+            debugger;
+
             var criterion_name = document.getElementById('criterion_name').value;
 
             var qual_options_dom = Array.prototype.slice.call(
@@ -186,7 +206,9 @@
 
 
             {#console.log(JSON.stringify(data));#}
-            sendData(JSON.stringify(data));
+            let send_data = JSON.stringify(data);
+            console.log(send_data);
+            sendData(send_data);
 
         }
 
