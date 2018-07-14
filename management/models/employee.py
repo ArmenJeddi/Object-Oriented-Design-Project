@@ -33,3 +33,8 @@ class Employee(User):
     @classmethod
     def find(cls, user):
         return cls.objects.get(username=user)
+
+    @classmethod
+    def create(cls, username, password, name, unit):
+        e = Employee(_username=username, _password=password, _name=name, _unit=unit)
+        e.save()
