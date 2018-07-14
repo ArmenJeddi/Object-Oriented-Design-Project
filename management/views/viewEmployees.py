@@ -11,6 +11,7 @@ class EmployeeListView(ManagerRequiredMixin, View):
 
     def get(self, request):
         employees = Employee.dump_all()
-        t = get_template('management/viewEvaluation.html')
-        html = t.render(employees, request)
+        t = get_template('management/viewEmployees.html')
+        # print(em)
+        html = t.render({'employees': employees}, request)
         return HttpResponse(html)
