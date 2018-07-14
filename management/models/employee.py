@@ -47,3 +47,7 @@ class Employee(User):
             username = employee.get_id()
             data.append({'name': name, 'username':username})
         return data
+
+    @classmethod
+    def delete_by_nid(cls, nid):
+        cls.objects.get(_username=nid).delete()
