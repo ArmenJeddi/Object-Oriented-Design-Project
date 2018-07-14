@@ -15,6 +15,6 @@ class RemoveEmployeeView(ManagerRequiredMixin, View):
     def post(self, request):
         nid = json.loads(request.body)['username']
         # employee = Employee.objects.get(national_id=nid)
-        Evaluator.delete_by_nid(nid)
+        Employee.delete_by_nid(nid)
         # Evaluator.objects.get(asEmployee=employee).delete()
-        return HttpResponseRedirect('/evaluators')
+        return HttpResponseRedirect('/')
