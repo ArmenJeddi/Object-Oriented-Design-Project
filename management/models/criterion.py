@@ -40,9 +40,9 @@ class EvaluationCriterion(models.Model):
     def dump(self):
         qualitative_values = []
         quantitative_values = []
-        for val in self.qualitative_list:
+        for val in self.qualitative_list.all():
             qualitative_values.append(val.get_name())
-        for val in self.quantitative_list:
+        for val in self.quantitative_list.all():
             quantitative_values.append({
                 'name': val.get_name(),
                 'beginning': val.get_beginning(),
@@ -90,6 +90,7 @@ class EvaluationCriterion(models.Model):
 
     @classmethod
     def dump_by_name(cls, name):
+        print('nameeeee', name)
         return cls.objects.get(_name=name).dump()
 
     def get_name(self):

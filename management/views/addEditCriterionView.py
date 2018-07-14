@@ -14,16 +14,12 @@ class AddEditCriterionView(ManagerRequiredMixin, View):
     # template_name = 'management/addCriterion.html'
     # fields = ['name', 'national_id']
     # success_url = '/'
-    def get(self, request):
-        criterion_name = request.GET.get('criterion_name')
+    def get(self, request, criterion_name):
+        # criterion_name = request.GET.get('criterion_name')
+        # criterion_name =
         data = None
         if criterion_name is not None:
             data = EvaluationCriterion.dump_by_name(criterion_name)
-            data = {"name": "meyar",
-                    "qualitative": ["gozine3", "gozine4"],
-                    "quantitative": [{"name": "gozine1", "beginning": "0", "end": "100"},
-                                     {"name": "gozine2", "beginning": "100", "end": "200"}]
-                    }
 
         t = get_template('management/addCriterion.html')
         html = t.render(data, request)
@@ -44,7 +40,7 @@ class AddEditCriterionView(ManagerRequiredMixin, View):
         )
         criterion.save()
         for val in qualitative_values:
-            name = val['name']
+            name = val
             option = QualitativeOptions(_criterion=criterion, _name=name)
             option.save()
         for val in quantitative_values:
