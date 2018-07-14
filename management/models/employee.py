@@ -13,7 +13,7 @@ class Employee(User):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        as_evaluatee = Evaluatee.objects.create(asEmployee=self)
+        as_evaluatee = Evaluatee.objects.create(_asEmployee=self)
         as_evaluatee.save()
 
     def get_unit(self):
