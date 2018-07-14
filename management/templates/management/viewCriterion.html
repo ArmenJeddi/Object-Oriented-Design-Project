@@ -19,64 +19,11 @@
                     <input type="text" name="criterion_name" disabled value="{{ criterion_name }}"><br>
                 </div>
 
-                <a class="submitButton" href="/management/removeCriterion/{{ criterion_name }}/"> مشاهده / ویرایش </a>
-                <a class="submitButton" href="/management/editCriterion/{{ criterion_name }}/"> حذف </a>
+                <a class="submitButton" href="/management/editCriterion/{{ criterion_name }}/"> مشاهده / ویرایش </a>
+                <a class="submitButton" href="/management/removeCriterion/{{ criterion_name }}/"> حذف </a>
             {% endfor %}
         </div>
     </div>
-
-
-    <script>
-        function view_and_edit_criterion(index) {
-            console.log(`delete ${index}`);
-
-
-            let package_data = django_var_parse('{{ criterion_names }}');
-
-            sendGet(`/management/editCriterion/${package_data[index]}/`);
-        }
-
-        function delete_criterion(index) {
-            console.log(`view/update ${index}`);
-
-            let package_data = django_var_parse('{{ criterion_names }}');
-
-            sendGet(`/management/removeCriterion/${package_data[index]}/`);
-        }
-
-        function django_var_parse(string) {
-            return JSON.parse(string.replace(/&#39;/g, '"'));
-        }
-
-        function sendGet(url) {
-            let xhr = new XMLHttpRequest();
-            xhr.open('GET', url, true);
-            xhr.setRequestHeader("Content-type", "application/json");
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    {#var json = JSON.parse(xhr.responseText);#}
-                    {#console.log(xhr.responseText);#}
-                }
-            };
-            xhr.send();
-        }
-
-        function sendData(data, url) {
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', url, true);
-            xhr.setRequestHeader("Content-type", "application/json");
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    {#var json = JSON.parse(xhr.responseText);#}
-                    {#console.log(xhr.responseText);#}
-                }
-            };
-            xhr.send(data);
-        }
-    </script>
-
 {% endblock %}
 
 
