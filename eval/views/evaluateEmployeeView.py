@@ -26,7 +26,7 @@ class EvaluateEmployeeView(EvaluatorRequiredMixin, View):
         return HttpResponse(html)
 
     def post(self, request):
-        json_data = json.loads(request)
+        json_data = json.loads(request.body)
         for evaluatee in json_data:
             self.add_evaluation(evaluatee['id'], evaluatee['criterion'])
 
