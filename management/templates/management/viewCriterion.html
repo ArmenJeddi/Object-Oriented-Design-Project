@@ -19,9 +19,8 @@
                     <input type="text" name="criterion_name" disabled value="{{ criterion_name }}"><br>
                 </div>
 
-                <button class="submitButton" onclick="view_and_edit_criterion({{ forloop.counter0 }})">مشاهده / ویرایش
-                </button>
-                <button class="submitButton" onclick="delete_criterion({{ forloop.counter0 }})">حذف</button>
+                <a class="submitButton" href="/management/removeCriterion/{{ criterion_name }}/"> مشاهده / ویرایش </a>
+                <a class="submitButton" href="/management/editCriterion/{{ criterion_name }}/"> حذف </a>
             {% endfor %}
         </div>
     </div>
