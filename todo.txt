@@ -1,11 +1,22 @@
 پکیج بندی
 errors
-فقط یک ارزیابی به ازای هر کارمند وجود دارد
+فقط یک ارزیابی به ازای هر کارمند وجود دارد - add a timestamp to evaluation object
 تکراری بودن نام معیار
 ولید بودن کد ملی
 
 oneToOne
-form
+
 افزودن روش تشویق و تنبیه
 ویرایش و حذف روش تشویق و تنبیه
 ارزیابی کارمندان
+
+redirections after actions
+
+add usecases to index page
+
+hide interval start and end in add criterion for qualitative options
+
+back button
+
+ui fonts
+
