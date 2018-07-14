@@ -1,32 +1,72 @@
 {% extends "navbar_signedin.html" %}
 
 {% block head %}
-    <link rel="stylesheet" type="text/css" href="/static/styles/main.css" />
-	<title>Add Employee</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles/main.css"/>
+    <title>Add Employee</title>
 {% endblock %}
 
 {% block main %}
 
-<div class = 'content-page'>
+    <div class='content-page'>
 
-	<div class = 'vertical-center'>
-	
-		<div class = 'contain'>
+        <div class='vertical-center'>
 
-			<h1 class='middle-header'>افزودن کارمند</h1>
-				
-			<form class = 'forms' method="post" action = "">
-				<p><label for="id_name">نام:</label> <input type="text" name="name" required id="id_name" maxlength="100" /></p>
-				<p><label for="id_national_id">کد ملی:</label> <input type="text" name="username" required id="id_national_id" maxlength="10" /></p>
-				<p><label for="id_national_id">واحد:</label> <input type="text" name="unit" required id="unit_id" /></p>
-				<p><label for="id_national_id">رمز عبور:</label> <input type="text" name="password" required id="password_id" /></p>
-				
-				<input class = 'submitButton' type="submit" value="ثبت" />
-			</form>
-			
-		</div>
-	</div>
-</div>
+            <div class='contain'>
+
+                <h1 class='middle-header'>افزودن کارمند</h1>
+
+
+                <p><label for="id_name">نام:</label> <input type="text" name="name" required id="id_name"
+                                                            maxlength="100"/></p>
+                <p><label for="id_national_id">کد ملی:</label> <input type="text" name="username" required
+                                                                      id="id_national_id" maxlength="10"/></p>
+                <p><label for="id_national_id">واحد:</label> <input type="text" name="unit" required id="unit_id"/></p>
+                <p><label for="id_national_id">رمز عبور:</label> <input type="text" name="password" required
+                                                                        id="password_id"/></p>
+
+                <input class='submitButton' onclick="gather_data_and_send()" type="submit" value="ثبت"/>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+        function gather_data_and_send() {
+            let name = document.getElementById('id_name').value;
+            let username = document.getElementById('id_national_id').value;
+            let unit = document.getElementById('unit_id').value;
+            let password = document.getElementById('password_id').value;
+
+            let data = {
+                username: username,
+                password: password,
+                name: name,
+                unit: unit,
+            };
+
+
+            let send_data = JSON.stringify(data);
+            sendData(send_data, '/management/addEmployee/');
+
+        }
+
+        function sendData(data, url) {
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader("Content-type", "application/json");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    {#var json = JSON.parse(xhr.responseText);#}
+                    {#console.log(xhr.responseText);#}
+                }
+            };
+            xhr.send(data);
+        }
+
+    </script>
 
 {% endblock %}
 
