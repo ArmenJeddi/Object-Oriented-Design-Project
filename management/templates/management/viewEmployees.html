@@ -1,43 +1,85 @@
 {% extends "navbar_signedin.html" %}
 
 {% block head %}
-    <link rel="stylesheet" type="text/css" href="/static/styles/main.css" />
-	<title>View Employees</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles/main.css"/>
+    <title>View Employees</title>
 {% endblock %}
 
 {% block main %}
 
-<div class = 'content-page'>
+    <div class='content-page'>
 
-	<div class = 'vertical-center'>
-	
-		<div class = 'well'>
+        <div class='vertical-center'>
 
-			<h1 class='middle-header'>لیست کارمندان</h1>
-				
-			<blockquote class='darkBlock'>
-				<p class='xPara justify'>لیست کارمندان را در زیر مشاهده می کنید. می توانید با کلیک کردن بر روی اطلاعات هر فرد، اطلاعات وی را ویرایش کنید.</p>
-			</blockquote>
-			
-			<div class= 'ObjectList'>
-				<ul class='unordered'>
-					
-					{% for employee in employees %}
-						<li class='person_member'>
-							<span class = 'employee-name'>{{ employee.name }}</span>
-							<span class = 'employee-id'>{{ employee.username }}</span>
-						</li>
-					{% endfor %}
-					
-				</ul>
-			</div>
-			
-			<div class='task-option'>
-				<a class='order-option-link' href="/management/addEmployee/"><span class='productButtons'>افزودن کارمند</span></a>
-			</div>			
-			
-		</div>
-	</div>
-</div>
+            <div class='well'>
+
+                <h1 class='middle-header'>لیست کارمندان</h1>
+
+                <blockquote class='darkBlock'>
+                    <p class='xPara justify'>لیست کارمندان را در زیر مشاهده می کنید. می توانید با کلیک کردن بر روی
+                        اطلاعات هر فرد، اطلاعات وی را ویرایش کنید.</p>
+                </blockquote>
+
+                <div class='ObjectList'>
+                    <ul class='unordered'>
+
+                        {% for employee in employees %}
+                            <li class='person_member'>
+                                <span class='employee-name'>{{ employee.name }}</span>
+                                <span class='employee-id'>{{ employee.username }}</span>
+                                <button type="submit" onclick="delete_employee({{ forloop.counter0 }})"></button>
+                            </li>
+                        {% endfor %}
+
+                    </ul>
+                </div>
+
+                <div class='task-option'>
+                    <a class='order-option-link' href="/management/addEmployee/"><span class='productButtons'>افزودن کارمند</span></a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+
+        function view_and_edit_employee(index) {
+            console.log(`delete ${index}`);
+            {#    TODO GET DATA FOR CRITERION AND PASS IT#}
+        }
+
+        function delete_employee(index) {
+            console.log(`view/update ${index}`);
+
+            let package_data = django_var_parse('{{ employees }}');
+
+            let data = {username: package_data[index].username};
+
+            let send_data = JSON.parse(data);
+
+            sendData(send_data, '/management/removeEmployee/');
+        }
+
+        function django_var_parse(string) {
+            return JSON.parse(string.replace(/&#39;/g, '"'));
+        }
+
+        function sendData(data, url) {
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader("Content-type", "application/json");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    {#var json = JSON.parse(xhr.responseText);#}
+                    {#console.log(xhr.responseText);#}
+                }
+            };
+            xhr.send(data);
+        }
+
+    </script>
 
 {% endblock %}
