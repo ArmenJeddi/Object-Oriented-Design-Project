@@ -27,7 +27,7 @@
                             <li class='person_member'>
                                 <span class='employee-name'>{{ employee.name }}</span>
                                 <span class='employee-id'>{{ employee.username }}</span>
-                                <button type="submit" onclick="delete_employee({{ forloop.counter0 }})"></button>
+                                <button type="submit" onclick="delete_employee({{ forloop.counter0 }})">delete</button>
                             </li>
                         {% endfor %}
 
@@ -51,13 +51,15 @@
         }
 
         function delete_employee(index) {
+
+            debugger;
             console.log(`view/update ${index}`);
 
             let package_data = django_var_parse('{{ employees }}');
 
             let data = {username: package_data[index].username};
 
-            let send_data = JSON.parse(data);
+            let send_data = JSON.stringify(data);
 
             sendData(send_data, '/management/removeEmployee/');
         }
