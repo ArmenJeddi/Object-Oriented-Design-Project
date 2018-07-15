@@ -15,4 +15,4 @@ class RemoveEvaluatorView(ManagerRequiredMixin, View):
         # employee = Employee.objects.get(national_id=nid)
         Evaluator.delete_by_username(nid)
         # Evaluator.objects.get(asEmployee=employee).delete()
-        return HttpResponseRedirect('/evaluators')
+        return HttpResponseRedirect('/management/manageEvaluators/view/')

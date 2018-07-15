@@ -5,7 +5,7 @@ from management.models import Employee, Evaluatee
 
 
 class Evaluator(models.Model):
-    _asEmployee = models.ForeignKey('Employee', on_delete=models.CASCADE, related_name='_asEvaluator')
+    _asEmployee = models.OneToOneField('Employee', on_delete=models.CASCADE, related_name='_asEvaluator')
 
     def evaluate_employee(self, evaluatee, evaluation_criterion, quantitative_result, qualitative_result):
         return Evaluation(

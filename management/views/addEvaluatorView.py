@@ -13,4 +13,4 @@ class AddEvaluatorView(ManagerRequiredMixin, View):
     def post(self, request):
         nid = request.POST.get('username')
         employee = Evaluator.create_by_username(username=nid)
-        return HttpResponseRedirect('/evaluators')
+        return HttpResponseRedirect('/management/manageEvaluators/view/')
