@@ -11,7 +11,6 @@ class AddEvaluatorView(ManagerRequiredMixin, View):
 
     # POST method used for giving evaluator position to employee
     def post(self, request):
-        nid = request.POST.get('national_id')
-        employee = Employee.objects.get(national_id=nid)
-        Evaluator.objects.create(asEmployee=employee).save()
+        nid = request.POST.get('username')
+        employee = Evaluator.create_by_username(username=nid)
         return HttpResponseRedirect('/evaluators')

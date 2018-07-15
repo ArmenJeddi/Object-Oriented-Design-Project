@@ -1,10 +1,11 @@
 from django.db import models
 
 from eval.models.evaluation import Evaluation
+from management.models import Employee, Evaluatee
 
 
 class Evaluator(models.Model):
-    _asEmployee = models.ForeignKey('Employee', on_delete=models.CASCADE, related_name='asEvaluator')
+    _asEmployee = models.ForeignKey('Employee', on_delete=models.CASCADE, related_name='_asEvaluator')
 
     def evaluate_employee(self, evaluatee, evaluation_criterion, quantitative_result, qualitative_result):
         return Evaluation(
@@ -27,13 +28,20 @@ class Evaluator(models.Model):
         return dump_data
 
     @classmethod
-    def find(cls, evaluator_nid):
-        return cls.objects.get(asEmployee__username=evaluator_nid)
+    def get_by_username(cls, username):
+        return cls.objects.get(_asEmployee___username=username)
 
     @classmethod
     def is_evaluator(cls, user):
         return cls.objects.filter(_asEmployee___username=user.get_id()).count() == 1
 
     @classmethod
-    def delete_by_nid(cls, nid):
-        cls.objects.get(_asEmployee___username=nid).delete()
+    def delete_by_username(cls, username):
+        cls.objects.get(_asEmployee___username=username).delete()
+
+    @classmethod
+    def create_by_username(cls, username):
+        employee = Employee.get_by_username(username)
+        Evaluatee.remove_by_username(username)
+        # employee.set_as_evaluator()
+        cls.objects.create(_asEmployee=employee).save()

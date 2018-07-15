@@ -37,7 +37,7 @@ class AssignEvaluatorToEmployee(ManagerRequiredMixin, View):
         else:
             evaluatee_NID = request.POST.get('evaluatee_NID')
             evaluator_NID = request.POST.get('national_id')
-            evaluator = Evaluator.find(evaluator_NID)
+            evaluator = Evaluator.get_by_username(evaluator_NID)
             evaluator.add_evaluatee(evaluatee_NID)
             response = HttpResponseRedirect('/')
         return response

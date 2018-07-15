@@ -8,9 +8,9 @@ from .views import *
 urlpatterns = [
     path('', IndexView.as_view()),
     path('addEmployee/', AddEmployeeView.as_view()),
-    path('manageEvaluators/add', AddEvaluatorView.as_view()),
-    path('manageEvaluators/remove', RemoveEvaluatorView.as_view()),
-    path('manageEvaluators/view', ViewEvaluatorView.as_view()),
+    path('manageEvaluators/add/', AddEvaluatorView.as_view()),
+    path('manageEvaluators/remove/', RemoveEvaluatorView.as_view()),
+    path('manageEvaluators/view/', ViewEvaluatorView.as_view()),
     path('addCriterion/', AddEditCriterionView.as_view()),
     path('editCriterion/<str:criterion_name>/', AddEditCriterionView.as_view()),
     path('viewCriterion/', ViewCriterionView.as_view()),

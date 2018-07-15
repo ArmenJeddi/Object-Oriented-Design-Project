@@ -23,8 +23,9 @@
 							<span class = 'employee-name'>{{ employee.name }}</span>
 							<span class = 'employee-id'>{{ employee.username }}</span>
 							<span>
-								<form class = 'evaluator-forms' action="/management/deleteEvaluator/{{ employee.username }}/" method="post">
-									<a class= 'order-option-link form-link' href="" onclick="this.parentNode.submit()">حذف از لیست ارزیابان</a>
+								<form class = 'evaluator-forms' action="/management/manageEvaluators/remove/" method="post">
+									<a class= 'order-option-link form-link' onclick="this.parentNode.submit()">حذف از لیست ارزیابان</a>
+                                    <input type="hidden" value="{{ employee.username }}" name="username">
 								</form>
 							</span>
 							
@@ -38,13 +39,14 @@
 			<div class= 'ObjectList'>
 				<ul class='evaluator-unordered'>
 					
-					{% for employee in employees %}
+					{% for employee in evaluatee %}
 						<li class='person_member'>
 							<span class = 'employee-name'>{{ employee.name }}</span>
 							<span class = 'employee-id'>{{ employee.username }}</span>
 							<span>
-								<form class = 'evaluator-forms' action="/management/addEvaluator/{{ employee.username }}/" method="post">
-									<a class= 'order-option-link form-link' href="" onclick="this.parentNode.submit()">افزودن به لیست ارزیاب</a>
+								<form class = 'evaluator-forms' action="/management/manageEvaluators/add/" method="post">
+									<a class= 'order-option-link form-link' onclick="this.parentNode.submit()">افزودن به لیست ارزیاب</a>
+                                    <input type="hidden" value="{{ employee.username }}" name="username">
 								</form>
 							</span>
 							
