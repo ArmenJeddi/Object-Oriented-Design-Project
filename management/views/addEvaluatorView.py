@@ -4,13 +4,13 @@ from django.template.loader import get_template
 from django.views.generic import CreateView
 
 from management.mixins import ManagerRequiredMixin
-from ..models import Employee, Evaluator
+from management.models import Employee
 
 
 class AddEvaluatorView(ManagerRequiredMixin, View):
 
     # POST method used for giving evaluator position to employee
     def post(self, request):
-        nid = request.POST.get('username')
-        employee = Evaluator.create_by_username(username=nid)
+        username = request.POST.get('username')
+        Employee.set_as_evaluator(username)
         return HttpResponseRedirect('/management/manageEvaluators/view/')
