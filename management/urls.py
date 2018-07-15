@@ -22,5 +22,6 @@ urlpatterns = [
     path('evaluate/', EvaluateEmployeeView.as_view()),
     path('addrnpmethod/', AddRNPMethodView.as_view()),
     path('viewevaluation/', ViewEvaluationView.as_view()),
+    path('assignEvaluatorToEmployee/', AssignEvaluatorToEmployee.as_view())
 
 ]

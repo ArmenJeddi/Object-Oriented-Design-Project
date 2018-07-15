@@ -15,11 +15,14 @@ class AssignEvaluatorToEmployee(ManagerRequiredMixin, View):
 
     def get(self, request):
 
-        evaluatee = Employee.objects.filter(selfEvaluator__isnull=True)
+        evaluatee = Employee.objects.filter(_asEvaluator__isnull=True)
         html = self.template.render({
-            'persons': evaluatee,
-            'select_evaluator_mode': self.select_evaluator_mode
-        }, request)
+                'evaluatees': [{'name': 'a', 'username': 'ua'}, {'name': 'b', 'username': 'ub'},
+                               {'name': 'c', 'username': 'uc'}, {'name': 'd', 'username': 'ud'}],
+
+                'evaluators': [{'name': 'ea', 'username': 'eua'}, {'name': 'eb', 'username': 'eub'},
+                               {'name': 'ec', 'username': 'euc'}, {'name': 'ed', 'username': 'eud'}],
+            }, request)
         return HttpResponse(html)
 
     def post(self, request):

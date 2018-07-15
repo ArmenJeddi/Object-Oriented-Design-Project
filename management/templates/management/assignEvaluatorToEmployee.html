@@ -1,34 +1,72 @@
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{% if select_evaluator_mode %}
-    <p>بر روی ارزیاب مورد نظر کلیک کنید</p>
-{% else %}
-    <p>بر روی فرد مورد نظر جهت انتساب وی به یک ارزیاب کلیک کنید</p>
+{% extends "navbar_signedin.html" %}
 
-{% endif %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="/static/styles/main.css"/>
+    <title>Add Employee</title>
+{% endblock %}
 
-<ul>
-    {% for person in persons %}
-        <form action="/assignEvaluatorToEmployee/" method="post">
-            <a href="#" onclick="this.parentNode.submit()">{{ person.national_id }} {{ person.name }}</a>
-            <input type="hidden" name="national_id" value="{{ person.national_id }}">
-            {% if select_evaluator_mode %}
-                <input type="hidden" name="mode" value="evaluator">
-                <input type="hidden" name="evaluatee_NID" value="{{ evaluatee_NID }}">
-            {% else %}
-                < <input type="hidden" name="mode" value="evaluatee">
-            {% endif %}
+{% block main %}
 
-            {% csrf_token %}
 
-        </form>
-    {% endfor %}
-</ul>
+    <div class="content-page">
+        <label for="evaluator_list">Select Evaluator:</label>
+        <select id="evaluator_list" onchange="select_change()">
+            {% for employee in evaluators %}
+                <option value="{{ employee.username }}">{{ employee.name }}-{{ employee.username }}</option>
+            {% endfor %}
+        </select>
 
-</body>
-</html>
+        <hr>
+
+        <label for="evaluatee_list">Select Evaluatee:</label>
+        <select id="evaluatee_list" onchange="select_change()">
+            {% for employee in evaluatees %}
+                <option value="{{ employee.username }}">{{ employee.name }}-{{ employee.username }}</option>
+            {% endfor %}
+        </select>
+
+        <button class="submitButton" onclick="pack_and_submit()">Submit</button>
+    </div>
+
+
+    <script>
+        function pack_and_submit() {
+            let evaluator = document.getElementById('evaluatee_list').value;
+            let evaluatee = document.getElementById('evaluator_list').value;
+
+            let data = {
+                evaluatee_username: evaluatee,
+                evaluator_username: evaluator,
+            };
+
+            let send_data = JSON.stringify(data);
+
+
+            sendData(send_data, '/management/assignEvaluatorToEmployee/');
+            console.log(send_data);
+        }
+
+        function sendData(data, url) {
+            let xhr = new XMLHttpRequest();
+
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader("Content-type", "application/json");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    {#var json = JSON.parse(xhr.responseText);#}
+                    {#console.log(xhr.responseText);#}
+                }
+            };
+            xhr.send(data);
+        }
+
+    </script>
+
+{% endblock %}
+
+
+
+
+
+

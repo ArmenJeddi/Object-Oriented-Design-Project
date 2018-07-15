@@ -38,6 +38,7 @@ class Evaluator(models.Model):
     @classmethod
     def delete_by_username(cls, username):
         cls.objects.get(_asEmployee___username=username).delete()
+        Evaluatee.create_by_username(username)
 
     @classmethod
     def create_by_username(cls, username):
