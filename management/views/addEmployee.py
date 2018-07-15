@@ -22,9 +22,5 @@ class AddEmployeeView(ManagerRequiredMixin, View):
         password = json_data['password']
         name = json_data['name']
         unit = json_data['unit']
-        print('passssss', password)
         Employee.create(username, password, name, unit)
         return HttpResponseRedirect('/')
-    # template_name = 'management/addEmployee.html'
-    # fields = ['username', 'password', 'name', 'unit', ]
-    # success_url = '/management/listEmployees/'

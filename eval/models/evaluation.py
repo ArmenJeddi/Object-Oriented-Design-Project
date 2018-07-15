@@ -16,3 +16,12 @@ class Evaluation(models.Model):
 
     def get_criterion_name(self):
         return self._evaluation_criterion.get_name()
+
+    @classmethod
+    def evaluate_employee(cls, evaluatee, evaluation_criterion, evaluator, qualitative_result, quantitative_result):
+        evaluation = Evaluation(_evaluatee=evaluatee,
+                                _evaluation_criterion=evaluation_criterion,
+                                _evaluator=evaluator,
+                                _qualitative_result=qualitative_result,
+                                _quantitative_result=quantitative_result)
+        evaluation.save()

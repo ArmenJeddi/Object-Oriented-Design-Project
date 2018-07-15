@@ -25,11 +25,6 @@ class QuantitativeOption(models.Model):
         return self._end
 
 
-# # TODO
-# class RNPMethod(models.Model):
-#     pass
-
-
 class EvaluationCriterion(models.Model):
     _is_qualitative = models.BooleanField(default=False)
     _is_quantitative = models.BooleanField(default=True)
@@ -109,8 +104,10 @@ class EvaluationCriterion(models.Model):
 
     @classmethod
     def get_names_and_rnp(cls):
-        criteria = [{'name': '1', 'reward': 'aaa', 'punishment': 'bbb'}, {'name': '3', 'reward': 'aaa', 'punishment': 'bbb'},
-                    {'name': '2', 'reward': 'aaa', 'punishment': 'bbb'}, {'name': '4', 'reward': 'aaa', 'punishment': 'bbb'}]
+        criteria = [{'name': '1', 'reward': 'aaa', 'punishment': 'bbb'},
+                    {'name': '3', 'reward': 'aaa', 'punishment': 'bbb'},
+                    {'name': '2', 'reward': 'aaa', 'punishment': 'bbb'},
+                    {'name': '4', 'reward': 'aaa', 'punishment': 'bbb'}]
         # for criterion in cls.objects.all():
         #     criteria.append({
         #         'name': criterion.get_name(),
