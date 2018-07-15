@@ -10,4 +10,4 @@ class EvaluatorRequiredMixin(LoginRequiredMixin):
         return None
 
     def get_evaluator(self):
-        return Evaluator.find(self.request.user)
+        return Evaluator.get_by_username(self.request.user)

@@ -20,19 +20,29 @@ class Employee(User):
         return self._unit
 
     def get_as_evaluatee(self):
-        return self.asEvaluatee
+        return self._asEvaluatee
 
     @classmethod
-    def get_all_evaluator_employee(cls):
-        return cls.objects.filter(asEvaluator__isnull=False)
+    def dump_evaluator_employee(cls):
+        data = []
+        for evaluator in cls.objects.filter(_asEvaluator__isnull=False):
+            name = evaluator.get_name()
+            nid = evaluator.get_id()
+            data.append({'name': name, 'username': nid})
+        return data
 
     @classmethod
-    def get_all_evaluatee_employee(cls):
-        return cls.objects.filter(asEvaluatee__isnull=False)
+    def dump_evaluatee_employee(cls):
+        data = []
+        for evaluatee in cls.objects.filter(_asEvaluatee__isnull=False):
+            name = evaluatee.get_name()
+            nid = evaluatee.get_id()
+            data.append({'name': name, 'username': nid})
+        return data
 
     @classmethod
-    def find(cls, user):
-        return cls.objects.get(username=user)
+    def get_by_username(cls, username):
+        return cls.objects.get(_username=username)
 
     @classmethod
     def create(cls, username, password, name, unit):
@@ -45,9 +55,10 @@ class Employee(User):
         for employee in cls.objects.all():
             name = employee.get_name()
             username = employee.get_id()
-            data.append({'name': name, 'username':username})
+            data.append({'name': name, 'username': username})
         return data
 
     @classmethod
-    def delete_by_nid(cls, nid):
+    def remove_by_username(cls, nid):
         cls.objects.get(_username=nid).delete()
+
