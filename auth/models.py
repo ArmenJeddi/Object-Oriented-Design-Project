@@ -14,9 +14,6 @@ class JobCatalog(models.Manager):
     def delete_by_username(self, username):
         raise NotImplementedError()
 
-    def create(self, user, *args, **kwargs):
-        raise NotImplementedError()
-
 
 class Job(models.Model):
     class Meta:
@@ -51,22 +48,24 @@ class UserCatalog(models.Manager):
         user._set_job_object(job_object)
         return user
 
-    def create(self, username, password, name, job_title, job_data=None):
-        user = User(_username=username, _password=password, _name=name, _job=job_title)
+    def create(self, username, password, name):
+        user = User(_username=username, _password=password, _name=name, _job='')
         user.save()
-        job_catalog = Job.get_job_catalog(job_title)
-        if job_data is None:
-            job_data = {}
-        job_object = job_catalog.create(user=user, **job_data)
-        user._set_job_object(job_object)
         return user
 
     def delete(self, username):
         user = self.get(_username=username)
-        job_catalog = Job.get_job_catalog(user._get_job_title())
-        job_catalog.delete_by_username(username)
+        job_title = user._get_job_title()
+        if job_title:
+            job_catalog = Job.get_job_catalog()
+            job_catalog.delete_by_username(username)
         user.delete()
 
+    def authenticate(self, username, password):
+        try:
+            return self.get(_username=username, _password=password)
+        except User.DoesNotExist:
+            return None
 
 class User(models.Model):
     _username = models.CharField(primary_key=True, max_length=USERNAME_LENGTH, unique=True)
@@ -79,8 +78,10 @@ class User(models.Model):
     def get_job(self):
         return self._job_object
 
-    def _set_job_object(self, job):
+    def set_job(self, job):
         self._job_object = job
+        self._job = job.TITLE
+        self.save()
 
     def _get_job_title(self):
         return _job
@@ -90,10 +91,3 @@ class User(models.Model):
 
     def get_name(self):
         return self._name
-
-    @classmethod
-    def authenticate(cls, username, password):
-        try:
-            return cls.objects.get(_username=username, _password=password)
-        except cls.DoesNotExist:
-            return None

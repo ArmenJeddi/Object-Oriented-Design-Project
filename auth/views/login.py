@@ -1,48 +1,20 @@
-from django import forms
 from django.conf import settings
 from django.http import HttpResponseRedirect
-from django.views.generic import FormView
+from django.shortcuts import render
+from django.views.generic.base import View
 
 import auth
-from auth import REDIRECT_FIELD_NAME
-from auth import models
+from auth.models import UserCatalog
 
 
-class AuthenticationForm(forms.Form):
-    username = forms.CharField(max_length=models.USERNAME_LENGTH)
-    password = forms.CharField(max_length=models.PASSWORD_LENGTH)
-
-    def clean(self):
-        username = self.cleaned_data.get('username')
-        password = self.cleaned_data.get('password')
-
-        if username is not None and password:
-            self._user_cache = models.User.authenticate(username=username, password=password)
-            if self._user_cache is None:
-                raise forms.ValidationError(
-                    'The credentials were invalid',
-                    code='invalid_login',
-                )
-
-        return self.cleaned_data
-
-    def get_user_id(self):
-        if self._user_cache:
-            return self._user_cache.id
-        return None
-
-    def get_user(self):
-        return self._user_cache
-
-
-class LoginView(FormView):
+class LoginView(View):
     """
     Display the login form and handle the login action.
     """
-    form_class = AuthenticationForm
-    redirect_field_name = REDIRECT_FIELD_NAME
+    redirect_field_name = auth.REDIRECT_FIELD_NAME
     template_name = 'auth/login.html'
     redirect_authenticated_user = False
+    invalid_username_password = 1
 
     def dispatch(self, request, *args, **kwargs):
         if self.redirect_authenticated_user and self.request.user is not None:
@@ -67,7 +39,17 @@ class LoginView(FormView):
         )
         return redirect_to
 
-    def form_valid(self, form):
-        """Security check complete. Log the user in."""
-        auth.login(self.request, form.get_user())
+    def get(self, request, **kwargs):
+        return render(request, self.template_name, kwargs)
+
+    def post(self, request):
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        if username and password:
+            user = UserCatalog.get_instance().authenticate(username=username, password=password)
+            if user is None:
+                return self.get(request, errors=[self.invalid_username_password])
+
+        auth.login(self.request, user)
         return HttpResponseRedirect(self.get_success_url())

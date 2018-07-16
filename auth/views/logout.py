@@ -1,43 +1,32 @@
 from django.conf import settings
 from django.http import HttpResponseRedirect
-from django.views.generic import TemplateView
+from django.views.generic.base import View
 
 import auth
-from auth import REDIRECT_FIELD_NAME
 
 
-class LogoutView(TemplateView):
+class LogoutView(View):
     """
     Log out the user and display the 'You are logged out' message.
     """
     next_page = None
-    redirect_field_name = REDIRECT_FIELD_NAME
+    redirect_field_name = auth.REDIRECT_FIELD_NAME
     template_name = 'auth/logged_out.html'
 
-    def dispatch(self, request, *args, **kwargs):
+    def get(self, request):
         auth.logout(request)
         next_page = self.get_next_page()
-        if next_page:
-            # Redirect to this page until the session has been cleared.
-            return HttpResponseRedirect(next_page)
-        return super().dispatch(request, *args, **kwargs)
+        return HttpResponseRedirect(next_page)
 
     def post(self, request, *args, **kwargs):
         """Logout may be done via POST."""
-        return self.get(request, *args, **kwargs)
+        return self.get(request)
 
     def get_next_page(self):
-        if self.next_page is not None:
+        next_page = self.request.POST.get(self.redirect_field_name, self.request.GET.get(self.redirect_field_name))
+        if next_page is None:
             next_page = self.next_page
-        elif settings.LOGOUT_REDIRECT_URL:
+        if next_page is None:
             next_page = settings.LOGOUT_REDIRECT_URL
-        elif (self.redirect_field_name in self.request.POST or
-              self.redirect_field_name in self.request.GET):
-            next_page = self.request.POST.get(
-                self.redirect_field_name,
-                self.request.GET.get(self.redirect_field_name)
-            )
-        else:
-            next_page = None
 
         return next_page
