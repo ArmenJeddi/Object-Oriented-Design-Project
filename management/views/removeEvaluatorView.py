@@ -4,7 +4,7 @@ from django.template.loader import get_template
 from django.views.generic import DeleteView
 
 from management.mixins import ManagerRequiredMixin
-from ..models import Employee, Evaluator
+from ..models import Employee
 
 
 class RemoveEvaluatorView(ManagerRequiredMixin, View):

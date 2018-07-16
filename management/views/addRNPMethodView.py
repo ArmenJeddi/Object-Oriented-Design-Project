@@ -31,6 +31,3 @@ class AddRNPMethodView(ManagerRequiredMixin, View):
         EvaluationCriterion.set_reward_method(criterion_name, reward_method)
         EvaluationCriterion.set_punishment_method(criterion_name, punishment_method)
         return HttpResponseRedirect('/')
-# criteria[
-#     {}
-# ]

@@ -2,11 +2,8 @@ import json
 
 from django.views import View
 from django.http import HttpResponse, HttpResponseRedirect
-from django.template.loader import get_template
-from django.views.generic import DeleteView
 
 from management.mixins import ManagerRequiredMixin
-from ..models import Employee, Evaluator
 
 
 class RemoveEmployeeView(ManagerRequiredMixin, View):

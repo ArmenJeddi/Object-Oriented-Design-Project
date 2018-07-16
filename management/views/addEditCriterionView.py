@@ -10,13 +10,7 @@ from management.models.criterion import QuantitativeOption, QualitativeOptions
 
 
 class AddEditCriterionView(ManagerRequiredMixin, View):
-    # model = Criterion
-    # template_name = 'management/addCriterion.html'
-    # fields = ['name', 'national_id']
-    # success_url = '/'
     def get(self, request, criterion_name):
-        # criterion_name = request.GET.get('criterion_name')
-        # criterion_name =
         data = None
         if criterion_name is not None:
             data = EvaluationCriterion.dump_by_name(criterion_name)

@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import get_template
 
 from management.mixins import ManagerRequiredMixin
-from ..models import Employee, Evaluator
+from ..models import Employee
 
 
 class ViewEvaluatorView(ManagerRequiredMixin, View):

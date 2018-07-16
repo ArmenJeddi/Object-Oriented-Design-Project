@@ -5,6 +5,7 @@ from rnp.decorators import singleton
 USERNAME_LENGTH = 10
 PASSWORD_LENGTH = 20
 
+
 class JobCatalog(models.Manager):
 
     def get_by_username(self, username):
@@ -16,8 +17,8 @@ class JobCatalog(models.Manager):
     def create(self, user, *args, **kwargs):
         raise NotImplementedError()
 
-class Job(models.Model):
 
+class Job(models.Model):
     class Meta:
         abstract = True
 
@@ -25,7 +26,7 @@ class Job(models.Model):
 
     def get_user(self):
         return self._user
-    
+
     TITLE = 'Job'
     MAX_TITLE_LENGTH = 50
 
@@ -38,6 +39,7 @@ class Job(models.Model):
     @classmethod
     def set_job_catalog(cls, job_title, catalog):
         cls._job_catalog_registery[job_title] = catalog
+
 
 @singleton
 class UserCatalog(models.Manager):
@@ -64,9 +66,9 @@ class UserCatalog(models.Manager):
         job_catalog = Job.get_job_catalog(user._get_job_title())
         job_catalog.delete_by_username(username)
         user.delete()
-    
-class User(models.Model):
 
+
+class User(models.Model):
     _username = models.CharField(primary_key=True, max_length=USERNAME_LENGTH, unique=True)
     _password = models.CharField(max_length=PASSWORD_LENGTH)
     _name = models.CharField(max_length=100)
@@ -82,7 +84,7 @@ class User(models.Model):
 
     def _get_job_title(self):
         return _job
-        
+
     def get_username(self):
         return self._username
 

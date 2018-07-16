@@ -3,7 +3,7 @@ SESSION_USERNAME_FIELD = '_username'
 
 
 def login(request, user):
-    request.session[SESSION_USERNAME_FIELD] = user.get_id()
+    request.session[SESSION_USERNAME_FIELD] = user.get_username()
 
 
 def logout(request):

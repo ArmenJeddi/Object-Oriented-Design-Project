@@ -1,7 +1,9 @@
 from django.db import models
 from auth.models import User
+from rnp.decorators import singleton
 
 
+@singleton
 class EvaluationCatalog(models.Manager):
 
     @staticmethod

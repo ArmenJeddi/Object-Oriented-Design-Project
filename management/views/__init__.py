@@ -11,4 +11,3 @@ from .viewCriterionView import ViewCriterionView
 from .removeCriterionView import RemoveCriterionView
 from .addRNPMethodView import AddRNPMethodView
 from .assignEvaluatorToEmployee import AssignEvaluatorToEmployee
-from .editEmployee import EmployeeEditView

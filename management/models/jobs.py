@@ -2,6 +2,7 @@ from django.db import models
 from auth.models import User, Job, JobCatalog
 from rnp.decorators import singleton
 
+
 @singleton
 class ManagerCatalog(JobCatalog):
 
@@ -15,14 +16,16 @@ class ManagerCatalog(JobCatalog):
 
     def delete_by_username(self, username):
         self.get(_user=username).delete()
-    
-class Manager(Job):
 
+
+class Manager(Job):
     TITLE = 'Manager'
 
     objects = ManagerCatalog.get_instance()
 
+
 Job.set_job_catalog(Manager.TITLE, ManagerCatalog.get_instance())
+
 
 @singleton
 class EmployeeCatalog(JobCatalog):
@@ -38,10 +41,10 @@ class EmployeeCatalog(JobCatalog):
     def delete_by_username(self, username):
         self.get(_user=username).delete()
 
-class Employee(Job):
 
+class Employee(Job):
     TITLE = 'Employee'
-    
+
     _unit = models.CharField(max_length=20, null=True)
     _is_evaluator = models.BooleanField(default=False, null=False)
 
@@ -56,5 +59,7 @@ class Employee(Job):
     def set_evaluator(self, value):
         self._is_evaluator = value
         self.save()
+
+
 
 Job.set_job_catalog(Employee.TITLE, EmployeeCatalog.get_instance())
