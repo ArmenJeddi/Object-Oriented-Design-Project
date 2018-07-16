@@ -43,9 +43,9 @@ class UserCatalog(models.Manager):
 
     def get_by_username(self, username):
         user = self.get(_username=username)
-        job_catalog = Job.get_job_catalog(user._get_job_title())
+        job_catalog = Job.get_job_catalog(user.get_job_title())
         job_object = job_catalog.get_by_username(user.get_username())
-        user._set_job_object(job_object)
+        user.set_job_object(job_object)
         return user
 
     def create(self, username, password, name):
@@ -55,9 +55,9 @@ class UserCatalog(models.Manager):
 
     def delete_by_username(self, username):
         user = self.get(_username=username)
-        job_title = user._get_job_title()
+        job_title = user.get_job_title()
         if job_title:
-            job_catalog = Job.get_job_catalog()
+            job_catalog = Job.get_job_catalog(job_title)
             job_catalog.delete_by_username(username)
         user.delete()
 
@@ -66,6 +66,7 @@ class UserCatalog(models.Manager):
             return self.get(_username=username, _password=password)
         except User.DoesNotExist:
             return None
+
 
 class User(models.Model):
     _username = models.CharField(primary_key=True, max_length=USERNAME_LENGTH, unique=True)
@@ -83,10 +84,10 @@ class User(models.Model):
         self._job = job.TITLE
         self.save()
 
-    def _get_job_title(self):
+    def get_job_title(self):
         return self._job
 
-    def _set_job_object(self, job):
+    def set_job_object(self, job):
         self._job_object = job
 
     def get_username(self):
