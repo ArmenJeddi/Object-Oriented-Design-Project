@@ -27,7 +27,7 @@
                             <li class='person_member'>
                                 <span class='employee-name'>{{ employee.name }}</span>
                                 <span class='employee-id'>{{ employee.username }}</span>
-                                <button type="submit" onclick="delete_employee({{ forloop.counter0 }})">delete</button>
+                                <button type="submit" onclick="delete_employee({{ forloop.counter0 }}, this)">delete</button>
                             </li>
                         {% endfor %}
 
@@ -44,13 +44,7 @@
 
 
     <script>
-
-        function view_and_edit_employee(index) {
-            console.log(`delete ${index}`);
-            {#    TODO GET DATA FOR CRITERION AND PASS IT#}
-        }
-
-        function delete_employee(index) {
+        function delete_employee(index, element) {
             console.log(`view/update ${index}`);
 
             let package_data = django_var_parse('{{ employees }}');
@@ -59,27 +53,9 @@
 
             let send_data = JSON.stringify(data);
 
-            sendData(send_data, '/management/removeEmployee/');
+            send_ajax_post('/management/removeEmployee/', send_data, false);
+            delete_dom_parent(element);
         }
-
-        function django_var_parse(string) {
-            return JSON.parse(string.replace(/&#39;/g, '"'));
-        }
-
-        function sendData(data, url) {
-            let xhr = new XMLHttpRequest();
-            xhr.open('POST', url, true);
-            xhr.setRequestHeader("Content-type", "application/json");
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    {#var json = JSON.parse(xhr.responseText);#}
-                    {#console.log(xhr.responseText);#}
-                }
-            };
-            xhr.send(data);
-        }
-
     </script>
 
 {% endblock %}

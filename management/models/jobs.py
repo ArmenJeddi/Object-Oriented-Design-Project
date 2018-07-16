@@ -41,6 +41,12 @@ class EmployeeCatalog(JobCatalog):
     def delete_by_username(self, username):
         self.get(_user=username).delete()
 
+    def dump_evaluatee(self):
+        return self.filter(_is_evaluator=False)
+
+    def dump_evaluator(self):
+        return self.filter(_is_evaluator=True)
+
 
 class Employee(Job):
     TITLE = 'Employee'

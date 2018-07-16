@@ -1,9 +1,11 @@
 body {
     margin: 1px;
 }
+
 main {
     margin-right: 5px;
 }
+
 #nav {
     position: sticky;
     top: 0px;
@@ -13,23 +15,35 @@ main {
     justify-content: flex-start;
     align-items: center;
     height: 50px;
-    background-color: SeaGreen;
+    background: linear-gradient(-90deg, rebeccapurple, deepskyblue);
+    box-shadow: 0 10px 30px -1px grey;
 }
+
 a.nav-link {
     text-align: center;
     line-height: 30px;
     text-decoration: none;
     color: White;
     display: inline-block;
-    height: 30px;   
+    height: 30px;
     padding: 10px;
 }
+
 a.nav-link:hover {
     color: Black;
     background-color: LightCyan;
 }
+
 #nav-link-last {
     position: absolute;
-    left: 0px;
+    left: 0;
     padding: 10px;
 }
+
+.back_image {
+    background: url(/static/images/bg.jpg) repeat-y;
+    background-size: auto;
+
+}
+
+

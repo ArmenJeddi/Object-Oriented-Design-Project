@@ -24,8 +24,10 @@
                 <p><label for="id_national_id">رمز عبور:</label> <input type="text" name="password" required
                                                                         id="password_id"/></p>
 
-                <input class='submitButton' onclick="gather_data_and_send()" type="submit" value="ثبت"/>
-
+                <div class="button_holder">
+                    <a class="order-option-link green_back" onclick="gather_data_and_send()"> ثبت </a>
+                    <a class="order-option-link red_back" onclick="go_back()"> بازگشت </a>
+                </div>
             </div>
         </div>
     </div>
@@ -46,27 +48,9 @@
                 unit: unit,
             };
 
-
             let send_data = JSON.stringify(data);
-            console.log(send_data);
-            sendData(send_data, '/management/addEmployee/');
-
+            send_ajax_post('/management/addEmployee/', send_data, true);
         }
-
-        function sendData(data, url) {
-            let xhr = new XMLHttpRequest();
-            xhr.open('POST', url, true);
-            xhr.setRequestHeader("Content-type", "application/json");
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    {#var json = JSON.parse(xhr.responseText);#}
-                    {#console.log(xhr.responseText);#}
-                }
-            };
-            xhr.send(data);
-        }
-
     </script>
 
 {% endblock %}

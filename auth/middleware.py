@@ -1,5 +1,5 @@
 from auth import SESSION_USERNAME_FIELD
-from auth.models import User
+from auth.models import User, UserCatalog
 
 
 class AuthenticationMiddleware:
@@ -9,7 +9,7 @@ class AuthenticationMiddleware:
 
     def __call__(self, request):
         try:
-            request.user = User.objects.get(pk=request.session[SESSION_USERNAME_FIELD])
+            request.user = UserCatalog.get_instance().get_by_username(request.session[SESSION_USERNAME_FIELD])
         except(User.DoesNotExist, KeyError):
             request.user = None
 

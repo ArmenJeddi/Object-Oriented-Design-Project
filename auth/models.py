@@ -84,7 +84,7 @@ class User(models.Model):
         self.save()
 
     def _get_job_title(self):
-        return _job
+        return self._job
 
     def get_username(self):
         return self._username
