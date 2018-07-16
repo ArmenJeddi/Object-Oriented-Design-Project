@@ -1,5 +1,5 @@
 body {
-    font-family: BYekan, 'BYekan', tahoma, serif;
+    font-family: BYekan, 'BYekan', tahoma, serif !important;
 }
 
 .vertical-center {
@@ -18,6 +18,7 @@ body {
     margin: 20px auto auto;
     background-color: #F4F4F4;
     border: 2px solid #B6B6B6;
+    cursor: inherit;
     padding: 20px;
     border-radius: 5px;
     color: black;
@@ -130,10 +131,10 @@ label {
     display: inline;
     float: snap;
     margin: auto;
+    cursor: auto;
     width: 40%;
     padding: 10px;
     font-size: 18px;
-    cursor: pointer;
     transition-property: all;
     transition-duration: 0.2s;
     transition-timing-function: linear;
@@ -208,7 +209,6 @@ label {
 }
 
 table {
-    font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
 }
