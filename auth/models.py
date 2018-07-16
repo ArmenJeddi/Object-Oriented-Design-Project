@@ -86,6 +86,9 @@ class User(models.Model):
     def _get_job_title(self):
         return self._job
 
+    def _set_job_object(self, job):
+        self._job_object = job
+
     def get_username(self):
         return self._username
 
