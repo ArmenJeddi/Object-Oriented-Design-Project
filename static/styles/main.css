@@ -224,3 +224,8 @@ tr:nth-child(even) {
 }
 
 
+.criterion_label {
+    width: 10%;
+}
+
+

@@ -14,18 +14,25 @@
 
             {% for criterion_name in criterion_names %}
 
-                <div class="darkBlock">
-                    <label for="criterion_name">نام معیار ارزیابی</label>
-                    <input type="text" name="criterion_name" disabled value="{{ criterion_name }}"><br>
-                </div>
 
+                <h3 for="criterion_name">معیارهای ارزیابی</h3>
                 <div class="button_holder container">
-                    <a class="order-option-link yellow_back" href="/management/editCriterion/{{ criterion_name }}/"> مشاهده /
+
+                    <label class="darkBlock criterion_label" disabled>{{ criterion_name }}</label><br>
+
+                    <a class="order-option-link yellow_back" href="/management/editCriterion/{{ criterion_name }}/">
+                        مشاهده /
                         ویرایش </a>
-                    <a class="order-option-link red_back" href="/management/removeCriterion/{{ criterion_name }}/"> حذف </a>
+                    <a class="order-option-link red_back" href="/management/removeCriterion/{{ criterion_name }}/">
+                        حذف </a>
                 </div>
             {% endfor %}
+
+            <div class="button_holder">
+                <a class="order-option-link red_back" onclick="go_back()">بازگشت </a>
+            </div>
         </div>
+
     </div>
 {% endblock %}
 
