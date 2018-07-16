@@ -48,7 +48,7 @@ class AddEditCriterionView(ManagerRequiredMixin, View):
                 _beginning=beginning, _end=end
             )
             option.save()
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/management/viewCriterion/')
 
 # json format:
 # {'name': "aaaa", 'qualitative':['aaa', 'aaa'], 'quantitative':[{'name': 'aaa', 'beginning': '1', 'end': 2}]}
