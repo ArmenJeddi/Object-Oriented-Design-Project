@@ -42,10 +42,34 @@ class EmployeeCatalog(JobCatalog):
         self.get(_user=username).delete()
 
     def dump_evaluatee(self):
-        return self.filter(_is_evaluator=False)
+        data = []
+        for job in self.filter(_is_evaluator=False):
+            evaluatee = job.get_user()
+            data.append({
+                'username': evaluatee.get_username(),
+                'name': evaluatee.get_name()
+            })
+        return data
 
     def dump_evaluator(self):
-        return self.filter(_is_evaluator=True)
+        data = []
+        for job in self.filter(_is_evaluator=True):
+            evaluator = job.get_user()
+            data.append({
+                'username': evaluator.get_username(),
+                'name': evaluator.get_name()
+            })
+        return data
+
+    def dump_all(self):
+        data = []
+        for job in self.all():
+            employee = job.get_user()
+            data.append({
+                'username': employee.get_username(),
+                'name': employee.get_name()
+            })
+        return data
 
 
 class Employee(Job):
@@ -65,7 +89,6 @@ class Employee(Job):
     def set_evaluator(self, value):
         self._is_evaluator = value
         self.save()
-
 
 
 Job.set_job_catalog(Employee.TITLE, EmployeeCatalog.get_instance())
