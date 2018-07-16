@@ -29,16 +29,47 @@
 
                         {% if forloop.counter0 == 0 %}
                             <label id='{{ criterion.name }}_reward_label'>پاداش</label>
-                            <input id='{{ criterion.name }}_reward' type="text" value="{{ criterion.reward }}">
-
+                            {% if criterion.reward is None %}
+                                <input id='{{ criterion.name }}_reward' type="text" value="">
+                            {% else %}
+                                <input id='{{ criterion.name }}_reward' type="text" value="{{ criterion.reward }}">
+                            {% endif %}
                             <label id='{{ criterion.name }}_punishment_label'>تنبیه</label>
-                            <input id='{{ criterion.name }}_punishment' type="text" value="{{ criterion.punishment }}">
+                            {% if criterion.punishment is None %}
+                                <input id='{{ criterion.name }}_punishment' type="text" value="">
+                            {% else %}
+                                <input id='{{ criterion.name }}_punishment' type="text" value="{{ criterion.punishment }}">
+                            {% endif %}
+
+                            <div id='{{ criterion.name }}_clear_button' class="button_holder container">
+                                <a class="order-option-link yellow_back" onclick="clear_rnp('{{ criterion.name }}')">
+                                    پاک کردن </a>
+                            </div>
+
                         {% else %}
                             <label id='{{ criterion.name }}_reward_label' style="display: none">پاداش</label>
-                            <input id='{{ criterion.name }}_reward' type="text" style="display: none" value="{{ criterion.reward }}">
-
+                            {% if criterion.reward is None %}
+                                <input id='{{ criterion.name }}_reward' type="text" style="display: none"
+                                   value="">
+                            {% else %}
+                                <input id='{{ criterion.name }}_reward' type="text" style="display: none"
+                                   value="{{ criterion.reward }}">
+                            {% endif %}
                             <label id='{{ criterion.name }}_punishment_label' style="display: none">تنبیه</label>
-                            <input id='{{ criterion.name }}_punishment' type="text" style="display: none" value="{{ criterion.punishment }}">
+                            {% if criterion.punishment is None %}
+                                <input id='{{ criterion.name }}_punishment' type="text" style="display: none"
+                                   value="">
+                            {% else %}
+                                <input id='{{ criterion.name }}_punishment' type="text" style="display: none"
+                                   value="{{ criterion.reward }}">
+                            {% endif %}
+
+
+                            <div id='{{ criterion.name }}_clear_button' class="button_holder container"
+                                 style="display: none">
+                                <a class="order-option-link yellow_back" onclick="clear_rnp('{{ criterion.name }}')">
+                                    پاک کردن </a>
+                            </div>
                         {% endif %}
 
                     {% endfor %}
@@ -56,6 +87,11 @@
     </div>
 
     <script>
+        function clear_rnp(criterion_name) {
+            document.getElementById(`${criterion_name}_reward`).value = '';
+            document.getElementById(`${criterion_name}_punishment`).value = '';
+        }
+
         function select_change() {
 
             let selected_name = document.getElementById('criterion_list').selectedOptions[0].label;
@@ -65,6 +101,7 @@
                 `${selected_name}_reward_label`,
                 `${selected_name}_punishment`,
                 `${selected_name}_punishment_label`,
+                `${selected_name}_clear_button`,
             ];
 
             let option_names = get_option_names();
