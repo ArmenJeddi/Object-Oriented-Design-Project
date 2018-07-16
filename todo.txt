@@ -22,3 +22,4 @@ ui fonts
 
 18
 
+Move reward and punishment to criterion options.

@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class QualitativeOptions(models.Model):
     _criterion = models.ForeignKey('EvaluationCriterion', on_delete=models.CASCADE, related_name='qualitative_list')
     _name = models.CharField(max_length=20)
