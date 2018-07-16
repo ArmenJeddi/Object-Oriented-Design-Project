@@ -1,5 +1,7 @@
 from django.db import models
 
+from rnp.decorators import singleton
+
 
 class QualitativeOptions(models.Model):
     _criterion = models.ForeignKey('EvaluationCriterion', on_delete=models.CASCADE, related_name='qualitative_list')
@@ -25,12 +27,48 @@ class QuantitativeOption(models.Model):
         return self._end
 
 
+@singleton
 class CriterionCatalog(models.Manager):
-    @classmethod
-    def get_instance(cls):
-        if not hasattr(cls, '_instance'):
-            cls._instance = cls()
-        return cls._instance
+
+    def set_reward_method(self, criterion_name, reward_method):
+        criterion = self.get(_name=criterion_name)
+        criterion.set_reward(reward_method)
+        criterion.save()
+
+    def set_punishment_method(self, criterion_name, punishment_method):
+        criterion = self.get(_name=criterion_name)
+        criterion.set_punishment(punishment_method)
+        criterion.save()
+
+    def get_names(self):
+        names = []
+        for criterion in self.all():
+            names.append(criterion.get_name())
+        return names
+
+    def dump_all(self):
+        criterion_array = []
+        for criterion in self.all():
+            criterion_array.append(criterion.dump())
+        return criterion_array
+
+    def dump_by_name(self, name):
+        return self.get(_name=name).dump()
+
+    def delete_if_exists(self, criterion_name):
+        if self.filter(_name=criterion_name).count() != 0:
+            self.get(_name=criterion_name).delete()
+
+    def get_names_and_rnp(self):
+        criteria = []
+        for criterion in self.all():
+            criteria.append({
+                'name': criterion.get_name(),
+                'reward': criterion.get_reward(),
+                'punishment': criterion.get_punishment()
+            })
+
+        return criteria
 
 
 class EvaluationCriterion(models.Model):
@@ -59,39 +97,17 @@ class EvaluationCriterion(models.Model):
         }
         return data
 
+    def set_reward(self, reward):
+        self._reward = reward
+
     def get_reward(self):
         return self._reward
 
+    def set_punishment(self, punishment):
+        self._punishment = punishment
+
     def get_punishment(self):
         return self._punishment
-
-    @classmethod
-    def set_reward_method(cls, criterion_name, reward_method):
-        criterion = cls.objects.get(_name=criterion_name)
-        criterion._reward = reward_method
-        criterion.save()
-
-    @classmethod
-    def set_punishment_method(cls, criterion_name, punishment_method):
-        criterion = cls.objects.get(_name=criterion_name)
-        criterion._punishment = punishment_method
-        criterion.save()
-
-    @classmethod
-    def get_names(cls):
-        return list(cls.objects.all().values_list('_name', flat=True))
-
-    @classmethod
-    def dump_all(cls):
-        criterion_array = []
-        for criterion in cls.objects.all():
-            criterion_array.append(criterion.dump())
-        return criterion_array
-
-    @classmethod
-    def dump_by_name(cls, name):
-        print('nameeeee', name)
-        return cls.objects.get(_name=name).dump()
 
     def get_name(self):
         return self._name
@@ -102,19 +118,3 @@ class EvaluationCriterion(models.Model):
     def get_is_quantitative(self):
         return self._is_quantitative
 
-    @classmethod
-    def delete_if_exists(cls, criterion_name):
-        if cls.objects.filter(_name=criterion_name).count() != 0:
-            cls.objects.get(_name=criterion_name).delete()
-
-    @classmethod
-    def get_names_and_rnp(cls):
-        criteria = []
-        for criterion in cls.objects.all():
-            criteria.append({
-                'name': criterion.get_name(),
-                'reward': criterion.get_reward(),
-                'punishment': criterion.get_punishment()
-            })
-
-        return criteria

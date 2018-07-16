@@ -1,14 +1,11 @@
 from django.db import models
 
 from management.models import Employee
+from rnp.decorators import singleton
 
 
+@singleton
 class AssignmentCatalog(models.Manager):
-    @classmethod
-    def get_instance(cls):
-        if not hasattr(cls, '_instance'):
-            cls._instance = cls()
-        return cls._instance
 
     def get_evaluatee_list(self, evaluator):
         data = []
