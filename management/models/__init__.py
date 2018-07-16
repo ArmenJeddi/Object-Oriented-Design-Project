@@ -1,3 +1,3 @@
 from .criterion import EvaluationCriterion
-from .employee import Employee
+from .jobs import Employee, Manager
 from eval.models.evaluation import Evaluation
