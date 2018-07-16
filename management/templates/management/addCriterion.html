@@ -119,7 +119,6 @@
         function populate_options() {
             let qual_options = django_var_parse('{{ qualitative }}');
             let quan_options = django_var_parse('{{ quantitative }}');
-            debugger;
 
             for (let option in qual_options) {
                 add_option_to_dom(false, qual_options[option], 0, 0);
@@ -222,8 +221,6 @@
         }
 
         function pack_and_submit() {
-
-            debugger;
 
             const criterion_name = document.getElementById('criterion_name').value;
 
