@@ -6,11 +6,11 @@ from django.views.generic import CreateView
 
 from management.mixins import ManagerRequiredMixin
 from management.models import EvaluationCriterion
-from management.models.criterion import QuantitativeOption, QualitativeOptions
+from management.models.criterion import QuantitativeOption, QualitativeOptions, CriterionCatalog
 import json
 
 
 class RemoveCriterionView(ManagerRequiredMixin, View):
     def get(self, request, criterion_name):
-        EvaluationCriterion.delete_if_exists(criterion_name)
-        return redirect('/')
+        CriterionCatalog.get_instance().delete_if_exists(criterion_name)
+        return redirect('/management/viewCriterion/')

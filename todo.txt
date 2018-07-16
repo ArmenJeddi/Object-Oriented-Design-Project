@@ -1,7 +1,6 @@
 پکیج بندی
 errors
 فقط یک ارزیابی به ازای هر کارمند وجود دارد - add a timestamp to evaluation object
-تکراری بودن نام معیار
 ولید بودن کد ملی
 
 oneToOne
@@ -20,10 +19,13 @@ back button
 
 ui fonts
 
-18
-
 Move reward and punishment to criterion options.
 
-authorization
+authorization test
 
 criterion edit name  error
+criterion delete error
+
+add rnp method in add criterion
+
+آپدیت ریسک‌ها
