@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class QualitativeOptions(models.Model):
     _criterion = models.ForeignKey('EvaluationCriterion', on_delete=models.CASCADE, related_name='qualitative_list')
     _name = models.CharField(max_length=20)
@@ -24,7 +25,16 @@ class QuantitativeOption(models.Model):
         return self._end
 
 
+class CriterionCatalog(models.Manager):
+    @classmethod
+    def get_instance(cls):
+        if not hasattr(cls, '_instance'):
+            cls._instance = cls()
+        return cls._instance
+
+
 class EvaluationCriterion(models.Model):
+    objects = CriterionCatalog.get_instance()
     _is_qualitative = models.BooleanField(default=False)
     _is_quantitative = models.BooleanField(default=True)
     _name = models.CharField(max_length=100, unique=True)
@@ -71,10 +81,6 @@ class EvaluationCriterion(models.Model):
     def get_names(cls):
         return list(cls.objects.all().values_list('_name', flat=True))
 
-    # @classmethod
-    # def get_by_name(cls, criterion_name: object):
-    #     return cls.objects.get(_name=criterion_name)
-
     @classmethod
     def dump_all(cls):
         criterion_array = []
@@ -103,15 +109,12 @@ class EvaluationCriterion(models.Model):
 
     @classmethod
     def get_names_and_rnp(cls):
-        criteria = [{'name': '1', 'reward': 'aaa', 'punishment': 'bbb'},
-                    {'name': '3', 'reward': 'aaa', 'punishment': 'bbb'},
-                    {'name': '2', 'reward': 'aaa', 'punishment': 'bbb'},
-                    {'name': '4', 'reward': 'aaa', 'punishment': 'bbb'}]
-        # for criterion in cls.objects.all():
-        #     criteria.append({
-        #         'name': criterion.get_name(),
-        #         'reward': criterion.get_reward(),
-        #         'punishment': criterion.get_punishment()
-        #     })
+        criteria = []
+        for criterion in cls.objects.all():
+            criteria.append({
+                'name': criterion.get_name(),
+                'reward': criterion.get_reward(),
+                'punishment': criterion.get_punishment()
+            })
 
         return criteria
