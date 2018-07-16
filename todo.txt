@@ -25,3 +25,7 @@ authorization test
 
 criterion edit name  error
 criterion delete error
+
+add rnp method in add criterion
+
+آپدیت ریسک‌ها
