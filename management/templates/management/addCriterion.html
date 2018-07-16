@@ -74,7 +74,7 @@
                             <td id="start_value">{{ option.beginning }}</td>
                             <td id="end_value">{{ option.end }}</td>
                             <td>
-                                <button onclick="delete_dom_parent(this.parent)">حذف</button>
+                                <button onclick="delete_dom_parent(this.parentNode)">حذف</button>
                             </td>
                         </tr>{% endfor %}
                 </table>
@@ -93,7 +93,7 @@
                         <tr id="{{ forloop.counter0 }}">
                             <td id="option_name">{{ option }}</td>
                             <td>
-                                <button onclick="delete_dom_parent(this.parent)">حذف</button>
+                                <button onclick="delete_dom_parent(this.parentNode)">حذف</button>
                             </td>
                         </tr>{% endfor %}
                 </table>
