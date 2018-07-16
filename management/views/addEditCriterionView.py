@@ -14,7 +14,7 @@ class AddEditCriterionView(ManagerRequiredMixin, View):
     # template_name = 'management/addCriterion.html'
     # fields = ['name', 'national_id']
     # success_url = '/'
-    def get(self, request, criterion_name):
+    def get(self, request, criterion_name=None):
         # criterion_name = request.GET.get('criterion_name')
         # criterion_name =
         data = None

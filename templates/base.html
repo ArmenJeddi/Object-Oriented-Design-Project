@@ -24,4 +24,50 @@
     {% endblock %}
 </main>
 </body>
+
+<script>
+
+    function go_back() {
+        window.history.back();
+    }
+
+    function cancel() {
+        window.location = '/';
+    }
+
+    function send_ajax_post(url, data, redirect) {
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader("Content-type", "application/json");
+
+        xhr.onreadystatechange = function () {
+            if (redirect && xhr.readyState === 4 && xhr.status === 200) {
+                window.location = xhr.responseURL;
+            }
+        };
+        xhr.send(data);
+    }
+
+    function delete_dom(element) {
+        let parent = element.parentNode;
+        parent.removeChild(element);
+    }
+
+    function delete_dom_parent(element) {
+        let parent = element.parentNode;
+        let grand_parent = parent.parentNode;
+        grand_parent.removeChild(parent);
+    }
+
+    function django_var_parse(string) {
+        return JSON.parse(string.replace(/&#39;/g, '"'));
+    }
+
+</script>
+
+<script>
+    {% block script %}
+    {% endblock %}
+</script>
+
 </html>

@@ -4,7 +4,8 @@ from django.template.loader import get_template
 from django.views.generic import CreateView
 
 from management.mixins import ManagerRequiredMixin
-from ..models import Employee, Evaluator
+from ..models import Employee
+from management.models.evaluator import Evaluator
 
 
 class AddEvaluatorView(ManagerRequiredMixin, View):

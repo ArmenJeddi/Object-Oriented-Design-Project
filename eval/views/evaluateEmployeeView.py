@@ -6,7 +6,9 @@ from django.views.generic import CreateView
 
 from eval.mixins import EvaluatorRequiredMixin
 from management.mixins import ManagerRequiredMixin
-from management.models import EvaluationCriterion, Evaluator, Evaluatee
+from management.models import EvaluationCriterion
+from management.models.evaluator import Evaluator
+from management.models.evaluatee import  Evaluatee
 from management.models.criterion import QuantitativeOption, QualitativeOptions
 import json
 

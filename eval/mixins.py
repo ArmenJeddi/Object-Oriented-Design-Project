@@ -1,5 +1,5 @@
 from auth.mixins import LoginRequiredMixin
-from management.models import Evaluator
+from management.models.evaluator import Evaluator
 
 
 class EvaluatorRequiredMixin(LoginRequiredMixin):

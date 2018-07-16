@@ -1,7 +1,8 @@
 from django.db import models
 
 from eval.models.evaluation import Evaluation
-from management.models import Employee, Evaluatee
+from management.models import Employee
+from management.models.evaluatee import Evaluatee
 
 
 class Evaluator(models.Model):

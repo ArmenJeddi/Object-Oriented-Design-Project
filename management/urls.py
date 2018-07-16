@@ -20,7 +20,7 @@ urlpatterns = [
     # path('deleteEvaluator/<str:username>/', DeleteEvaluatorView.as_view()),
     path('listEmployees/', EmployeeListView.as_view()),
     path('evaluate/', EvaluateEmployeeView.as_view()),
-    path('addRNPMethod/', AddRNPMethodView.as_view()),
+    path('addrnp/', AddRNPMethodView.as_view()),
     path('viewEvaluation/', ViewEvaluationView.as_view()),
 
 ]

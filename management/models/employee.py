@@ -1,7 +1,7 @@
 from django.db import models
 
 from auth.models import User
-from management.models import Evaluatee
+from management.models.evaluatee import Evaluatee
 
 
 class Employee(User):
