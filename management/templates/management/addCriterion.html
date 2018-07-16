@@ -111,11 +111,6 @@
     <script>
         populate_options();
 
-        function django_var_parse(string) {
-            let result = JSON.parse(string.replace(/&#39;/g, '"'));
-            return result;
-        }
-
         function populate_options() {
             let qual_options = django_var_parse('{{ qualitative }}');
             let quan_options = django_var_parse('{{ quantitative }}');
@@ -257,7 +252,7 @@
 
 
             let send_data = JSON.stringify(data);
-            console.log(send_data);
+            {#console.log(send_data);#}
             send_ajax_post('/management/addCriterion/', send_data, true);
         }
     </script>
