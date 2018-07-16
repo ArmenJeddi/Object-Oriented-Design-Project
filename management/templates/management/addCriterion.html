@@ -68,15 +68,15 @@
                         <th>پایان بازه</th>
                         <th>اقدام</th>
                     </tr>
-                    {% for option in quantitative %}
-                        <tr id="{{ forloop.counter0 }}">
-                            <td id="option_name">{{ option.name }}</td>
-                            <td id="start_value">{{ option.beginning }}</td>
-                            <td id="end_value">{{ option.end }}</td>
-                            <td>
-                                <button onclick="delete_dom_parent(this.parentNode)">حذف</button>
-                            </td>
-                        </tr>{% endfor %}
+                    {#                    {% for option in quantitative %}#}
+                    {#                        <tr id="{{ forloop.counter0 }}">#}
+                    {#                            <td id="option_name">{{ option.name }}</td>#}
+                    {#                            <td id="start_value">{{ option.beginning }}</td>#}
+                    {#                            <td id="end_value">{{ option.end }}</td>#}
+                    {#                            <td>#}
+                    {#                                <button onclick="delete_dom_parent(this.parentNode)">حذف</button>#}
+                    {#                            </td>#}
+                    {#                        </tr>{% endfor %}#}
                 </table>
 
                 <h5>گزینه‌های کیفی</h5>
@@ -89,13 +89,13 @@
                         <th>نام گزینه</th>
                         <th>اقدام</th>
                     </tr>
-                    {% for option in qualitative %}
-                        <tr id="{{ forloop.counter0 }}">
-                            <td id="option_name">{{ option }}</td>
-                            <td>
-                                <button onclick="delete_dom_parent(this.parentNode)">حذف</button>
-                            </td>
-                        </tr>{% endfor %}
+                    {#                    {% for option in qualitative %}#}
+                    {#                        <tr id="{{ forloop.counter0 }}">#}
+                    {#                            <td id="option_name">{{ option }}</td>#}
+                    {#                            <td>#}
+                    {#                                <button onclick="delete_dom_parent(this.parentNode)">حذف</button>#}
+                    {#                            </td>#}
+                    {#                        </tr>{% endfor %}#}
                 </table>
 
             </div>
@@ -109,10 +109,25 @@
 
 
     <script>
-        console.log(django_var_parse({{ name }}));
+        populate_options();
 
         function django_var_parse(string) {
-            return JSON.parse(string.replace(/&#39;/g, '"'));
+            let result = JSON.parse(string.replace(/&#39;/g, '"'));
+            return result;
+        }
+
+        function populate_options() {
+            let qual_options = django_var_parse('{{ qualitative }}');
+            let quan_options = django_var_parse('{{ quantitative }}');
+            debugger;
+
+            for (let option in qual_options) {
+                add_option_to_dom(false, qual_options[option].name, 0, 0);
+            }
+
+            for (let option in quan_options) {
+                add_option_to_dom(true, quan_options[option].name, quan_options[option].beginning, quan_options[option].end);
+            }
         }
 
         function toggle_qualitative() {
@@ -144,12 +159,16 @@
 
         function add_option() {
             const is_quantitative = document.getElementById('quan').checked;
-            let id;
             const option_name = document.getElementById('option_name').value,
                 start_value = document.getElementById('range_start').value,
                 end_vaule = document.getElementById('range_end').value;
 
-            const space_separator = '    ';
+            add_option_to_dom(is_quantitative, option_name, start_value, end_vaule)
+        }
+
+        function add_option_to_dom(is_quantitative, option_name, start_value, end_vaule) {
+
+            let id;
 
             if (is_quantitative) {
                 id = get_quan_count();
@@ -238,7 +257,6 @@
                 qualitative: qual_options,
                 quantitative: quan_options
             };
-
 
 
             let send_data = JSON.stringify(data);
