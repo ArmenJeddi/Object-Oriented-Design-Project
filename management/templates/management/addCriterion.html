@@ -102,6 +102,7 @@
             <hr>
             <div class="button_holder">
                 <button class="submitButton green_back" onclick="pack_and_submit()">ثبت</button>
+                <button class="submitButton red_back" onclick="go_back()">بازگشت</button>
             </div>
         </div>
     </div>
@@ -242,7 +243,7 @@
 
             let send_data = JSON.stringify(data);
             console.log(send_data);
-            send_ajax_post('/management/addCriterion/', send_data, true);
+            send_ajax_post('/management/addCriterion/', send_data, false);
         }
     </script>
 
