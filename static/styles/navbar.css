@@ -16,7 +16,7 @@ main {
     align-items: center;
     height: 50px;
     background: linear-gradient(-90deg, rebeccapurple, deepskyblue);
-    box-shadow: 0 10px 30px -1px grey;
+    box-shadow: 0 10px 30px -1px steelblue;
 }
 
 a.nav-link {

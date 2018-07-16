@@ -13,7 +13,7 @@
 
 
             <div class="content-page">
-                <label for="criterion_list">Select Criterion:</label>
+                <label for="criterion_list">معیار ارزیابی</label>
                 <select id="criterion_list" onchange="select_change()">
                     {% for criterion in criteria %}
                         <option id='{{ criterion.name }}_select'
@@ -28,24 +28,24 @@
                     {% for criterion in criteria %}
 
                         {% if forloop.counter0 == 0 %}
-                            <label id='{{ criterion.name }}_reward_label'>Reward</label>
-                            <input id='{{ criterion.name }}_reward' type="text">
+                            <label id='{{ criterion.name }}_reward_label'>پاداش</label>
+                            <input id='{{ criterion.name }}_reward' type="text" value="{{ criterion.reward }}">
 
-                            <label id='{{ criterion.name }}_punishment_label'>Punishment</label>
-                            <input id='{{ criterion.name }}_punishment' type="text">
+                            <label id='{{ criterion.name }}_punishment_label'>تنبیه</label>
+                            <input id='{{ criterion.name }}_punishment' type="text" value="{{ criterion.punishment }}">
                         {% else %}
-                            <label id='{{ criterion.name }}_reward_label' style="display: none">Reward</label>
-                            <input id='{{ criterion.name }}_reward' type="text" style="display: none">
+                            <label id='{{ criterion.name }}_reward_label' style="display: none">پاداش</label>
+                            <input id='{{ criterion.name }}_reward' type="text" style="display: none" value="{{ criterion.reward }}">
 
-                            <label id='{{ criterion.name }}_punishment_label' style="display: none">Punishment</label>
-                            <input id='{{ criterion.name }}_punishment' type="text" style="display: none">
+                            <label id='{{ criterion.name }}_punishment_label' style="display: none">تنبیه</label>
+                            <input id='{{ criterion.name }}_punishment' type="text" style="display: none" value="{{ criterion.punishment }}">
                         {% endif %}
 
                     {% endfor %}
 
                     <div class="button_holder container">
-                        <button class="submitButton green_back" onclick="pack_and_submit()">ثبت</button>
-                        <button class="submitButton red_back" onclick="go_back()">بازگشت</button>
+                        <a class="order-option-link green_back" onclick="pack_and_submit()"> ثبت </a>
+                        <a class="order-option-link red_back" onclick="go_back()"> بازگشت </a>
                     </div>
 
                 </div>
