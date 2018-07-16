@@ -19,8 +19,11 @@
                     <input type="text" name="criterion_name" disabled value="{{ criterion_name }}"><br>
                 </div>
 
-                <a class="submitButton" href="/management/editCriterion/{{ criterion_name }}/"> مشاهده / ویرایش </a>
-                <a class="submitButton" href="/management/removeCriterion/{{ criterion_name }}/"> حذف </a>
+                <div class="button_holder container">
+                    <a class="order-option-link yellow_back" href="/management/editCriterion/{{ criterion_name }}/"> مشاهده /
+                        ویرایش </a>
+                    <a class="order-option-link red_back" href="/management/removeCriterion/{{ criterion_name }}/"> حذف </a>
+                </div>
             {% endfor %}
         </div>
     </div>
