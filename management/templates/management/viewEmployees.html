@@ -20,23 +20,33 @@
                         اطلاعات هر فرد، اطلاعات وی را ویرایش کنید.</p>
                 </blockquote>
 
-                <div class='ObjectList'>
-                    <ul class='unordered'>
+                <table id="quan_options">
+                    <col width="48%">
+                    <col width="42%">
+                    <col width="10%">
+                    <tr>
+                        <th>نام کارمند</th>
+                        <th>شماره‌ی ملی</th>
+                        <th>اقدام</th>
+                    </tr>
+                    {% for employee in employees %}
+                        <tr>
+                            <td>{{ employee.name }}</td>
+                            <td>{{ employee.username }}</td>
+                            <td>
+                                <button onclick="delete_employee({{ forloop.counter0 }}, this.parentNode)">حذف</button>
+                            </td>
+                        </tr>{% endfor %}
+                </table>
 
-                        {% for employee in employees %}
-                            <li class='person_member'>
-                                <span class='employee-name'>{{ employee.name }}</span>
-                                <span class='employee-id'>{{ employee.username }}</span>
-                                <button type="submit" onclick="delete_employee({{ forloop.counter0 }}, this)">delete</button>
-                            </li>
-                        {% endfor %}
 
-                    </ul>
+                <div class="button_holder container">
+                    <a class='order-option-link green_back' href="/management/addEmployee/"><span
+                            class='productButtons'>افزودن کارمند</span></a>
+                    <a class='order-option-link red_back' onclick="go_back()"><span
+                            class='productButtons'>بازگشت</span></a>
                 </div>
 
-                <div class='task-option'>
-                    <a class='order-option-link' href="/management/addEmployee/"><span class='productButtons'>افزودن کارمند</span></a>
-                </div>
 
             </div>
         </div>
