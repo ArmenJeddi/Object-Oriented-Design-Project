@@ -53,7 +53,7 @@ class UserCatalog(models.Manager):
         user.save()
         return user
 
-    def delete(self, username):
+    def delete_by_username(self, username):
         user = self.get(_username=username)
         job_title = user._get_job_title()
         if job_title:

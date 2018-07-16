@@ -1,8 +1,9 @@
 from .index import IndexView
-from .addEmployee import AddEmployeeView
+from .employee_create import EmployeeCreateView
 # from .manage_evaluators import ManageEvaluatorsView, AddEvaluatorView,\
 #     DeleteEvaluatorView
-from .viewEmployees import EmployeeListView
+from .employee_list import EmployeeListView
+from .employee_delete import EmployeeDeleteView
 from .addEvaluatorView import AddEvaluatorView
 from .removeEvaluatorView import RemoveEvaluatorView
 from .viewEvaluatorView import ViewEvaluatorView
