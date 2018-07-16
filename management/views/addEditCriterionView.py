@@ -6,14 +6,14 @@ from django.views import View
 
 from management.mixins import ManagerRequiredMixin
 from management.models import EvaluationCriterion
-from management.models.criterion import QuantitativeOption, QualitativeOptions
+from management.models.criterion import QuantitativeOption, QualitativeOptions, CriterionCatalog
 
 
 class AddEditCriterionView(ManagerRequiredMixin, View):
-    def get(self, request, criterion_name):
+    def get(self, request, criterion_name=None):
         data = None
         if criterion_name is not None:
-            data = EvaluationCriterion.dump_by_name(criterion_name)
+            data = CriterionCatalog.get_instance().dump_by_name(criterion_name)
 
         t = get_template('management/addCriterion.html')
         html = t.render(data, request)
@@ -24,7 +24,9 @@ class AddEditCriterionView(ManagerRequiredMixin, View):
         criterion_name = json_data['name']
         qualitative_values = json_data['qualitative']
         quantitative_values = json_data['quantitative']
-        EvaluationCriterion.delete_if_exists(criterion_name)
+        print(qualitative_values)
+        print(quantitative_values)
+        CriterionCatalog.get_instance().delete_if_exists(criterion_name)
         is_quantitative = (len(quantitative_values) != 0)
         is_qualitative = (len(qualitative_values) != 0)
         criterion = EvaluationCriterion(
