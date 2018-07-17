@@ -1,13 +1,10 @@
 from django.db import models
-from auth.models import User, Job, JobCatalog
+from auth.models import Job, JobCatalog
 from rnp.decorators import singleton
 
 
 @singleton
 class ManagerCatalog(JobCatalog):
-
-    def get_by_username(self, username):
-        return self.get(_user=username)
 
     def create(self, user):
         manager = Manager(_user=user)
@@ -15,9 +12,6 @@ class ManagerCatalog(JobCatalog):
         manager.save(force_insert=True)
         user.set_job(manager)
         return manager
-
-    def delete_by_username(self, username):
-        self.get(_user=username).delete()
 
 
 class Manager(Job):
@@ -32,18 +26,12 @@ Job.set_job_catalog(Manager.get_title(), ManagerCatalog.get_instance())
 @singleton
 class EmployeeCatalog(JobCatalog):
 
-    def get_by_username(self, username):
-        return self.get(_user=username)
-
     def create(self, user, unit, is_evaluator=False):
         employee = Employee(_unit=unit, _user=user, _is_evaluator=is_evaluator)
         employee.full_clean()
         employee.save(force_insert=True)
         user.set_job(employee)
         return employee
-
-    def delete_by_username(self, username):
-        self.get(_user=username).delete()
 
     def dump_evaluatee(self):
         data = []

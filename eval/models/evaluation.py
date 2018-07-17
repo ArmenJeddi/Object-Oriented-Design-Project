@@ -1,6 +1,5 @@
 from django.db import models
 from auth.models import User
-from management.models.jobs import EmployeeCatalog
 from rnp.decorators import singleton
 
 
