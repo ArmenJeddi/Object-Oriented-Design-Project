@@ -1,6 +1,7 @@
 from django.urls import path
 
 from eval.views.evaluateEmployeeView import EvaluateEmployeeView
+from management.views.removeAssignmentView import RemoveAssignmentView
 from management.views.viewCriteriaDetailedView import ViewCriterionDetailedView
 from management.views.viewCriterionListView import ViewCriterionListView
 from management.views.viewEvaluationView import ViewEvaluationView
@@ -22,5 +23,6 @@ urlpatterns = [
     path('addrnp/', AddRNPMethodView.as_view()),
     path('viewEvaluation/', ViewEvaluationView.as_view()),
     path('assignEvaluatorToEmployee/', AssignEvaluatorToEmployee.as_view()),
+    path('removeAssignment/', RemoveAssignmentView.as_view()),
     path('viewCriterionDetailed/', ViewCriterionDetailedView.as_view()),
 ]
