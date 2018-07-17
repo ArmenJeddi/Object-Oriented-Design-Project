@@ -41,13 +41,10 @@
                     <tr>
                         <th>نام گزینه</th>
                     </tr>
-                    {#                    {% for option in qualitative %}#}
-                    {#                        <tr id="{{ forloop.counter0 }}">#}
-                    {#                            <td id="option_name">{{ option }}</td>#}
-                    {#                            <td>#}
-                    {#                                <button onclick="delete_dom_parent(this.parentNode)">حذف</button>#}
-                    {#                            </td>#}
-                    {#                        </tr>{% endfor %}#}
+                    {% for option in criterion.qualitative %}
+                        <tr>
+                            <td id="option_name">{{ option }}</td>
+                        </tr>{% endfor %}
                 </table>
 
                 </div>
@@ -60,157 +57,6 @@
             <a class="order-option-link red_back" onclick="go_back()"> بازگشت </a>
         </div>
     </div>
-{% endblock %}
-
-{% block script %}
-    <script>
-        populate_options();
-
-        function populate_options() {
-            let qual_options = django_var_parse('{{ qualitative }}');
-            let quan_options = django_var_parse('{{ quantitative }}');
-
-            for (let option in qual_options) {
-                add_option_to_dom(false, qual_options[option], 0, 0);
-            }
-
-            for (let option in quan_options) {
-                add_option_to_dom(true, quan_options[option].name, quan_options[option].beginning, quan_options[option].end);
-            }
-        }
-
-        function toggle_qualitative() {
-            let range_start_element = document.getElementById('range_start');
-            let range_end_element = document.getElementById('range_end');
-            let range_start_label_element = document.getElementById('range_start_label');
-            let range_end_label_element = document.getElementById('range_end_label');
-
-            if (range_start_element.style.display === 'block' || range_start_element.style.display === '') {
-                range_start_element.style.display = 'none';
-                range_end_element.style.display = 'none';
-                range_start_label_element.style.display = 'none';
-                range_end_label_element.style.display = 'none';
-            } else {
-                range_start_element.style.display = 'block';
-                range_end_element.style.display = 'block';
-                range_start_label_element.style.display = 'block';
-                range_end_label_element.style.display = 'block';
-            }
-        }
-
-        function get_qual_count() {
-            return document.getElementById('qual_options').childElementCount;
-        }
-
-        function get_quan_count() {
-            return document.getElementById('quan_options').childElementCount;
-        }
-
-        function add_option() {
-            const is_quantitative = document.getElementById('quan').checked;
-            const option_name = document.getElementById('option_name').value,
-                start_value = document.getElementById('range_start').value,
-                end_vaule = document.getElementById('range_end').value;
-
-            add_option_to_dom(is_quantitative, option_name, start_value, end_vaule)
-        }
-
-        function add_option_to_dom(is_quantitative, option_name, start_value, end_vaule) {
-
-            let id;
-
-            if (is_quantitative) {
-                id = get_quan_count();
-            } else {
-                id = get_qual_count();
-            }
-
-            const tr_element = document.createElement('tr');
-            tr_element.setAttribute('id', id);
-
-
-            let button_element = document.createElement('button');
-            button_element.setAttribute('onclick', "delete_dom_parent(this.parentNode)");
-            button_element.appendChild(document.createTextNode('حذف'));
-
-            let button_td = document.createElement('td');
-            button_td.appendChild(button_element);
-
-
-            let option_name_element = document.createElement('td');
-            option_name_element.setAttribute('id', 'option_name');
-            option_name_element.appendChild(document.createTextNode(option_name));
-
-            tr_element.appendChild(option_name_element);
-
-            if (is_quantitative) {
-
-                let start_value_element = document.createElement('td');
-                start_value_element.setAttribute('id', 'start_value');
-                start_value_element.appendChild(document.createTextNode(start_value));
-
-
-                let end_value_element = document.createElement('td');
-                end_value_element.setAttribute('id', 'end_value');
-                end_value_element.appendChild(document.createTextNode(end_vaule));
-
-
-                tr_element.appendChild(start_value_element);
-                tr_element.appendChild(end_value_element);
-            }
-
-            tr_element.appendChild(button_td);
-
-            if (is_quantitative) {
-                document.getElementById('quan_options').appendChild(tr_element);
-            } else {
-                document.getElementById('qual_options').appendChild(tr_element);
-            }
-
-            return false;
-        }
-
-        function pack_and_submit() {
-
-            const criterion_name = document.getElementById('criterion_name').value;
-
-            let qual_options_dom = Array.prototype.slice.call(
-                document.getElementById('qual_options').childNodes
-            ).slice(3);
-
-            let quan_options_dom = Array.prototype.slice.call(
-                document.getElementById('quan_options').childNodes
-            ).slice(3);
-
-
-            let qual_options = qual_options_dom.map(function (value) {
-                return value.querySelector('#option_name').innerHTML;
-            });
-
-            let quan_options = quan_options_dom.map(function (value) {
-                let option_name = value.querySelector('#option_name').innerHTML;
-                let start_value = value.querySelector('#start_value').innerHTML;
-                let end_value = value.querySelector('#end_value').innerHTML;
-
-                return {
-                    name: option_name,
-                    beginning: start_value,
-                    end: end_value
-                }
-            });
-
-            const data = {
-                name: criterion_name,
-                qualitative: qual_options,
-                quantitative: quan_options
-            };
-
-
-            let send_data = JSON.stringify(data);
-            {#console.log(send_data);#}
-            send_ajax_post('/management/addCriterion/', send_data, true);
-        }
-    </script>
 {% endblock %}
 
 
