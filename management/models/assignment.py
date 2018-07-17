@@ -18,8 +18,7 @@ class AssignmentCatalog(models.Manager):
             })
         return data
 
-    @staticmethod
-    def add_assignment(evaluator_username, evaluatee_username):
+    def add_assignment(self, evaluator_username, evaluatee_username):
         evaluator = UserCatalog.get_instance().get_by_username(evaluator_username)
         evaluatee = UserCatalog.get_instance().get_by_username(evaluatee_username)
         assignment = Assignment(_evaluator=evaluator, _evaluatee=evaluatee)

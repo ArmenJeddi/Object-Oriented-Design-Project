@@ -30,16 +30,6 @@ class QuantitativeOption(models.Model):
 @singleton
 class CriterionCatalog(models.Manager):
 
-    def set_reward_method(self, criterion_name, reward_method):
-        criterion = self.get(_name=criterion_name)
-        criterion.set_reward(reward_method)
-        criterion.save()
-
-    def set_punishment_method(self, criterion_name, punishment_method):
-        criterion = self.get(_name=criterion_name)
-        criterion.set_punishment(punishment_method)
-        criterion.save()
-
     def get_names(self):
         names = []
         for criterion in self.all():
