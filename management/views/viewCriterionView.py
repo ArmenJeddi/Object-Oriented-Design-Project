@@ -1,13 +1,9 @@
 from django.http import HttpResponse
 from django.template.loader import get_template
 from django.views import View
-from django.views.generic import CreateView
 
 from auth.mixins import LoginRequiredMixin
-from management.mixins import ManagerRequiredMixin
-from management.models import EvaluationCriterion
-from management.models.criterion import QuantitativeOption, QualitativeOptions, CriterionCatalog
-import json
+from management.models.criterion import CriterionCatalog
 
 
 class ViewCriterionView(LoginRequiredMixin, View):

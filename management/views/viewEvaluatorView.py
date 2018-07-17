@@ -1,10 +1,9 @@
-from django.views import View
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.template.loader import get_template
+from django.views import View
 
 from management.mixins import ManagerRequiredMixin
 from management.models.jobs import EmployeeCatalog
-from ..models import Employee
 
 
 class ViewEvaluatorView(ManagerRequiredMixin, View):

@@ -1,10 +1,9 @@
 from django.http import HttpResponse
 from django.template.loader import get_template
 from django.views import View
+
 from eval.mixins import EvaluatorRequiredMixin
 from eval.models.evaluation import EvaluationCatalog
-from management.models import EvaluationCriterion
-import json
 
 
 class EvaluationResultView(EvaluatorRequiredMixin, View):

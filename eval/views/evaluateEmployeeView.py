@@ -1,10 +1,11 @@
+import json
+
 from django.http import HttpResponse
 from django.template.loader import get_template
 from django.views import View
+
 from eval.mixins import EvaluatorRequiredMixin
 from eval.models.evaluation import EvaluationCatalog
-import json
-
 from management.models.assignment import AssignmentCatalog
 from management.models.criterion import CriterionCatalog
 from management.models.jobs import EmployeeCatalog

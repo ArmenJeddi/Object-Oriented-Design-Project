@@ -1,11 +1,11 @@
 import json
 
-from django.views import View
 from django.http import HttpResponseRedirect
+from django.views import View
 
+from auth.models import UserCatalog
 from management.mixins import ManagerRequiredMixin
 from management.models.jobs import Employee
-from auth.models import UserCatalog
 
 
 class EmployeeDeleteView(ManagerRequiredMixin, View):

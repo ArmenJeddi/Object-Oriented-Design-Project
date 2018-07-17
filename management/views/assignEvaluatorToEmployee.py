@@ -1,13 +1,12 @@
 import json
 
-from django.views import View
 from django.http import HttpResponse
 from django.template.loader import get_template
+from django.views import View
 
 from management.mixins import ManagerRequiredMixin
-from management.models.assignment import Assignment, AssignmentCatalog
+from management.models.assignment import AssignmentCatalog
 from management.models.jobs import EmployeeCatalog
-from ..models import Employee
 
 
 class AssignEvaluatorToEmployee(ManagerRequiredMixin, View):

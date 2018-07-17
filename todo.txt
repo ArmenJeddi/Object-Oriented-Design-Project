@@ -31,3 +31,5 @@ add rnp method in add criterion
 آپدیت ریسک‌ها
 
 request.user نقض encapsulation(mixin)
+
+نام‌کاربری یا کلمه عبور نادرست است

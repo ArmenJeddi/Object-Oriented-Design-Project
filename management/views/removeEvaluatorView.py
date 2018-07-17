@@ -1,11 +1,8 @@
+from django.http import HttpResponseRedirect
 from django.views import View
-from django.http import HttpResponse, HttpResponseRedirect
-from django.template.loader import get_template
-from django.views.generic import DeleteView
 
 from management.mixins import ManagerRequiredMixin
 from management.models.jobs import EmployeeCatalog
-from ..models import Employee
 
 
 class RemoveEvaluatorView(ManagerRequiredMixin, View):

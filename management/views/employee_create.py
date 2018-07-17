@@ -3,9 +3,9 @@ import json
 from django.shortcuts import render, redirect
 from django.views import View
 
-from management.models.jobs import EmployeeCatalog
 from auth.models import UserCatalog
 from management.mixins import ManagerRequiredMixin
+from management.models.jobs import EmployeeCatalog
 
 
 class EmployeeCreateView(ManagerRequiredMixin, View):

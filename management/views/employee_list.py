@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.views.generic.base import View
 
-from management.models.jobs import EmployeeCatalog
 from management.mixins import ManagerRequiredMixin
+from management.models.jobs import EmployeeCatalog
 
 
 class EmployeeListView(ManagerRequiredMixin, View):

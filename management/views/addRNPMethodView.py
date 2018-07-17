@@ -1,11 +1,8 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import get_template
 from django.views import View
-from django.views.generic import CreateView
-
-from management.models import Employee
 from management.mixins import ManagerRequiredMixin
-from management.models.criterion import QualitativeOptions, EvaluationCriterion, CriterionCatalog
+from management.models.criterion import CriterionCatalog
 
 
 class AddRNPMethodView(ManagerRequiredMixin, View):
@@ -27,7 +24,6 @@ class AddRNPMethodView(ManagerRequiredMixin, View):
         criterion_name = request.POST.get('criterion_names')
         reward_method = request.POST.get('reward_method')
         punishment_method = request.POST.get('punishment_method')
-        # criterion = EvaluationCriterion.get_by_name(criterion_name)
         criterion_catalog.set_reward_method(criterion_name, reward_method)
         criterion_catalog.set_punishment_method(criterion_name, punishment_method)
         return HttpResponseRedirect('/')

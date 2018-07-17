@@ -15,8 +15,6 @@ urlpatterns = [
     path('viewCriterion/', ViewCriterionView.as_view()),
     path('removeCriterion/<str:criterion_name>/', RemoveCriterionView.as_view()),
     path('removeEmployee/', EmployeeDeleteView.as_view()),
-    # path('addEvaluator/<str:username>/', AddEvaluatorView.as_view()),
-    # path('deleteEvaluator/<str:username>/', DeleteEvaluatorView.as_view()),
     path('listEmployees/', EmployeeListView.as_view()),
     path('evaluate/', EvaluateEmployeeView.as_view()),
     path('addrnp/', AddRNPMethodView.as_view()),
