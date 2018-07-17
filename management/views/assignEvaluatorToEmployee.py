@@ -30,5 +30,5 @@ class AssignEvaluatorToEmployee(ManagerRequiredMixin, View):
         json_data = json.loads(request.body)
         evaluator_username = json_data['evaluator_username']
         evaluatee_username = json_data['evaluatee_username']
-        AssignmentCatalog.add_assignment(evaluatee_username=evaluatee_username, evaluator_username=evaluator_username)
+        AssignmentCatalog.get_instance().add_assignment(evaluatee_username=evaluatee_username, evaluator_username=evaluator_username)
         return redirect('/')
