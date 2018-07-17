@@ -4,7 +4,7 @@ from rnp.decorators import singleton
 
 
 class QualitativeOptions(models.Model):
-    _criterion = models.ForeignKey('EvaluationCriterion', on_delete=models.CASCADE, related_name='qualitative_list')
+    _criterion = models.ForeignKey('EvaluationCriterion', on_delete=models.CASCADE, related_name='_qualitative_list')
     _name = models.CharField(max_length=20)
 
     def get_name(self):
@@ -12,7 +12,7 @@ class QualitativeOptions(models.Model):
 
 
 class QuantitativeOption(models.Model):
-    _criterion = models.ForeignKey('EvaluationCriterion', on_delete=models.CASCADE, related_name='quantitative_list')
+    _criterion = models.ForeignKey('EvaluationCriterion', on_delete=models.CASCADE, related_name='_quantitative_list')
     _name = models.CharField(max_length=20)
     _beginning = models.IntegerField()
     _end = models.IntegerField()
@@ -82,9 +82,9 @@ class EvaluationCriterion(models.Model):
     def dump(self):
         qualitative_values = []
         quantitative_values = []
-        for val in self.qualitative_list.all():
+        for val in self._qualitative_list.all():
             qualitative_values.append(val.get_name())
-        for val in self.quantitative_list.all():
+        for val in self._quantitative_list.all():
             quantitative_values.append({
                 'name': val.get_name(),
                 'beginning': val.get_beginning(),

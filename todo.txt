@@ -29,5 +29,7 @@ add rnp method in add criterion
 آپدیت ریسک‌ها
 
 request.user نقض encapsulation(mixin)
-
+ob_validaot
 نام‌کاربری یا کلمه عبور نادرست است
+
+j
