@@ -2,24 +2,20 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 from django.views import View
 from eval.mixins import EvaluatorRequiredMixin
-from eval.models.evaluation import EvaluationCatalog
+from management.models import EvaluationCriterion
 import json
 
-from management.models.assignment import AssignmentCatalog
-from management.models.criterion import CriterionCatalog
-from management.models.jobs import EmployeeCatalog
 
-
-class EvaluateEmployeeView(EvaluatorRequiredMixin, View):
+class EvaluationResultView(EvaluatorRequiredMixin, View):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.template = get_template('management/evaluateEmployeeByCriterion.html')
 
     def get(self, request):
-        evaluator = request.user
-        evaluatee = AssignmentCatalog.get_instance().dump_evaluatee_list(evaluator)
-        criterion = CriterionCatalog.get_instance().dump_all()
+        evaluator = self.get_evaluator()
+        evaluatee = evaluator.dump_evaluatee_list()
+        criterion = EvaluationCriterion.dump_all()
         data = {'evaluatee': evaluatee, 'criterion': criterion}
         html = self.template.render(data, request)
         return HttpResponse(html)
@@ -27,27 +23,22 @@ class EvaluateEmployeeView(EvaluatorRequiredMixin, View):
     def post(self, request):
         json_data = json.loads(request.body)
         for evaluatee in json_data:
-            self.add_evaluation(evaluatee['username'], evaluatee['criterion'], request.user)
+            self.add_evaluation(evaluatee['id'], evaluatee['criterion'])
 
-    @staticmethod
-    def add_evaluation(evaluatee_username, criteria, evaluator):
-        employee_catalog = EmployeeCatalog.get_instance()
-        criterion_catalog = CriterionCatalog.get_instance()
-        evaluation_catalog = EvaluationCatalog.get_instance()
+    def add_evaluation(self, evaluatee_id, criteria):
         for result in criteria:
-            evaluatee_job = employee_catalog.get_by_username(evaluatee_username)
-            evaluatee = evaluatee_job.get_user()
-            criterion = criterion_catalog.get_by_name(result['name'])
+            evaluatee = Evaluatee.get_evaluatee_by_nid(evaluatee_id)
+            criterion = EvaluationCriterion.get_by_name(result['name'])
             qualitative_result = result['qualitative']
             quantitative_result = result['quantitative']
-            evaluation_catalog.evaluate_employee(evaluatee, criterion, evaluator, quantitative_result,
-                                                 qualitative_result)
+            evaluator = self.get_evaluator()
+            evaluator.evaluate_employee(evaluatee, criterion, quantitative_result, qualitative_result)
 
 #   data sent to template from view by GET method:
 #   {
 #       evaluatee:[
-#           {username:12, name:ali},
-#           {username:13, name:ahmad}
+#           {id:12, name:ali},
+#           {id:13, name:ahmad}
 #       ],
 #       criterion:[
 #           {
@@ -70,7 +61,7 @@ class EvaluateEmployeeView(EvaluatorRequiredMixin, View):
 #   data received by view from template by POST method:
 #   [
 #       {
-#           username: 123,
+#           id: 123,
 #           criterion:[
 #               {
 #                   name:discipline,
