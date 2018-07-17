@@ -13,7 +13,7 @@ class AddEditCriterionView(ManagerRequiredMixin, View):
     def get(self, request, criterion_name=None):
         data = None
         if criterion_name is not None:
-            data = CriterionCatalog.get_instance().dump_by_name(criterion_name)
+            data = CriterionCatalog.get_instance().get_by_name(criterion_name)
 
         t = get_template('management/addCriterion.html')
         html = t.render(data, request)

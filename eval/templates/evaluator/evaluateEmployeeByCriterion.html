@@ -13,7 +13,7 @@
         <div class="vertical-center">
 
 
-            <select name="employee_select">
+            <select id="employee_select">
                 {% for person in evaluatee %}
                     <option id='{{ person.id }}_select' value="{{ person.name }}">{{ person.name }}</option>
                 {% endfor %}
@@ -35,7 +35,7 @@
                         <div class="darkBlock">
                             {% for option in c.qualitative %}
                                 <input class="vertical-right" id='{{ c.name }}_qual_option_{{ option }}' type="radio"
-                                       name="type">
+                                       name="qual_radios_{{ option }}">
                                 <label id='{{ c.name }}_qual_option_{{ option }}_label'
                                        for="{{ c.name }}_qual_option_{{ option }}">{{ option }}</label>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -46,19 +46,21 @@
                         <div class="center-empty-tag">این معیار گزینه کیفی ندارد</div>
                     {% endif %}
 
-                    <label id='{{ c.name }}_qual_label'>گزینه‌های کمّی</label>
+                    <label id='{{ c.name }}_quan_label'>گزینه‌های کمّی</label>
 
                     {% if c.quantitative %}
                         <div class="darkBlock">
                             {% for option in c.quantitative %}
-                                <label id="{{ c.name }}_quan_option_{{ option.name }}_label">{{ option.name }}</label>
-                                <br>
-                                <input type="number" id="{{ c.name }}_quan_option_{{ option.name }}_value"
-                                       min="{{ option.beginning }}" max="{{ option.end }}"><br>
+                                <input class="vertical-right" id='{{ c.name }}_quan_option_{{ option.name }}' type="radio"
+                                       name="quan_radios_{{ option.name }}">
+                                <label id='{{ c.name }}_quan_option_{{ option.name }}_label'
+                                       for="{{ c.name }}_quan_option_{{ option.name }}">{{ option.beginning }} تا {{ option.end }}</label>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             {% endfor %}
                         </div>
                     {% else %}
-                        <div class="center-empty-tag">این معیار گزینه کمی ندارد</div>
+                        <div class="center-empty-tag">این معیار گزینه کمّی ندارد</div>
                     {% endif %}
 
                     <hr>
@@ -66,7 +68,7 @@
             {% endfor %}
 
             <div class="button_holder container">
-                <a class="order-option-link green_back" onclick="pack_and_submit()()"> ثبت </a>
+                <a class="order-option-link green_back" onclick="pack_and_submit()"> ثبت </a>
                 <a class="order-option-link red_back" onclick="go_back()"> بازگشت </a>
             </div>
         </div>
@@ -76,6 +78,7 @@
 {% block script %}
     <script>
 
+
         let criterion_names = django_var_parse('{{ criterion }}').map((x) => {
             return x.name
         });
@@ -84,7 +87,6 @@
         function select_change(selected_name) {
 
             if (selected_name === undefined) {
-                debugger;
                 selected_name = document.getElementById('criterion_select').selectedOptions[0].label;
             }
 
@@ -104,7 +106,55 @@
         }
 
         function pack_and_submit() {
-            let input_data = django_var_parse('{{ criterion }}');
+            let criteria = django_var_parse('{{ criterion }}');
+            let evaluatees = django_var_parse('{{ evaluatee }}');
+            let user_index = document.getElementById('employee_select').selectedIndex;
+            let selected_username = evaluatees[user_index].username;
+
+            let result_criteria = [];
+
+            for (let index in criteria) {
+                let criterion = criteria[index];
+                let qual_value = '';
+                let quan_value = '';
+
+                for (let qual_index in criterion.qualitative) {
+                    let qual = criterion.qualitative[qual_index];
+                    let qual_selected = document.getElementById(`${criterion.name}_qual_option_${qual}`).checked;
+
+                    if (qual_selected) {
+                        qual_value = qual;
+                        break;
+                    }
+                }
+
+                for (let quan_index in criterion.quantitative) {
+                    let quan = criterion.quantitative[quan_index].name;
+                    let quan_selected = document.getElementById(`${criterion.name}_quan_option_${quan}`).checked;
+
+                    if (quan_selected) {
+                        quan_value = quan;
+                        break;
+                    }
+                }
+
+                result_criteria.push({
+                    name: criterion.name,
+                    qualitative: qual_value,
+                    quantitative: quan_value,
+                })
+
+            }
+
+            let data = {
+                username: selected_username,
+                criterion: result_criteria,
+            };
+
+
+            let send_data = JSON.stringify(data);
+
+            send_ajax_post('/eval/evaluate/', send_data, true);
 
         }
 
