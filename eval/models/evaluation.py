@@ -1,5 +1,6 @@
 from django.db import models
 from auth.models import User
+from management.models.jobs import EmployeeCatalog
 from rnp.decorators import singleton
 
 
@@ -14,6 +15,20 @@ class EvaluationCatalog(models.Manager):
                                 _qualitative_result=qualitative_result,
                                 _quantitative_result=quantitative_result)
         evaluation.save()
+
+    def dump_all(self):
+        employee_catalog = EmployeeCatalog.get_instance()
+        data = []
+        for evaluatee_job in employee_catalog.get_all_evaluatee():
+            evaluatee = evaluatee_job.get_user()
+            data.append(self.dump_by_evaluatee(evaluatee))
+        return data
+
+    def dump_by_evaluatee(self, evaluatee):
+        data = []
+        for evaluation in self.filter(_evaluatee=evaluatee):
+            data.append(evaluation.dump())
+        return {'evaluatee_name': evaluatee.get_name(), 'evaluations': data}
 
 
 class Evaluation(models.Model):
@@ -33,3 +48,13 @@ class Evaluation(models.Model):
 
     def get_criterion_name(self):
         return self._evaluation_criterion.get_name()
+
+    def dump(self):
+        data = {
+            # 'evaluatee_name': self._evaluatee.get_name(),
+            'evaluator_name': self._evaluator.get_name(),
+            'criterion': self._evaluation_criterion.get_name(),
+            'qualitative_result': self._qualitative_result,
+            'quantitative_result': self._quantitative_result
+        }
+        return data
