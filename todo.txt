@@ -30,4 +30,4 @@ add rnp method in add criterion
 
 آپدیت ریسک‌ها
 
-request.user نقض encapsulation
+request.user نقض encapsulation(mixin)

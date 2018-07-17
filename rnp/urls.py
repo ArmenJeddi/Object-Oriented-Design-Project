@@ -21,4 +21,5 @@ urlpatterns = [
     path('', IndexRedirectView.as_view()),
     path('auth/', include('auth.urls')),
     path('management/', include('management.urls')),
+    path('eval/', include('eval.urls')),
 ]
