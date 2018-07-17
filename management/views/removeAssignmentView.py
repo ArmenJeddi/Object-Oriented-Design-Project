@@ -21,4 +21,4 @@ class RemoveAssignmentView(ManagerRequiredMixin, View):
         evaluatee_username = json_data['evaluatee_username']
         evaluator_username = json_data['evaluator_username']
         AssignmentCatalog.get_instance().remove_assignment(evaluatee_username, evaluator_username)
-        return redirect('/')
+        return redirect('/management/assignEvaluatorToEmployee/')

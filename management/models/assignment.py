@@ -36,7 +36,7 @@ class AssignmentCatalog(models.Manager):
                 'evaluatee_name': assignment.get_evaluatee_name(),
                 'evaluatee_username': assignment.get_evaluatee_username(),
                 'evaluator_name': assignment.get_evaluator_name(),
-                'evaluator_username':assignment.get_evaluator_username(),
+                'evaluator_username': assignment.get_evaluator_username(),
             })
 
 
