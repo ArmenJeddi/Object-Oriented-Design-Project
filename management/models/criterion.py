@@ -48,9 +48,9 @@ class CriterionCatalog(models.Manager):
     def get_by_name(self, name):
         return self.get(_name=name)
 
-    def delete_if_exists(self, criterion_name):
-        if self.filter(_name=criterion_name).count() != 0:
-            self.get(_name=criterion_name).delete()
+    def delete_if_exists(self, name):
+        if self.filter(_name=name).count() != 0:
+            self.get(_name=name).delete()
 
     def get_names_and_rnp(self):
         criteria = []

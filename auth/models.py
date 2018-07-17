@@ -1,5 +1,4 @@
 from django.core.exceptions import ValidationError
-from django.core.validators import RegexValidator
 from django.db import models
 
 from rnp.decorators import singleton
@@ -8,10 +7,10 @@ from rnp.decorators import singleton
 class JobCatalog(models.Manager):
 
     def get_by_username(self, username):
-        raise NotImplementedError()
+        return self.get(_user=username)
 
     def delete_by_username(self, username):
-        raise NotImplementedError()
+        self.get(_user=username).delete()
 
 
 class Job(models.Model):
