@@ -8,7 +8,8 @@ from .addEvaluatorView import AddEvaluatorView
 from .removeEvaluatorView import RemoveEvaluatorView
 from .viewEvaluatorView import ViewEvaluatorView
 from .addEditCriterionView import AddEditCriterionView
-from .viewCriterionView import ViewCriterionListView
+from .viewCriterionListView import ViewCriterionListView
+from .viewCriteriaDetailedView import ViewCriterionDetailedView
 from .removeCriterionView import RemoveCriterionView
 from .addRNPMethodView import AddRNPMethodView
 from .assignEvaluatorToEmployee import AssignEvaluatorToEmployee

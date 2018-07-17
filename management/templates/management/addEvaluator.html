@@ -1,64 +1,78 @@
 {% extends "navbar_signedin.html" %}
 
 {% block head %}
-    <link rel="stylesheet" type="text/css" href="/static/styles/main.css" />
-	<title>Evaluators</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles/main.css"/>
+    <title>Evaluators</title>
 {% endblock %}
 
 {% block main %}
 
-<div class = 'content-page'>
+    <div class='content-page'>
 
-	<div class = 'vertical-center'>
-	
-		<div class = 'well'>
+        <div class='vertical-center'>
 
-			<h1 class='middle-header'>ارزیابان فعلی</h1>
-			
-			<div class= 'ObjectList'>
-				<ul class='evaluator-unordered'>
-					
-					{% for employee in evaluators %}
-						<li class='person_member'>
-							<span class = 'employee-name'>{{ employee.name }}</span>
-							<span class = 'employee-id'>{{ employee.username }}</span>
-							<span>
-								<form class = 'evaluator-forms' action="/management/manageEvaluators/remove/" method="post">
-									<a class= 'order-option-link form-link' onclick="this.parentNode.submit()">حذف از لیست ارزیابان</a>
+            <div class='well'>
+
+                <h1 class='middle-header'>ارزیابان فعلی</h1>
+
+                {% if evaluators %}
+                    <table id="quan_options">
+                        <col width="48%">
+                        <col width="42%">
+                        <col width="10%">
+                        <tr>
+                            <th>نام کارمند</th>
+                            <th>شماره‌ی ملی</th>
+                            <th class="center_text">اقدام</th>
+                        </tr>
+                        {% for employee in evaluators %}
+                            <tr>
+                                <td>{{ employee.name }}</td>
+                                <td>{{ employee.username }}</td>
+                                <td>
+                                    <form class='evaluator-forms' action="/management/manageEvaluators/remove/"
+                                          method="post">
+                                        <button class="order-option-link order_small red_back" onclick="this.parentNode.submit()">&nbsp;حذف&nbsp;</button>
+                                        <input type="hidden" value="{{ employee.username }}" name="username">
+                                    </form>
+                                </td>
+                            </tr>{% endfor %}
+                    </table>
+                {% else %}
+                    <div class="center-empty-tag">کارمند ارزیابی وجود ندارد. اولین ارزیاب خود را اضافه کنید.</div>
+                {% endif %}
+            </div>
+
+            <h1 class='middle-header'>کارمندان غیر ارزیاب</h1>
+
+            {% if evaluatee %}
+                <table id="quan_options">
+                    <col width="48%">
+                    <col width="42%">
+                    <col width="10%">
+                    <tr>
+                        <th>نام کارمند</th>
+                        <th>شماره‌ی ملی</th>
+                        <th class="center_text">اقدام</th>
+                    </tr>
+                    {% for employee in evaluatee %}
+                        <tr>
+                            <td>{{ employee.name }}</td>
+                            <td>{{ employee.username }}</td>
+                            <td>
+                                <form class='evaluator-forms' action="/management/manageEvaluators/add/" method="post">
+                                    <button class="order-option-link order_small green_back" onclick="this.parentNode.submit()">اضافه</button>
                                     <input type="hidden" value="{{ employee.username }}" name="username">
-								</form>
-							</span>
-							
-						</li>
-					{% endfor %}
-				</ul>
-			</div>
-			
-			<h1 class='middle-header'>کارمندان غیر ارزیاب</h1>
-			
-			<div class= 'ObjectList'>
-				<ul class='evaluator-unordered'>
-					
-					{% for employee in evaluatee %}
-						<li class='person_member'>
-							<span class = 'employee-name'>{{ employee.name }}</span>
-							<span class = 'employee-id'>{{ employee.username }}</span>
-							<span>
-								<form class = 'evaluator-forms' action="/management/manageEvaluators/add/" method="post">
-									<a class= 'order-option-link form-link' onclick="this.parentNode.submit()">افزودن به لیست ارزیاب</a>
-                                    <input type="hidden" value="{{ employee.username }}" name="username">
-								</form>
-							</span>
-							
-						</li>
-					{% endfor %}			
-				</ul>
-			</div>
+                                </form>
+                            </td>
+                        </tr>{% endfor %}
+                </table>
+            {% else %}
+                <div class="center-empty-tag">تمامی کارمندان ارزیاب هستند. کارمندی برای ارزیابی اضافه کنید.</div>
+            {% endif %}
 
-			
-			
-		</div>
-	</div>
-</div>
+
+        </div>
+    </div>
 
 {% endblock %}
