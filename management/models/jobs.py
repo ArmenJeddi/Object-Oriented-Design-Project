@@ -11,7 +11,9 @@ class ManagerCatalog(JobCatalog):
 
     def create(self, user):
         manager = Manager(_user=user)
-        manager.save()
+        manager.full_clean()
+        manager.save(force_insert=True)
+        user.set_job(manager)
         return manager
 
     def delete_by_username(self, username):
@@ -19,12 +21,12 @@ class ManagerCatalog(JobCatalog):
 
 
 class Manager(Job):
-    TITLE = 'Manager'
+    _TITLE = 'Manager'
 
     objects = ManagerCatalog.get_instance()
 
 
-Job.set_job_catalog(Manager.TITLE, ManagerCatalog.get_instance())
+Job.set_job_catalog(Manager.get_title(), ManagerCatalog.get_instance())
 
 
 @singleton
@@ -35,7 +37,9 @@ class EmployeeCatalog(JobCatalog):
 
     def create(self, user, unit, is_evaluator=False):
         employee = Employee(_unit=unit, _user=user, _is_evaluator=is_evaluator)
-        employee.save()
+        employee.full_clean()
+        employee.save(force_insert=True)
+        user.set_job(employee)
         return employee
 
     def delete_by_username(self, username):
@@ -73,10 +77,10 @@ class EmployeeCatalog(JobCatalog):
 
 
 class Employee(Job):
-    TITLE = 'Employee'
+    _TITLE = 'Employee'
 
-    _unit = models.CharField(max_length=20, null=True)
-    _is_evaluator = models.BooleanField(default=False, null=False)
+    _unit = models.CharField(max_length=20)
+    _is_evaluator = models.BooleanField(default=False)
 
     objects = EmployeeCatalog.get_instance()
 
@@ -88,7 +92,8 @@ class Employee(Job):
 
     def set_evaluator(self, value):
         self._is_evaluator = value
+        self.full_clean()
         self.save()
 
 
-Job.set_job_catalog(Employee.TITLE, EmployeeCatalog.get_instance())
+Job.set_job_catalog(Employee.get_title(), EmployeeCatalog.get_instance())

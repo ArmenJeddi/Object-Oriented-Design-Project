@@ -19,7 +19,7 @@ class EvaluateEmployeeView(EvaluatorRequiredMixin, View):
 
     def get(self, request):
         evaluator = request.user
-        evaluatee = AssignmentCatalog.get_instance().get_evaluatee_list(evaluator.get_job())
+        evaluatee = AssignmentCatalog.get_instance().get_evaluatee_list(evaluator)
         criterion = CriterionCatalog.get_instance().dump_all()
         print('####################', evaluatee)
         data = {'evaluatee': evaluatee, 'criterion': criterion}
