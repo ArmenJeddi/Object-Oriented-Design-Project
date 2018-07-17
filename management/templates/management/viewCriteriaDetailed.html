@@ -59,6 +59,13 @@
     </div>
 {% endblock %}
 
+{% block script %}
+    <script>
+    console.log('{{ criteria }}');
+    console.log(django_var_parse('{{ criteria }}'));
+    </script>
+{% endblock %}
+
 
 
 
