@@ -109,9 +109,13 @@ class User(models.Model):
     _INVALID_NAME = 'invalid-name'
     _INVALID_JOB = 'invalid-job'
             
-    _username = models.CharField(primary_key=True, max_length=_USERNAME_LENGTH, unique=True, validators=[RegexValidator(f'[0123456789]{{{_USERNAME_LENGTH}}}',code=_INVALID_USERNAME),])
+    _username = models.CharField(primary_key=True, max_length=_USERNAME_LENGTH, unique=True,
+                                 # validators=[RegexValidator(f'[0123456789]{{{_USERNAME_LENGTH}}}',code=_INVALID_USERNAME),]
+                                 )
     _password = models.CharField(max_length=_PASSWORD_LENGTH)
-    _name = models.CharField(max_length=100, validators=[RegexValidator('[اآبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیءؤئإأ]*', code=_INVALID_NAME)])
+    _name = models.CharField(max_length=100,
+                             # validators=[RegexValidator('[اآبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیءؤئإأ]*', code=_INVALID_NAME)]
+                             )
     _job = models.CharField(max_length=Job.get_max_title_length(), blank=True, validators=[job_validator,])
 
     objects = UserCatalog.get_instance()

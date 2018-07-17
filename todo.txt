@@ -31,3 +31,6 @@ add rnp method in add criterion
 request.user نقض encapsulation(mixin)
 
 نام‌کاربری یا کلمه عبور نادرست است
+
+
+الان میشه دو بار یه نفر رو به ارزیاب اساین کرد نباید بشه

@@ -11,10 +11,10 @@ class AssignmentCatalog(models.Manager):
 
     def get_evaluatee_list(self, evaluator):
         data = []
-        for evaluatee in self.filter(_evaluator=evaluator):
+        for assignment in self.filter(_evaluator=evaluator):
             data.append({
-                'name': evaluatee.get_name(),
-                'username': evaluatee.get_username(),
+                'name': assignment.get_evaluatee_name(),
+                'username': assignment.get_evaluatee_username(),
             })
         return data
 
@@ -33,3 +33,9 @@ class Assignment(models.Model):
 
     class Meta:
         unique_together = ('_evaluator', '_evaluatee')
+
+    def get_evaluatee_name(self):
+        return self._evaluatee.get_name()
+
+    def get_evaluatee_username(self):
+        return self._evaluatee.get_username()

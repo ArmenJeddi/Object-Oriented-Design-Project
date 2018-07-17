@@ -106,8 +106,9 @@
             </div>
         </div>
     </div>
+{% endblock %}
 
-
+{% block script %}
     <script>
         populate_options();
 
@@ -256,9 +257,10 @@
             send_ajax_post('/management/addCriterion/', send_data, true);
         }
     </script>
-
-
 {% endblock %}
+
+
+
 
 
 
