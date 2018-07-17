@@ -14,7 +14,7 @@ class RemoveEvaluatorView(ManagerRequiredMixin, View):
     def post(self, request):
         username = request.POST.get('username')
         # employee = Employee.objects.get(national_id=nid)
-        employee = EmployeeCatalog.get_by_username(username)
+        employee = EmployeeCatalog.get_instance().get_by_username(username)
         employee.set_evaluator(False)
         # Evaluator.objects.get(asEmployee=employee).delete()
         return HttpResponseRedirect('/management/manageEvaluators/view/')
