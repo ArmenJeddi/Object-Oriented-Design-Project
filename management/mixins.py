@@ -6,5 +6,5 @@ class ManagerRequiredMixin(LoginRequiredMixin):
 
     def test_func(self):
         if super().test_func():
-            return self.request.user.get_job().TITLE == Manager.TITLE
-        return None
+            return self.request.user.get_job().get_title() == Manager.get_title()
+        return False
