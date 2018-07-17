@@ -10,89 +10,92 @@
 
     <div class="content-page">
 
-    <div class="vertical-center">
+        <div class="vertical-center">
 
 
-        <select name="employee_select">
-            {% for person in evaluatee %}
-                <option id='{{ person.id }}_select' value="{{ person.name }}">{{ person.name }}</option>
+            <select name="employee_select">
+                {% for person in evaluatee %}
+                    <option id='{{ person.id }}_select' value="{{ person.name }}">{{ person.name }}</option>
+                {% endfor %}
+            </select>
+
+
+            <select id="criterion_select" onchange="select_change()">
+                {% for crit in criterion %}
+                    <option id='{{ crit.name }}_select' value="{{ crit.name }}">{{ crit.name }}</option>
+                {% endfor %}
+            </select>
+
+            {% for c in criterion %}
+                <div id='{{ c.name }}'>
+                    <label id='{{ c.name }}_label'>نام معیار ارزیابی: {{ c.name }}</label><br>
+                    <label id='{{ c.name }}_qual_label'>گزینه‌های کیفی</label>
+
+                    {% if c.qualitative %}
+                        <div class="darkBlock">
+                            {% for option in c.qualitative %}
+                                <input class="vertical-right" id='{{ c.name }}_qual_option_{{ option }}' type="radio"
+                                       name="type">
+                                <label id='{{ c.name }}_qual_option_{{ option }}_label'
+                                       for="{{ c.name }}_qual_option_{{ option }}">{{ option }}</label>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="center-empty-tag">این معیار گزینه کیفی ندارد</div>
+                    {% endif %}
+
+                    <label id='{{ c.name }}_qual_label'>گزینه‌های کمّی</label>
+
+                    {% if c.quantitative %}
+                        <div class="darkBlock">
+                            {% for option in c.quantitative %}
+                                <label id="{{ c.name }}_quan_option_{{ option.name }}_label">{{ option.name }}</label>
+                                <br>
+                                <input type="number" id="{{ c.name }}_quan_option_{{ option.name }}_value"
+                                       min="{{ option.beginning }}" max="{{ option.end }}"><br>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="center-empty-tag">این معیار گزینه کمی ندارد</div>
+                    {% endif %}
+
+                    <hr>
+                </div>
             {% endfor %}
-        </select>
 
-
-        <select name="criterion_select">
-            {% for crit in criterion %}
-                <option id='{{ crit.name }}_select' value="{{ crit.name }}">{{ crit.name }}</option>
-            {% endfor %}
-        </select>
-
-
-        style="display: none"
-
-        {% for c in criterion %}
-            <div id='{{ c.name }}'>
-                <label id='{{ c.name }}_label'>نام معیار ارزیابی: {{ c.name }}</label><br>
-                <label id='{{ c.name }}_qual_label'>گزینه‌های کیفی</label>
-
-                {% if c.qualitative %}
-                    <div class="darkBlock">
-                        {% for option in c.qualitative %}
-                            <input class="vertical-right" id='{{ c.name }}_qual_option_{{ option }}' type="radio"
-                                   name="type">
-                            <label id='{{ c.name }}_qual_option_{{ option }}_label'
-                                   for="{{ c.name }}_qual_option_{{ option }}">{{ option }}</label>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    <div class="center-empty-tag">این معیار گزینه کیفی ندارد</div>
-                {% endif %}
-
-                <label id='{{ c.name }}_qual_label'>گزینه‌های کمّی</label>
-
-                {% if c.quantitative %}
-                    <div class="darkBlock">
-                        {% for option in c.quantitative %}
-                            <label id="{{ c.name }}_quan_option_{{ option.name }}_label">{{ option.name }}</label><br>
-                            <input type="number" id="{{ c.name }}_quan_option_{{ option.name }}_value"
-                                   min="{{ option.beginning }}" max="{{ option.end }}"><br>
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    <div class="center-empty-tag">این معیار گزینه کمی ندارد</div>
-                {% endif %}
-
-                <hr>
+            <div class="button_holder container">
+                <a class="order-option-link green_back" onclick="pack_and_submit()()"> ثبت </a>
+                <a class="order-option-link red_back" onclick="go_back()"> بازگشت </a>
             </div>
-        {% endfor %}
-
-        <div class="button_holder container">
-            <a class="order-option-link green_back" onclick="pack_and_submit()()"> ثبت </a>
-            <a class="order-option-link red_back" onclick="go_back()"> بازگشت </a>
         </div>
     </div>
+{% endblock %}
 
-
+{% block script %}
     <script>
 
-        function select_change() {
+        let criterion_names = django_var_parse('{{ criterion }}').map((x) => {
+            return x.name
+        });
+        select_change(criterion_names[0]);
 
-            let selected_name = document.getElementById('criterion_select').selectedOptions[0].label;
+        function select_change(selected_name) {
 
-            criterion_name
+            if (selected_name === undefined) {
+                debugger;
+                selected_name = document.getElementById('criterion_select').selectedOptions[0].label;
+            }
 
-            let target_names = [
-                `${selected_name}_reward`,
-                `${selected_name}_reward_label`,
-                `${selected_name}_punishment`,
-                `${selected_name}_punishment_label`,
-                `${selected_name}_clear_button`,
-            ];
 
-            for (let index in option_names) {
-                let name = option_names[index];
-                if (target_names.includes(name)) {
+            let criterion_names = django_var_parse('{{ criterion }}').map((x) => {
+                return x.name
+            });
+
+            for (let index in criterion_names) {
+                let name = criterion_names[index];
+                if (name === selected_name) {
                     document.getElementById(name).style.display = 'block';
                 } else {
                     document.getElementById(name).style.display = 'none';
@@ -100,13 +103,12 @@
             }
         }
 
+        function pack_and_submit() {
+            let input_data = django_var_parse('{{ criterion }}');
+
+        }
+
     </script>
-
-
 {% endblock %}
-
-
-
-
 
 

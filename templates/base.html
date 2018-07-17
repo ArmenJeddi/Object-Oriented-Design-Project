@@ -61,16 +61,15 @@
     }
 
     function django_var_parse(string) {
-        debugger;
         console.log(string);
         return JSON.parse(string.replace(/&#39;/g, '"'));
     }
 
 </script>
 
-<script>
-    {% block script %}
-    {% endblock %}
-</script>
+
+{% block script %}
+{% endblock %}
+
 
 </html>
