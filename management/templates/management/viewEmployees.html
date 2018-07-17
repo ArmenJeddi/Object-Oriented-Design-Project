@@ -33,8 +33,8 @@
                         <tr>
                             <td>{{ employee.name }}</td>
                             <td>{{ employee.username }}</td>
-                            <td>
-                                <button onclick="delete_employee({{ forloop.counter0 }}, this.parentNode)">حذف</button>
+                            <td class="center_text">
+                                <button class="order-option-link order_small red_back" onclick="delete_employee({{ forloop.counter0 }}, this.parentNode)">حذف</button>
                             </td>
                         </tr>{% endfor %}
                 </table>
