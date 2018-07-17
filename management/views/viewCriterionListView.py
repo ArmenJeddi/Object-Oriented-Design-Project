@@ -6,9 +6,9 @@ from auth.mixins import LoginRequiredMixin
 from management.models.criterion import CriterionCatalog
 
 
-class ViewCriterionView(LoginRequiredMixin, View):
+class ViewCriterionListView(LoginRequiredMixin, View):
     def get(self, request):
         criterion_names = CriterionCatalog.get_instance().get_names()
-        t = get_template('management/viewCriterion.html')
-        html = t.render({'criterion_names':criterion_names}, request)
+        t = get_template('management/viewCriteriaList.html')
+        html = t.render({'criterion_names': criterion_names}, request)
         return HttpResponse(html)

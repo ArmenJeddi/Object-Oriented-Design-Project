@@ -12,7 +12,7 @@ urlpatterns = [
     path('manageEvaluators/view/', ViewEvaluatorView.as_view()),
     path('addCriterion/', AddEditCriterionView.as_view()),
     path('editCriterion/<str:criterion_name>/', AddEditCriterionView.as_view()),
-    path('viewCriterion/', ViewCriterionView.as_view()),
+    path('viewCriterion/', ViewCriterionListView.as_view()),
     path('removeCriterion/<str:criterion_name>/', RemoveCriterionView.as_view()),
     path('removeEmployee/', EmployeeDeleteView.as_view()),
     path('listEmployees/', EmployeeListView.as_view()),
