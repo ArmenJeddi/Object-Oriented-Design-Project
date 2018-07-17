@@ -1,5 +1,4 @@
 def singleton(cls):
-
     cls._instance = cls()
 
     def get_instance():
