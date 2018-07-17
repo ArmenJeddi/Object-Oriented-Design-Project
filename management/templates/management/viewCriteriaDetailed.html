@@ -12,8 +12,7 @@
 
 
             {% for criterion in criteria %}
-
-            <div class="middle-header">نام معیار ارزیابی</div>
+                <div class="middle-header">{{ criterion.name }}</div>
                 <h5>گزینه‌های کمّی</h5>
 
 
@@ -26,15 +25,12 @@
                         <th>شروع بازه</th>
                         <th>پایان بازه</th>
                     </tr>
-                    {#                    {% for option in quantitative %}#}
-                    {#                        <tr id="{{ forloop.counter0 }}">#}
-                    {#                            <td id="option_name">{{ option.name }}</td>#}
-                    {#                            <td id="start_value">{{ option.beginning }}</td>#}
-                    {#                            <td id="end_value">{{ option.end }}</td>#}
-                    {#                            <td>#}
-                    {#                                <button onclick="delete_dom_parent(this.parentNode)">حذف</button>#}
-                    {#                            </td>#}
-                    {#                        </tr>{% endfor %}#}
+                    {% for option in criterion.quantitative %}
+                        <tr>
+                            <td id="option_name">{{ option.name }}</td>
+                            <td id="start_value">{{ option.beginning }}</td>
+                            <td id="end_value">{{ option.end }}</td>
+                        </tr>{% endfor %}
                 </table>
 
                 <h5>گزینه‌های کیفی</h5>
@@ -54,12 +50,16 @@
                     {#                        </tr>{% endfor %}#}
                 </table>
 
-            </div>
-            <hr>
-            <div class="button_holder">
-                <a class="order-option-link red_back" onclick="go_back()"> بازگشت </a>
-            </div>
+                </div>
+
+            {% endfor %}
+
+
+        <hr>
+        <div class="button_holder">
+            <a class="order-option-link red_back" onclick="go_back()"> بازگشت </a>
         </div>
+    </div>
 {% endblock %}
 
 {% block script %}
