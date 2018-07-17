@@ -15,11 +15,11 @@ class EvaluateEmployeeView(EvaluatorRequiredMixin, View):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.template = get_template('management/evaluateEmployeeByCriterion.html')
+        self.template = get_template('evaluator/evaluateEmployee.html')
 
     def get(self, request):
         evaluator = request.user
-        evaluatee = AssignmentCatalog.get_instance().get_evaluatee_list(evaluator)
+        evaluatee = AssignmentCatalog.get_instance().get_evaluatee_list(evaluator.get_job())
         criterion = CriterionCatalog.get_instance().dump_all()
         data = {'evaluatee': evaluatee, 'criterion': criterion}
         html = self.template.render(data, request)

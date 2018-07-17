@@ -12,7 +12,6 @@ class IndexRedirectView(LoginRequiredMixin):
         if request.user.get_job().TITLE == Manager.TITLE:
             return redirect('/management/')
         elif request.user.get_job().is_evaluator():
-            print('evaluator')
             return redirect('/eval/evaluatorIndex/')
         else:
             return redirect('/eval/evaluateeIndex/')
