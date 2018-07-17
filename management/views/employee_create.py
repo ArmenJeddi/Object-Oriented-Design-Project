@@ -21,5 +21,4 @@ class EmployeeCreateView(ManagerRequiredMixin, View):
         unit = json_data['unit']
         user = UserCatalog.get_instance().create(username, password, name)
         employee = EmployeeCatalog.get_instance().create(user, unit)
-        user.set_job(employee)
         return redirect('/')
