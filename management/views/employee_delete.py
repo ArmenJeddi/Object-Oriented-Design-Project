@@ -15,7 +15,7 @@ class EmployeeDeleteView(ManagerRequiredMixin, View):
         nid = json.loads(request.body)['username']
         # employee = Employee.objects.get(national_id=nid)
         user = UserCatalog.get_instance().get_by_username(nid)
-        if user.get_job().TITLE == Employee.TITLE:
+        if user.get_job().get_title() == Employee.get_title():
             UserCatalog.get_instance().delete_by_username(nid)
         # Evaluator.objects.get(asEmployee=employee).delete()
         return HttpResponseRedirect('/')
