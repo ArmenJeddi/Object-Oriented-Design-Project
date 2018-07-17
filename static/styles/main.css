@@ -55,6 +55,7 @@ body {
 }
 
 .order-option-link {
+    font-family: BYekan, 'BYekan', tahoma, serif !important;
     padding: 6px 10px 6px 10px;
     text-align: center;
     position: relative;
@@ -74,11 +75,24 @@ body {
     transition-delay: 0s;
 }
 
+
 .order-option-link:hover {
     font-size: 18px;
     background-color: #0C25A4;
     color: white;
 }
+
+.order_small {
+    width: 54px;
+    font-size: 10px;
+    padding: 2px 14px 2px 14px ;
+}
+
+.order_small:hover{
+    font-size: 10px;
+}
+
+
 
 div a {
     text-decoration: none;
@@ -236,6 +250,12 @@ tr:nth-child(even) {
 
 .criterion_label {
     width: 10%;
+}
+
+
+
+.center_text{
+    text-align: center;
 }
 
 

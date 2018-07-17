@@ -15,56 +15,65 @@
                 <div class="middle-header">{{ criterion.name }}</div>
                 <h5>گزینه‌های کمّی</h5>
 
-
-                <table id="quan_options">
-                    <col width="44%">
-                    <col width="28%">
-                    <col width="28%">
-                    <tr>
-                        <th>نام گزینه</th>
-                        <th>شروع بازه</th>
-                        <th>پایان بازه</th>
-                    </tr>
-                    {% for option in criterion.quantitative %}
+                {% if criterion.quantitative %}
+                    <table id="quan_options">
+                        <col width="44%">
+                        <col width="28%">
+                        <col width="28%">
                         <tr>
-                            <td id="option_name">{{ option.name }}</td>
-                            <td id="start_value">{{ option.beginning }}</td>
-                            <td id="end_value">{{ option.end }}</td>
-                        </tr>{% endfor %}
-                </table>
+                            <th>نام گزینه</th>
+                            <th>شروع بازه</th>
+                            <th>پایان بازه</th>
+                        </tr>
+                        {% for option in criterion.quantitative %}
+                            <tr>
+                                <td id="option_name">{{ option.name }}</td>
+                                <td id="start_value">{{ option.beginning }}</td>
+                                <td id="end_value">{{ option.end }}</td>
+                            </tr>{% endfor %}
+                    </table>
+                {% else %}
+                    <div class="center-empty-tag">این معیار گزینه کمّی ندارد</div>
+                {% endif %}
+
+
 
                 <h5>گزینه‌های کیفی</h5>
 
 
-                <table id="qual_options">
-                    <col width="100%">
-                    <tr>
-                        <th>نام گزینه</th>
-                    </tr>
-                    {% for option in criterion.qualitative %}
+                {% if criterion.qualitative %}
+                    <table id="qual_options">
+                        <col width="100%">
                         <tr>
-                            <td id="option_name">{{ option }}</td>
-                        </tr>{% endfor %}
-                </table>
+                            <th>نام گزینه</th>
+                        </tr>
+                        {% for option in criterion.qualitative %}
+                            <tr>
+                                <td id="option_name">{{ option }}</td>
+                            </tr>{% endfor %}
+                    </table>
+                {% else %}
+                    <div class="center-empty-tag">این معیار گزینه کیفی ندارد</div>
+                {% endif %}
 
-                </div>
 
+                <hr>
             {% endfor %}
+            <div class="button_holder">
+                <a class="order-option-link red_back" onclick="go_back()"> بازگشت </a>
+            </div>
 
 
-        <hr>
-        <div class="button_holder">
-            <a class="order-option-link red_back" onclick="go_back()"> بازگشت </a>
         </div>
     </div>
 {% endblock %}
-
-{% block script %}
-    <script>
-    console.log('{{ criteria }}');
-    console.log(django_var_parse('{{ criteria }}'));
-    </script>
-{% endblock %}
+{##}
+{#{% block script %}#}
+{#    <script>#}
+{#    console.log('{{ criteria }}');#}
+{#    console.log(django_var_parse('{{ criteria }}'));#}
+{#    </script>#}
+{#{% endblock %}#}
 
 
 

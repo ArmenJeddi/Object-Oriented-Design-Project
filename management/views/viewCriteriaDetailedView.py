@@ -9,6 +9,7 @@ from management.models.criterion import CriterionCatalog
 class ViewCriterionDetailedView(LoginRequiredMixin, View):
     def get(self, request):
         criteria = CriterionCatalog.get_instance().dump_all()
+        print('###########', criteria)
         t = get_template('management/viewCriteriaDetailed.html')
-        html = t.render({'criterion_names': criteria}, request)
+        html = t.render({'criteria': criteria}, request)
         return HttpResponse(html)
