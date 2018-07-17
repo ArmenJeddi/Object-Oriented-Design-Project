@@ -16,15 +16,16 @@ class EvaluationCatalog(models.Manager):
                                 _quantitative_result=quantitative_result)
         evaluation.save()
 
-    def dump_all(self):
-        employee_catalog = EmployeeCatalog.get_instance()
-        data = []
-        for evaluatee_job in employee_catalog.get_all_evaluatee():
-            evaluatee = evaluatee_job.get_user()
-            data.append(self.dump_by_evaluatee(evaluatee))
-        return data
+    # def dump_all(self):
+    #     employee_catalog = EmployeeCatalog.get_instance()
+    #     data = []
+    #     for evaluatee_job in employee_catalog.get_all_evaluatee():
+    #         evaluatee = evaluatee_job.get_user()
+    #         data.append(self.dump_by_evaluatee(evaluatee))
+    #     return data
 
-    def dump_by_evaluatee(self, evaluatee):
+    def dump_by_username(self, username):
+        evaluatee = User.get_username(username)
         data = []
         for evaluation in self.filter(_evaluatee=evaluatee):
             data.append(evaluation.dump())
