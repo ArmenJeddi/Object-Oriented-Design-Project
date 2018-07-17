@@ -66,7 +66,7 @@
                         <th>نام گزینه</th>
                         <th>شروع بازه</th>
                         <th>پایان بازه</th>
-                        <th>اقدام</th>
+                        <th class="center_text">اقدام</th>
                     </tr>
                     {#                    {% for option in quantitative %}#}
                     {#                        <tr id="{{ forloop.counter0 }}">#}
@@ -87,7 +87,7 @@
                     <col width="10%">
                     <tr>
                         <th>نام گزینه</th>
-                        <th>اقدام</th>
+                        <th class="center_text">اقدام</th>
                     </tr>
                     {#                    {% for option in qualitative %}#}
                     {#                        <tr id="{{ forloop.counter0 }}">#}
@@ -178,6 +178,10 @@
             let button_element = document.createElement('button');
             button_element.setAttribute('onclick', "delete_dom_parent(this.parentNode)");
             button_element.appendChild(document.createTextNode('حذف'));
+
+            button_element.classList.add('order-option-link');
+            button_element.classList.add('order_small');
+            button_element.classList.add('red_back');
 
             let button_td = document.createElement('td');
             button_td.appendChild(button_element);
