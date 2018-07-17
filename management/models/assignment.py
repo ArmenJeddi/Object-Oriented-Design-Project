@@ -2,6 +2,7 @@ from django.db import models
 
 from auth.models import UserCatalog
 from management.models import Employee
+from management.models.jobs import EmployeeCatalog
 from rnp.decorators import singleton
 
 
@@ -19,8 +20,8 @@ class AssignmentCatalog(models.Manager):
 
     @staticmethod
     def add_assignment(evaluator_username, evaluatee_username):
-        evaluator = UserCatalog.get_instance().get_by_username(evaluator_username)
-        evaluatee = UserCatalog.get_instance().get_by_username(evaluatee_username)
+        evaluator = EmployeeCatalog.get_instance().get_by_username(evaluator_username)
+        evaluatee = EmployeeCatalog.get_instance().get_by_username(evaluatee_username)
         assignment = Assignment(_evaluator=evaluator, _evaluatee=evaluatee)
         assignment.save()
 

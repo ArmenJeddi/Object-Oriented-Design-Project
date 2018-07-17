@@ -15,14 +15,14 @@
 
             <select name="employee_select">
                 {% for person in evaluatee %}
-                    <option id='{{ person.id }}_select' value="{{ person.name }}"></option>
+                    <option id='{{ person.id }}_select' value="{{ person.name }}">{{ person.name }}</option>
                 {% endfor %}
             </select>
 
 
             <select name="criterion_select">
                 {% for crit in criterion %}
-                    <option id='{{ crit.name }}_select' value="{{ crit.name }}"></option>
+                    <option id='{{ crit.name }}_select' value="{{ crit.name }}">{{ crit.name }}</option>
                 {% endfor %}
             </select>
 

@@ -9,23 +9,29 @@
 
 
     <div class="content-page">
-        <label for="evaluator_list">Select Evaluator:</label>
-        <select id="evaluator_list" onchange="select_change()">
-            {% for employee in evaluators %}
-                <option value="{{ employee.username }}">{{ employee.name }}-{{ employee.username }}</option>
-            {% endfor %}
-        </select>
 
-        <hr>
+        <div class="vertical-center">
+            <label for="evaluator_list">کارمند ارزیابی کننده</label>
+            <select id="evaluator_list" onchange="select_change()">
+                {% for employee in evaluators %}
+                    <option value="{{ employee.username }}">{{ employee.name }}-{{ employee.username }}</option>
+                {% endfor %}
+            </select>
 
-        <label for="evaluatee_list">Select Evaluatee:</label>
-        <select id="evaluatee_list" onchange="select_change()">
-            {% for employee in evaluatees %}
-                <option value="{{ employee.username }}">{{ employee.name }}-{{ employee.username }}</option>
-            {% endfor %}
-        </select>
+            <hr>
 
-        <button class="submitButton" onclick="pack_and_submit()">Submit</button>
+            <label for="evaluatee_list">کارمند ارزیابی شونده</label>
+            <select id="evaluatee_list" onchange="select_change()">
+                {% for employee in evaluatees %}
+                    <option value="{{ employee.username }}">{{ employee.name }}-{{ employee.username }}</option>
+                {% endfor %}
+            </select>
+
+            <div class="button_holder container">
+                <a class="order-option-link green_back" onclick="pack_and_submit()()"> ثبت </a>
+                <a class="order-option-link red_back" onclick="go_back()"> بازگشت </a>
+            </div>
+        </div>
     </div>
 
 
@@ -41,26 +47,9 @@
 
             let send_data = JSON.stringify(data);
 
-
-            sendData(send_data, '/management/assignEvaluatorToEmployee/');
+            send_ajax_post('/management/assignEvaluatorToEmployee/', send_data, true);
             console.log(send_data);
         }
-
-        function sendData(data, url) {
-            let xhr = new XMLHttpRequest();
-
-            xhr.open('POST', url, true);
-            xhr.setRequestHeader("Content-type", "application/json");
-
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    {#var json = JSON.parse(xhr.responseText);#}
-                    {#console.log(xhr.responseText);#}
-                }
-            };
-            xhr.send(data);
-        }
-
     </script>
 
 {% endblock %}
