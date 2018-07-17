@@ -1,5 +1,5 @@
 from django.db import models
-from auth.models import User
+from auth.models import User, UserCatalog
 from rnp.decorators import singleton
 
 
@@ -24,10 +24,11 @@ class EvaluationCatalog(models.Manager):
     #     return data
 
     def dump_by_username(self, username):
-        evaluatee = User.get_username(username)
+        evaluatee = UserCatalog.get_instance().get_by_username(username)
         data = []
         for evaluation in self.filter(_evaluatee=evaluatee):
             data.append(evaluation.dump())
+
         return {'evaluatee_name': evaluatee.get_name(), 'evaluations': data}
 
 
@@ -38,7 +39,7 @@ class Evaluation(models.Model):
     _qualitative_result = models.CharField(max_length=20)
     _quantitative_result = models.CharField(max_length=20)
 
-    objects = EvaluationCatalog()
+    objects = EvaluationCatalog.get_instance()
 
     def get_qualitative_result(self):
         return self._qualitative_result
