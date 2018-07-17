@@ -11,8 +11,6 @@ oneToOne
 
 redirections after actions
 
-add usecases to index page
-
 hide interval start and end in add criterion for qualitative options
 
 back button

@@ -1,7 +1,8 @@
 from django.db import models
 
-from auth.models import UserCatalog
+from auth.models import UserCatalog, User
 from management.models import Employee
+from management.models.jobs import EmployeeCatalog
 from rnp.decorators import singleton
 
 
@@ -13,7 +14,7 @@ class AssignmentCatalog(models.Manager):
         for evaluatee in self.filter(_evaluator=evaluator):
             data.append({
                 'name': evaluatee.get_name(),
-                'username': evaluatee.get_username,
+                'username': evaluatee.get_username(),
             })
         return data
 
@@ -27,8 +28,8 @@ class AssignmentCatalog(models.Manager):
 
 class Assignment(models.Model):
     objects = AssignmentCatalog.get_instance()
-    _evaluator = models.ForeignKey('Employee', on_delete=models.DO_NOTHING, related_name='_evaluator_assignment')
-    _evaluatee = models.ForeignKey('Employee', on_delete=models.DO_NOTHING, related_name='_evaluatee_assignment')
+    _evaluator = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='_evaluator_assignment')
+    _evaluatee = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='_evaluatee_assignment')
 
     class Meta:
         unique_together = ('_evaluator', '_evaluatee')

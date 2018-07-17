@@ -1,6 +1,7 @@
 import json
 
 from django.http import HttpResponse
+from django.shortcuts import redirect
 from django.template.loader import get_template
 from django.views import View
 
@@ -30,3 +31,4 @@ class AssignEvaluatorToEmployee(ManagerRequiredMixin, View):
         evaluator_username = json_data['evaluator_username']
         evaluatee_username = json_data['evaluatee_username']
         AssignmentCatalog.add_assignment(evaluatee_username=evaluatee_username, evaluator_username=evaluator_username)
+        return redirect('/')
