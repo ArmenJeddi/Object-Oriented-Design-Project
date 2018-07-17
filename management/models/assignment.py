@@ -24,6 +24,21 @@ class AssignmentCatalog(models.Manager):
         assignment = Assignment(_evaluator=evaluator, _evaluatee=evaluatee)
         assignment.save()
 
+    def remove_assignment(self, evaluatee_username, evaluator_username):
+        evaluator = UserCatalog.get_instance().get_by_username(evaluator_username)
+        evaluatee = UserCatalog.get_instance().get_by_username(evaluatee_username)
+        self.get(_evaluator=evaluator, _evaluatee=evaluatee).delete()
+
+    def dump_all(self):
+        data = []
+        for assignment in self.all():
+            data.append({
+                'evaluatee_name': assignment.get_evaluatee_name(),
+                'evaluatee_username': assignment.get_evaluatee_username(),
+                'evaluator_name': assignment.get_evaluator_name(),
+                'evaluator_username': assignment.get_evaluator_username(),
+            })
+
 
 class Assignment(models.Model):
     objects = AssignmentCatalog.get_instance()
@@ -37,4 +52,10 @@ class Assignment(models.Model):
         return self._evaluatee.get_name()
 
     def get_evaluatee_username(self):
+        return self._evaluatee.get_username()
+
+    def get_evaluator_name(self):
+        return self._evaluatee.get_name()
+
+    def get_evaluator_username(self):
         return self._evaluatee.get_username()

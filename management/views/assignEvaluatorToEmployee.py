@@ -19,10 +19,12 @@ class AssignEvaluatorToEmployee(ManagerRequiredMixin, View):
     def get(self, request):
         employee_catalog = EmployeeCatalog.get_instance()
         evaluatees = employee_catalog.dump_evaluatee()
+        assignments = AssignmentCatalog.get_instance().dump_all()
         evaluators = employee_catalog.dump_evaluator()
         html = self.template.render({
             'evaluatees': evaluatees,
             'evaluators': evaluators,
+            'assignments': assignments,
         }, request)
         return HttpResponse(html)
 
@@ -30,5 +32,6 @@ class AssignEvaluatorToEmployee(ManagerRequiredMixin, View):
         json_data = json.loads(request.body)
         evaluator_username = json_data['evaluator_username']
         evaluatee_username = json_data['evaluatee_username']
-        AssignmentCatalog.add_assignment(evaluatee_username=evaluatee_username, evaluator_username=evaluator_username)
+        AssignmentCatalog.get_instance().add_assignment(evaluatee_username=evaluatee_username,
+                                                        evaluator_username=evaluator_username)
         return redirect('/')
