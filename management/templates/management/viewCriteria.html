@@ -8,65 +8,23 @@
 {% block main %}
 
     <div class="content-page">
-
         <div class="vertical-center">
 
 
-            <div class="darkBlock">
-                <label for="criterion_name">نام معیار ارزیابی</label>
-                <input type="text" required name="criterion_name" id="criterion_name" placeholder="نام معیار ارزیابی"
-                       value="{{ name }}"><br>
-            </div>
-            <hr>
+            {% for criterion in criteria %}
 
-            <div class="middle-header">افزودن گزینه</div>
-
-            <div class="darkBlock">
-
-                <label for="option_name">نام گزینه</label>
-                <input type="text" name="option_name" id="option_name" placeholder="نام گزینه"><br>
-
-
-                <div>
-
-                    <input class="vertical-right" type="radio" name="type" id="quan" value="quan" checked
-                           onchange="toggle_qualitative()">
-                    <label for="quan">گزینه کمّی است</label>
-
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                    <input class='vertical-right' type="radio" name="type" id="qual" value="qual"
-                           onchange="toggle_qualitative()">
-                    <label for="qual">گزینه کیفی است</label><br>
-                </div>
-
-                <label for="range_start" id="range_start_label">شروع بازه</label>
-                <input type="number" name="range_start" id="range_start" value="0">
-
-                <label for="range_end" id="range_end_label">پایان بازه</label>
-                <input type="number" name="range_end" id="range_end" value="100">
-
-
-                <br><br>
-
-                <div class="button_holder">
-                    <a class="order-option-link yellow_back" onclick="add_option()"> افزودن گزینه </a>
-                </div>
-                <hr>
-
+            <div class="middle-header">نام معیار ارزیابی</div>
                 <h5>گزینه‌های کمّی</h5>
 
 
                 <table id="quan_options">
-                    <col width="34%">
+                    <col width="44%">
                     <col width="28%">
                     <col width="28%">
-                    <col width="10%">
                     <tr>
                         <th>نام گزینه</th>
                         <th>شروع بازه</th>
                         <th>پایان بازه</th>
-                        <th>اقدام</th>
                     </tr>
                     {#                    {% for option in quantitative %}#}
                     {#                        <tr id="{{ forloop.counter0 }}">#}
@@ -83,11 +41,9 @@
 
 
                 <table id="qual_options">
-                    <col width="90%">
-                    <col width="10%">
+                    <col width="100%">
                     <tr>
                         <th>نام گزینه</th>
-                        <th>اقدام</th>
                     </tr>
                     {#                    {% for option in qualitative %}#}
                     {#                        <tr id="{{ forloop.counter0 }}">#}
@@ -101,11 +57,9 @@
             </div>
             <hr>
             <div class="button_holder">
-                <a class="order-option-link green_back" onclick="pack_and_submit()"> ثبت </a>
                 <a class="order-option-link red_back" onclick="go_back()"> بازگشت </a>
             </div>
         </div>
-    </div>
 {% endblock %}
 
 {% block script %}
