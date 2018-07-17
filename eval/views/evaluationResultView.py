@@ -11,7 +11,7 @@ class EvaluationResultView(LoginRequiredMixin, View):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.template = get_template('evaluatee/evaluationResult.html')
+        self.template = get_template('viewEvaluationResult.html')
 
     def get(self, request, username):
         user = request.user

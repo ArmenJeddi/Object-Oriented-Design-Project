@@ -31,11 +31,47 @@
                 <a class="order-option-link green_back" onclick="pack_and_submit()()"> ثبت </a>
                 <a class="order-option-link red_back" onclick="go_back()"> بازگشت </a>
             </div>
+
+            <hr>
+
+        {% if assignments %}
+            <table id="quan_options">
+                        <col width="45%">
+                        <col width="45%">
+                        <col width="10%">
+                        <tr>
+                            <th>کارمند ارزیاب</th>
+                            <th>کارمند ارزیابی شونده</th>
+                            <th>اقدام</th>
+                        </tr>
+                        {% for option in criterion.quantitative %}
+                            <tr>
+                                <td id="option_name">{{ assignment.evaluator_name }}</td>
+                                <td id="start_value">{{ assignment.evaluatee_name }}</td>
+                                <td class="center_text">
+                                    <button class="order-option-link order_small red_back" onclick="delete_assignment('{{ assignment.evaluator_username }}', '{{ assignment.evaluatee_username }}')">حذف</button>
+                                </td>
+                            </tr>{% endfor %}
+                    </table>
+        {% else %}
+        {% endif %}
+
+
+
+
         </div>
     </div>
 
 
     <script>
+        function delete_assignment(evaluator, evaluatee) {
+            let data = {'evaluatee_username': evaluator, 'evaluator_username': evaluatee};
+
+            let send_data = JSON.stringify(data);
+
+            send_ajax_post('/management/removeAssignment/', send_data, true);
+        }
+    
         function pack_and_submit() {
             let evaluatee = document.getElementById('evaluatee_list').value;
             let evaluator = document.getElementById('evaluator_list').value;

@@ -1,0 +1,70 @@
+{% extends "navbar_signedin.html" %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="/static/styles/main.css"/>
+    <title>Add Employee</title>
+{% endblock %}
+
+{% block main %}
+
+    <div class="content-page">
+        <div class="vertical-center">
+
+            {% if data.evaluations %}
+                {% for evaluation in data.evaluations %}
+                    <table id="quan_options">
+                        <col width="22%">
+                        <col width="23%">
+                        <col width="22%">
+                        <col width="23%">
+                        <col width="10%">
+                        <tr>
+                            <th>ارزیابی شونده</th>
+                            <th>ارزیاب</th>
+                            <th>معیار ارزیابی</th>
+                            <th>گزینه‌ی کمّی</th>
+                            <th>گزینه‌ی کیفی</th>
+                            <th>اقدام</th>
+                        </tr>
+                        {% for option in criterion.quantitative %}
+                            <tr>
+                                <td id="option_name">{{ data.evaluatee_name }}</td>
+                                <td id="start_value">{{ evaluation.evaluator_name }}</td>
+                                <td id="end_value">{{ evaluation.criterion }}</td>
+                                <td id="end_value">{{ evaluation.qualitative_result }}</td>
+                                <td id="end_value">{{ evaluation.quantitative_result }}</td>
+                            </tr>{% endfor %}
+                    </table>
+
+                {% endfor %}
+            {% else %}
+                <div class="center-empty-tag container">تا کنون ارزیابی‌ای ثبت نشده است.</div>
+            {% endif %}
+
+
+            <div class="button_holder">
+                <a class="order-option-link red_back" onclick="go_back()"> بازگشت </a>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+
+
+<!––
+data=
+{
+'evaluatee_name': 'ahmad',
+'evaluations': [{
+'evaluator_name': 'ali',
+'criterion': 'حضور به موقع',
+'qualitative_result': 'bad',
+'quantitative_result': 'bad',
+}]
+}
+––>
