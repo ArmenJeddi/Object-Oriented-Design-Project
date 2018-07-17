@@ -6,6 +6,15 @@ from management.mixins import ManagerRequiredMixin
 
 
 class ViewEvaluationView(ManagerRequiredMixin, View):
+    # def __init__(self, **kwargs):
+    #     super().__init__(**kwargs)
+    #     self.template = get_template('management/allEvaluationResult.html')
+    #
+    # def get(self, request):
+    #     data = EvaluationCatalog.get_instance().dump_all()
+    #     html = self.template.render({'data': data}, request)
+    #     return HttpResponse(html)
+
     def get(self, request):
         # evaluatee = self.get_as_evaluatee()
         # evaluation_list = evaluatee.dump_evaluation_list()
@@ -20,7 +29,3 @@ class ViewEvaluationView(ManagerRequiredMixin, View):
         t = get_template('management/viewEvaluation.html')
         html = t.render(evaluation_list, request)
         return HttpResponse(html)
-
-#   [
-#   {}
-#   ]
