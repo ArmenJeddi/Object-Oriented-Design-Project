@@ -14,7 +14,6 @@ class LoginView(View):
     _redirect_field_name = auth.REDIRECT_FIELD_NAME
     _template_name = 'auth/login.html'
     _redirect_authenticated_user = False
-    _invalid_username_password = 1
 
     def dispatch(self, request, *args, **kwargs):
         if self._redirect_authenticated_user and self.request.user is not None:
@@ -39,8 +38,8 @@ class LoginView(View):
         )
         return redirect_to
 
-    def get(self, request, **kwargs):
-        return render(request, self._template_name, kwargs)
+    def get(self, request, error=False):
+        return render(request, self._template_name, error)
 
     def post(self, request):
         username = request.POST.get('username')
@@ -49,7 +48,7 @@ class LoginView(View):
         if username and password:
             user = UserCatalog.get_instance().authenticate(username=username, password=password)
             if user is None:
-                return self.get(request, errors=[self._invalid_username_password])
+                return self.get(request, error=True)
 
         auth.login(self.request, user)
         return HttpResponseRedirect(self.get_success_url())
