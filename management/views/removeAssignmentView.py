@@ -18,5 +18,6 @@ class RemoveAssignmentView(UserPassesTestMixin):
         json_data = json.loads(request.body)
         evaluatee_username = json_data['evaluatee_username']
         evaluator_username = json_data['evaluator_username']
+        print(evaluatee_username, evaluator_username)
         AssignmentCatalog.get_instance().remove_assignment(evaluatee_username, evaluator_username)
         return HttpResponseRedirect('/management/assignEvaluatorToEmployee/')
