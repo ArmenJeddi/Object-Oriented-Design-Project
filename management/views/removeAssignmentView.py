@@ -10,10 +10,6 @@ from management.models.assignment import AssignmentCatalog
 
 class RemoveAssignmentView(ManagerRequiredMixin, View):
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.template = get_template('management/removeAssignment.html')
-
     def post(self, request):
         json_data = json.loads(request.body)
         evaluatee_username = json_data['evaluatee_username']

@@ -38,6 +38,7 @@ class AssignmentCatalog(models.Manager):
                 'evaluator_name': assignment.get_evaluator_name(),
                 'evaluator_username': assignment.get_evaluator_username(),
             })
+        return data
 
 
 class Assignment(models.Model):
@@ -55,7 +56,7 @@ class Assignment(models.Model):
         return self._evaluatee.get_username()
 
     def get_evaluator_name(self):
-        return self._evaluatee.get_name()
+        return self._evaluator.get_name()
 
     def get_evaluator_username(self):
-        return self._evaluatee.get_username()
+        return self._evaluator.get_username()
