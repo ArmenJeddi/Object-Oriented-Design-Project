@@ -1,3 +1,5 @@
+import json
+
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import get_template
 from django.views import View
@@ -24,11 +26,12 @@ class AddRNPMethodView(UserPassesTestMixin):
         return HttpResponse(html)
 
     def post(self, request):
+        json_data = json.loads(request.body)[0]
         criterion_catalog = CriterionCatalog.get_instance()
-        criterion_name = request.POST.get('criterion_names')
-        reward_method = request.POST.get('reward_method')
-        punishment_method = request.POST.get('punishment_method')
+        criterion_name = json_data['name']
+        reward_method = json_data['reward']
+        punishment_method = json_data['punishment']
         criterion = criterion_catalog.get_by_name(criterion_name)
-        criterion.set_reward_method(reward_method)
-        criterion.set_punishment_method(punishment_method)
+        criterion.set_reward(reward_method)
+        criterion.set_punishment(punishment_method)
         return HttpResponseRedirect('/')
