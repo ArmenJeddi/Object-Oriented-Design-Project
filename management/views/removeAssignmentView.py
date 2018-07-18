@@ -1,13 +1,11 @@
 import json
 
-from django.http import HttpResponse
-from django.shortcuts import redirect
+from django.http import HttpResponseRedirect
 from django.template.loader import get_template
 from django.views import View
 
 from management.mixins import ManagerRequiredMixin
 from management.models.assignment import AssignmentCatalog
-from management.models.jobs import EmployeeCatalog
 
 
 class RemoveAssignmentView(ManagerRequiredMixin, View):
@@ -21,4 +19,4 @@ class RemoveAssignmentView(ManagerRequiredMixin, View):
         evaluatee_username = json_data['evaluatee_username']
         evaluator_username = json_data['evaluator_username']
         AssignmentCatalog.get_instance().remove_assignment(evaluatee_username, evaluator_username)
-        return redirect('/management/assignEvaluatorToEmployee/')
+        return HttpResponseRedirect('/management/assignEvaluatorToEmployee/')
