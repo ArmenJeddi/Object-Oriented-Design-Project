@@ -45,12 +45,16 @@
         window.location = '/';
     }
 
-    function send_ajax_post(url, data, redirect) {
+    function send_ajax_post(url, data, redirect, custom_middleware=false, middleware_function=null) {
         let xhr = new XMLHttpRequest();
         xhr.open('POST', url, true);
         xhr.setRequestHeader("Content-type", "application/json");
 
         xhr.onreadystatechange = function () {
+            if (custom_middleware) {
+                middleware_function(xhr);
+            }
+
             if (redirect && xhr.readyState === 4 && xhr.status === 200) {
                 window.location = xhr.responseURL;
             }

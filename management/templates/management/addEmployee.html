@@ -62,7 +62,21 @@
             };
 
             let send_data = JSON.stringify(data);
-            send_ajax_post('/management/addEmployee/', send_data, true);
+
+            let middleware = function (xhr) {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 555) {
+                        {% comment %}user already exists{% endcomment %}
+                        show_notification('error', 'خطا در ثبت نام', 'نام کاربری تکراری است.');
+                    } else if (xhr.status === 556) {
+                        {% comment %} invalid username {% endcomment %}
+                        show_notification('error', 'خطا در ثبت نام', 'نام کاربری باید یک کد ملی معتبر باشد.');
+                    }
+                }
+            };
+
+
+            send_ajax_post('/management/addEmployee/', send_data, true, true, middleware);
         }
     </script>
 

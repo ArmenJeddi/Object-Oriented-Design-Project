@@ -27,4 +27,4 @@ class EmployeeCreateView(UserPassesTestMixin):
         unit = json_data['unit']
         user = UserCatalog.get_instance().create(username, password, name)
         EmployeeCatalog.get_instance().create(user, unit)
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/management/listEmployees/')
