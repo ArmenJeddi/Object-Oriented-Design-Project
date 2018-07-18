@@ -18,7 +18,7 @@ class LogoutView(View):
         next_page = self.get_next_page()
         return HttpResponseRedirect(next_page)
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         """Logout may be done via POST."""
         return self.get(request)
 

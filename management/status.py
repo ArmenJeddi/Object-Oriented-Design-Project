@@ -1,7 +1,12 @@
 from management.models import Manager, Employee
 
 
-class ManagerRequired:
+class Status:
+    def test(self, view):
+        raise NotImplementedError("Subclasses should implement this!")
+
+
+class ManagerRequired(Status):
 
     def test(self, view):
         if view.request.user:
@@ -9,7 +14,7 @@ class ManagerRequired:
         return False
 
 
-class EvaluatorRequired:
+class EvaluatorRequired(Status):
 
     def test(self, view):
         if view.request.user:
@@ -17,7 +22,7 @@ class EvaluatorRequired:
         return False
 
 
-class EvaluateeRequired:
+class EvaluateeRequired(Status):
 
     def test(self, view):
         if view.request.user:
@@ -25,7 +30,7 @@ class EvaluateeRequired:
         return False
 
 
-class LoginRequired:
+class LoginRequired(Status):
 
     def test(self, view):
         return view.request.user
