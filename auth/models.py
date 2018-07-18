@@ -1,5 +1,5 @@
 from django.core.exceptions import ValidationError
-from django.db import models
+from django.db import models, IntegrityError
 
 from rnp.decorators import singleton
 
@@ -66,8 +66,18 @@ class UserCatalog(models.Manager):
 
     def create(self, username, password, name):
         user = User(_username=username, _password=password, _name=name, _job=Job.get_empty_job_title())
-        user.full_clean()
-        user.save(force_insert=True)
+        try:
+            user.full_clean()
+        except ValidationError as ex:
+            if '_username' in ex.message_dict:
+                errors = ex.message_dict['_username']
+                for error in errors:
+                    if error.code == 'invalid':
+                        return 'invalid'
+        try:
+            user.save(force_insert=True)
+        except IntegrityError:
+            return 'unique'
         return user
 
     def delete_by_username(self, username):
@@ -108,13 +118,9 @@ class User(models.Model):
     _INVALID_NAME = 'invalid-name'
     _INVALID_JOB = 'invalid-job'
             
-    _username = models.CharField(primary_key=True, max_length=_USERNAME_LENGTH, unique=True,
-                                 # validators=[RegexValidator(f'[0123456789]{{{_USERNAME_LENGTH}}}',code=_INVALID_USERNAME),]
-                                 )
+    _username = models.CharField(primary_key=True, max_length=_USERNAME_LENGTH, validators=[RegexValidator(f'\\A[0123456789]{{{_USERNAME_LENGTH}}}\\Z',code=_INVALID_USERNAME),])
     _password = models.CharField(max_length=_PASSWORD_LENGTH)
-    _name = models.CharField(max_length=100,
-                             # validators=[RegexValidator('[اآبپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیءؤئإأ]*', code=_INVALID_NAME)]
-                             )
+    _name = models.CharField(max_length=50)
     _job = models.CharField(max_length=Job.get_max_title_length(), blank=True, validators=[job_validator,])
 
     objects = UserCatalog.get_instance()
