@@ -64,7 +64,7 @@
                 <blockquote class='darkBlock'>
                     <p class='xPara justify'>
                         در این بخش می‌توانید معیار‌های ارزیابی مورد نیاز را به
-                         سیستم بیافزایید.
+                        سیستم بیافزایید.
                     </p>
                 </blockquote>
                 <div class='task-option'>
@@ -102,7 +102,8 @@
                     </p>
                 </blockquote>
                 <div class='task-option'>
-                    <a class='order-option-link' href="/management/viewEvaluation/"><span class='productButtons'>مشاهده</span></a>
+                    <a class='order-option-link' href="/management/viewEvaluation/"><span
+                            class='productButtons'>مشاهده</span></a>
                 </div>
 
 
@@ -110,4 +111,38 @@
         </div>
     </div>
 
+{% endblock %}
+
+{% block script %}
+    <script>
+        debugger;
+
+        let options = {
+
+            // success, info, error
+            style: 'error',
+
+            // notification title
+            title: 'نام کاربری اشتباه',
+
+            // notification message
+            message: 'نام کاربری اشتباه است',
+
+            // custom Font Awesome icon
+            icon: 'fa-error',
+
+            // cutom theme
+            theme: null,
+
+            // timeout to close the notification automatically
+            timeout: null,
+
+            // shows close button
+            close_button: true
+        };
+
+        let n = new notify(options);
+        n.show();
+
+    </script>
 {% endblock %}

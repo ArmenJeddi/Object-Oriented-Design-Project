@@ -21,6 +21,7 @@ class AssignEvaluatorToEmployee(ManagerRequiredMixin, View):
         evaluatees = employee_catalog.dump_evaluatee()
         assignments = AssignmentCatalog.get_instance().dump_all()
         evaluators = employee_catalog.dump_evaluator()
+        print('aaaaaaaa', assignments)
         html = self.template.render({
             'evaluatees': evaluatees,
             'evaluators': evaluators,
@@ -34,4 +35,4 @@ class AssignEvaluatorToEmployee(ManagerRequiredMixin, View):
         evaluatee_username = json_data['evaluatee_username']
         AssignmentCatalog.get_instance().add_assignment(evaluatee_username=evaluatee_username,
                                                         evaluator_username=evaluator_username)
-        return redirect('/')
+        return redirect('/management/assignEvaluatorToEmployee/')
