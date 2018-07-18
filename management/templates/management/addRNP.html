@@ -151,7 +151,6 @@
                 package_data[index].punishment = punishment;
             }
 
-            console.log(send_data);
             let send_data = JSON.stringify(package_data);
             send_ajax_post('/management/addrnp/', send_data, true);
         }
