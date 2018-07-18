@@ -1,7 +1,6 @@
 import json
 
 from django.http import HttpResponseRedirect
-from django.template.loader import get_template
 from django.views import View
 
 from management.mixins import ManagerRequiredMixin

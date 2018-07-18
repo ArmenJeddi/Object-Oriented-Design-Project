@@ -9,9 +9,9 @@ class LogoutView(View):
     """
     Log out the user and display the 'You are logged out' message.
     """
-    next_page = None
-    redirect_field_name = auth.REDIRECT_FIELD_NAME
-    template_name = 'auth/logged_out.html'
+    _next_page = None
+    _redirect_field_name = auth.REDIRECT_FIELD_NAME
+    _template_name = 'auth/logged_out.html'
 
     def get(self, request):
         auth.logout(request)
@@ -23,9 +23,9 @@ class LogoutView(View):
         return self.get(request)
 
     def get_next_page(self):
-        next_page = self.request.POST.get(self.redirect_field_name, self.request.GET.get(self.redirect_field_name))
+        next_page = self.request.POST.get(self._redirect_field_name, self.request.GET.get(self._redirect_field_name))
         if next_page is None:
-            next_page = self.next_page
+            next_page = self._next_page
         if next_page is None:
             next_page = settings.LOGOUT_REDIRECT_URL
 

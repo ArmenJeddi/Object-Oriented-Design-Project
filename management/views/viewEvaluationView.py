@@ -2,7 +2,6 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 from django.views import View
 
-from auth.models import UserCatalog
 from management.mixins import ManagerRequiredMixin
 from management.models.jobs import EmployeeCatalog
 

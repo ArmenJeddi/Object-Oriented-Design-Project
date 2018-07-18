@@ -2,7 +2,6 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 from django.views import View
 
-from auth.mixins import LoginRequiredMixin
 from management.mixins import ManagerRequiredMixin
 from management.models.criterion import CriterionCatalog
 
