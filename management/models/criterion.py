@@ -57,10 +57,13 @@ class CriterionCatalog(models.Manager):
     def get_names_and_rnp(self):
         criteria = []
         for criterion in self.all():
+            name = criterion.get_name()
+            reward = '' if criterion.get_reward() is None else criterion.get_reward()
+            punishment = '' if criterion.get_punishment() is None else criterion.get_punishment()
             criteria.append({
-                'name': criterion.get_name(),
-                'reward': criterion.get_reward(),
-                'punishment': criterion.get_punishment()
+                'name': name,
+                'reward': reward,
+                'punishment': punishment
             })
 
         return criteria
@@ -94,12 +97,14 @@ class EvaluationCriterion(models.Model):
 
     def set_reward(self, reward):
         self._reward = reward
+        self.save()
 
     def get_reward(self):
         return self._reward
 
     def set_punishment(self, punishment):
         self._punishment = punishment
+        self.save()
 
     def get_punishment(self):
         return self._punishment
@@ -112,4 +117,3 @@ class EvaluationCriterion(models.Model):
 
     def get_is_quantitative(self):
         return self._is_quantitative
-
