@@ -2,13 +2,17 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 from django.views import View
 
-from management.mixins import ManagerRequiredMixin
+from auth.mixins import UserPassesTestMixin
 from management.models.jobs import EmployeeCatalog
+from management.status import ManagerRequired
 
 
-class ViewEvaluatorView(ManagerRequiredMixin, View):
+class ViewEvaluatorView(UserPassesTestMixin):
 
-    # GET method used for listing all evaluatee and evaluators
+    def __init__(self, **kwargs):
+        test_object = ManagerRequired()
+        super().__init__(test_object, **kwargs)
+
     def get(self, request):
         employee_catalog = EmployeeCatalog.get_instance()
         t = get_template('management/addEvaluator.html')

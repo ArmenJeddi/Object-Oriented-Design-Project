@@ -3,15 +3,17 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import get_template
 from django.views import View
 
-from management.mixins import ManagerRequiredMixin
+from auth.mixins import UserPassesTestMixin
 from management.models.assignment import AssignmentCatalog
 from management.models.jobs import EmployeeCatalog
+from management.status import ManagerRequired
 
 
-class AssignEvaluatorToEmployee(ManagerRequiredMixin, View):
+class AssignEvaluatorToEmployee(UserPassesTestMixin):
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, *args, **kwargs):
+        test_object = ManagerRequired()
+        super().__init__(test_object, *args, **kwargs)
         self.template = get_template('management/assignEvaluatorToEmployee.html')
 
     def get(self, request):

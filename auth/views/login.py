@@ -11,13 +11,13 @@ class LoginView(View):
     """
     Display the login form and handle the login action.
     """
-    redirect_field_name = auth.REDIRECT_FIELD_NAME
-    template_name = 'auth/login.html'
-    redirect_authenticated_user = False
-    invalid_username_password = 1
+    _redirect_field_name = auth.REDIRECT_FIELD_NAME
+    _template_name = 'auth/login.html'
+    _redirect_authenticated_user = False
+    _invalid_username_password = 1
 
     def dispatch(self, request, *args, **kwargs):
-        if self.redirect_authenticated_user and self.request.user is not None:
+        if self._redirect_authenticated_user and self.request.user is not None:
             redirect_to = self.get_success_url()
             if redirect_to == self.request.path:
                 raise ValueError(
@@ -34,13 +34,13 @@ class LoginView(View):
     def get_redirect_url(self):
         """Return the user-originating redirect URL if it's safe."""
         redirect_to = self.request.POST.get(
-            self.redirect_field_name,
-            self.request.GET.get(self.redirect_field_name, '')
+            self._redirect_field_name,
+            self.request.GET.get(self._redirect_field_name, '')
         )
         return redirect_to
 
     def get(self, request, **kwargs):
-        return render(request, self.template_name, kwargs)
+        return render(request, self._template_name, kwargs)
 
     def post(self, request):
         username = request.POST.get('username')
@@ -49,7 +49,7 @@ class LoginView(View):
         if username and password:
             user = UserCatalog.get_instance().authenticate(username=username, password=password)
             if user is None:
-                return self.get(request, errors=[self.invalid_username_password])
+                return self.get(request, errors=[self._invalid_username_password])
 
         auth.login(self.request, user)
         return HttpResponseRedirect(self.get_success_url())

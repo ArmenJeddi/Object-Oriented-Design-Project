@@ -4,12 +4,17 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views import View
 
+from auth.mixins import UserPassesTestMixin
 from auth.models import UserCatalog
-from management.mixins import ManagerRequiredMixin
 from management.models.jobs import EmployeeCatalog
+from management.status import ManagerRequired
 
 
-class EmployeeCreateView(ManagerRequiredMixin, View):
+class EmployeeCreateView(UserPassesTestMixin):
+
+    def __init__(self, *args, **kwargs):
+        test_object = ManagerRequired()
+        super().__init__(test_object, *args, **kwargs)
 
     def get(self, request):
         return render(request, 'management/addEmployee.html')

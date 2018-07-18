@@ -3,12 +3,17 @@ import json
 from django.http import HttpResponseRedirect
 from django.views import View
 
+from auth.mixins import UserPassesTestMixin
 from auth.models import UserCatalog
-from management.mixins import ManagerRequiredMixin
 from management.models.jobs import Employee
+from management.status import ManagerRequired
 
 
-class EmployeeDeleteView(ManagerRequiredMixin, View):
+class EmployeeDeleteView(UserPassesTestMixin):
+
+    def __init__(self, *args, **kwargs):
+        test_object = ManagerRequired()
+        super().__init__(test_object, *args, **kwargs)
 
     # DELETE method used for taking back evaluator position
     def post(self, request):
