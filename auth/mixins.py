@@ -6,7 +6,6 @@ from django.http import HttpResponseRedirect, QueryDict
 from django.views.generic import View
 
 from auth import REDIRECT_FIELD_NAME
-from management.models import Employee
 
 
 def redirect_to_login(next, login_url=None, redirect_field_name=REDIRECT_FIELD_NAME):

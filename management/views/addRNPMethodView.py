@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import get_template
 from django.views import View
+
 from management.mixins import ManagerRequiredMixin
 from management.models.criterion import CriterionCatalog
 

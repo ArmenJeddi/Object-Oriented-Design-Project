@@ -1,7 +1,6 @@
 import json
 
-from django.http import HttpResponse
-from django.shortcuts import redirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import get_template
 from django.views import View
 
@@ -10,7 +9,6 @@ from eval.mixins import EvaluatorRequiredMixin
 from eval.models.evaluation import EvaluationCatalog
 from management.models.assignment import AssignmentCatalog
 from management.models.criterion import CriterionCatalog
-from management.models.jobs import EmployeeCatalog
 
 
 class EvaluateEmployeeView(EvaluatorRequiredMixin, View):
@@ -29,11 +27,11 @@ class EvaluateEmployeeView(EvaluatorRequiredMixin, View):
 
     def post(self, request):
         evaluatee = json.loads(request.body)
-        self.add_evaluation(evaluatee['username'], evaluatee['criterion'], request.user)
-        return redirect('/eval/evaluatorIndex/')
+        self._add_evaluation(evaluatee['username'], evaluatee['criterion'], request.user)
+        return HttpResponseRedirect('/eval/evaluatorIndex/')
 
     @staticmethod
-    def add_evaluation(evaluatee_username, criteria, evaluator):
+    def _add_evaluation(evaluatee_username, criteria, evaluator):
         user_catalog = UserCatalog.get_instance()
         criterion_catalog = CriterionCatalog.get_instance()
         evaluation_catalog = EvaluationCatalog.get_instance()

@@ -4,7 +4,7 @@ from django.views import View
 
 from auth.mixins import LoginRequiredMixin
 from eval.models.evaluation import EvaluationCatalog
-from management.models import Manager, Employee
+from management.models import Employee
 
 
 class EvaluationResultView(LoginRequiredMixin, View):
