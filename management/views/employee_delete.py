@@ -1,21 +1,23 @@
 import json
 
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseBadRequest
 from django.views import View
 
-from auth.models import UserCatalog
+from auth.models import UserCatalog, User
 from management.mixins import ManagerRequiredMixin
 from management.models.jobs import Employee
 
 
 class EmployeeDeleteView(ManagerRequiredMixin, View):
 
-    # DELETE method used for taking back evaluator position
     def post(self, request):
         nid = json.loads(request.body)['username']
-        # employee = Employee.objects.get(national_id=nid)
-        user = UserCatalog.get_instance().get_by_username(nid)
-        if user.get_job().get_title() == Employee.get_title():
+        try:
+            user = UserCatalog.get_instance().get_by_username(nid)
+        except User.DoesNotExist:
+            return HttpResponseBadRequest()
+        if user.get_job_title() == Employee.get_title():
             UserCatalog.get_instance().delete_by_username(nid)
-        # Evaluator.objects.get(asEmployee=employee).delete()
-        return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/')
+        else:
+            return HttpResponseBadRequest()
