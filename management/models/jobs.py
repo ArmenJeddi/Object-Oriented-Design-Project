@@ -1,5 +1,6 @@
 from django.db import models
 from auth.models import Job, JobCatalog
+from management.models.assignment import AssignmentCatalog
 from rnp.decorators import singleton
 
 
@@ -80,6 +81,8 @@ class Employee(Job):
 
     def set_evaluator(self, value):
         self._is_evaluator = value
+        if not value:
+            AssignmentCatalog.get_instance().remove_by_evaluator(self.get_user())
         self.full_clean()
         self.save()
 

@@ -1,8 +1,6 @@
 from django.db import models
 
 from auth.models import UserCatalog, User
-from management.models import Employee
-from management.models.jobs import EmployeeCatalog
 from rnp.decorators import singleton
 
 
@@ -39,6 +37,9 @@ class AssignmentCatalog(models.Manager):
                 'evaluator_username': assignment.get_evaluator_username(),
             })
         return data
+
+    def remove_by_evaluator(self, evaluator):
+        self.get(_evaluator=evaluator).delete()
 
 
 class Assignment(models.Model):
