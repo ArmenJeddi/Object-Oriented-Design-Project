@@ -18,7 +18,6 @@ class EvaluationResultView(UserPassesTestMixin):
 
     def get(self, request, username):
         user = request.user
-        username = request.user.get_username()
         if user.get_job_title() == Employee.get_title():
             if user.get_username() != username:
                 return HttpResponseForbidden()
