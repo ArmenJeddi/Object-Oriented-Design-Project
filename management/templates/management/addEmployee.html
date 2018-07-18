@@ -53,6 +53,11 @@
             let username = document.getElementById('id_national_id').value;
             let unit = document.getElementById('unit_id').value;
             let password = document.getElementById('password_id').value;
+            debugger;
+            if (! /^([0-9]{10})$/.test(username)) {
+                show_notification(show_notification('error', 'خطا در ثبت نام', 'نام کاربری باید یک کد ملی معتبر باشد.'));
+                return;
+            }
 
             let data = {
                 username: username,
@@ -65,10 +70,10 @@
 
             let middleware = function (xhr) {
                 if (xhr.readyState === 4) {
-                    if (xhr.status === 555) {
+                    if (xhr.status === 455) {
                         {% comment %}user already exists{% endcomment %}
                         show_notification('error', 'خطا در ثبت نام', 'نام کاربری تکراری است.');
-                    } else if (xhr.status === 556) {
+                    } else if (xhr.status === 456) {
                         {% comment %} invalid username {% endcomment %}
                         show_notification('error', 'خطا در ثبت نام', 'نام کاربری باید یک کد ملی معتبر باشد.');
                     }
