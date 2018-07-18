@@ -305,8 +305,8 @@ tr:nth-child(even) {
 }
 
 .login-logo {
-    margin-top: 800px;
+    margin-right: 50px;
+    margin-top: 840px;
     font-size: 500px;
-    background: -webkit-linear-gradient(-90deg, rebeccapurple, deepskyblue);
-git*/
+    color: #3f003a;
 }
