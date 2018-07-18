@@ -7,7 +7,7 @@ from management.mixins import ManagerRequiredMixin
 from management.models.assignment import AssignmentCatalog
 
 
-class RemoveAssignmentView(ManagerRequiredMixin, View):
+class RemoveAssignmentView(ManagerRequiredMixin):
 
     def post(self, request):
         json_data = json.loads(request.body)

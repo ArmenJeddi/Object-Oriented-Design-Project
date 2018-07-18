@@ -8,7 +8,7 @@ from management.models.assignment import AssignmentCatalog
 from management.models.jobs import EmployeeCatalog
 
 
-class AssignEvaluatorToEmployee(ManagerRequiredMixin, View):
+class AssignEvaluatorToEmployee(ManagerRequiredMixin):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

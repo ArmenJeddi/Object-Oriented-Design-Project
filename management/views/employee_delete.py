@@ -8,7 +8,7 @@ from management.mixins import ManagerRequiredMixin
 from management.models.jobs import Employee
 
 
-class EmployeeDeleteView(ManagerRequiredMixin, View):
+class EmployeeDeleteView(ManagerRequiredMixin):
 
     # DELETE method used for taking back evaluator position
     def post(self, request):

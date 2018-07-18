@@ -6,7 +6,7 @@ from management.mixins import ManagerRequiredMixin
 from management.models.criterion import CriterionCatalog
 
 
-class ViewCriterionListView(ManagerRequiredMixin, View):
+class ViewCriterionListView(ManagerRequiredMixin):
     def get(self, request):
         criterion_names = CriterionCatalog.get_instance().get_names()
         t = get_template('management/viewCriteriaList.html')

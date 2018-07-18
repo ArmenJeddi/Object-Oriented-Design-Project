@@ -7,7 +7,7 @@ from eval.models.evaluation import EvaluationCatalog
 from management.models import Employee
 
 
-class EvaluationResultView(LoginRequiredMixin, View):
+class EvaluationResultView(LoginRequiredMixin):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

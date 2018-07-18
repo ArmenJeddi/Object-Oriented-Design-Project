@@ -11,7 +11,7 @@ from management.models.assignment import AssignmentCatalog
 from management.models.criterion import CriterionCatalog
 
 
-class EvaluateEmployeeView(EvaluatorRequiredMixin, View):
+class EvaluateEmployeeView(EvaluatorRequiredMixin):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

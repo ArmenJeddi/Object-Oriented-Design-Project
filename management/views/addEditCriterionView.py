@@ -9,7 +9,7 @@ from management.models import EvaluationCriterion
 from management.models.criterion import QuantitativeOption, QualitativeOptions, CriterionCatalog
 
 
-class AddEditCriterionView(ManagerRequiredMixin, View):
+class AddEditCriterionView(ManagerRequiredMixin):
     def get(self, request, criterion_name=None):
         data = None
         if criterion_name is not None:

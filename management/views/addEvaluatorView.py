@@ -5,7 +5,7 @@ from management.mixins import ManagerRequiredMixin
 from management.models.jobs import EmployeeCatalog
 
 
-class AddEvaluatorView(ManagerRequiredMixin, View):
+class AddEvaluatorView(ManagerRequiredMixin):
 
     # POST method used for giving evaluator position to employee
     def post(self, request):

@@ -5,7 +5,7 @@ from management.mixins import ManagerRequiredMixin
 from management.models.jobs import EmployeeCatalog
 
 
-class RemoveEvaluatorView(ManagerRequiredMixin, View):
+class RemoveEvaluatorView(ManagerRequiredMixin):
 
     # DELETE method used for taking back evaluator position
     def post(self, request):

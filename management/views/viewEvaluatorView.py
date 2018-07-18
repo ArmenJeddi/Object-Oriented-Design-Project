@@ -6,7 +6,7 @@ from management.mixins import ManagerRequiredMixin
 from management.models.jobs import EmployeeCatalog
 
 
-class ViewEvaluatorView(ManagerRequiredMixin, View):
+class ViewEvaluatorView(ManagerRequiredMixin):
 
     def get(self, request):
         employee_catalog = EmployeeCatalog.get_instance()

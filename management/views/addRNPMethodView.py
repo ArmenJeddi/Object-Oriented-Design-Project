@@ -6,7 +6,7 @@ from management.mixins import ManagerRequiredMixin
 from management.models.criterion import CriterionCatalog
 
 
-class AddRNPMethodView(ManagerRequiredMixin, View):
+class AddRNPMethodView(ManagerRequiredMixin):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.template = get_template('management/addRNP.html')

@@ -9,7 +9,7 @@ from management.mixins import ManagerRequiredMixin
 from management.models.jobs import EmployeeCatalog
 
 
-class EmployeeCreateView(ManagerRequiredMixin, View):
+class EmployeeCreateView(ManagerRequiredMixin):
 
     def get(self, request):
         return render(request, 'management/addEmployee.html')

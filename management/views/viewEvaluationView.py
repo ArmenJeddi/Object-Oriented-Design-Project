@@ -6,7 +6,7 @@ from management.mixins import ManagerRequiredMixin
 from management.models.jobs import EmployeeCatalog
 
 
-class ViewEvaluationView(ManagerRequiredMixin, View):
+class ViewEvaluationView(ManagerRequiredMixin):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 

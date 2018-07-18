@@ -4,7 +4,7 @@ from django.views.generic.base import View
 from management.mixins import ManagerRequiredMixin
 
 
-class IndexView(ManagerRequiredMixin, View):
+class IndexView(ManagerRequiredMixin):
     http_method_names = ('get',)
 
     def get(self, request):
