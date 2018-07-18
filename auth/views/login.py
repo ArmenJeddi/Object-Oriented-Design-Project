@@ -39,7 +39,7 @@ class LoginView(View):
         return redirect_to
 
     def get(self, request, error=False):
-        return render(request, self._template_name, error)
+        return render(request, self._template_name, dict(error=error))
 
     def post(self, request):
         username = request.POST.get('username')

@@ -2,41 +2,43 @@
 
 {% block nav %}
     <a class="login-logo">
-    <i class="fab fa-keycdn"></i>
+        <i class="fab fa-keycdn"></i>
     </a>
 {% endblock %}
 
 {% block head %}
-    <link rel="stylesheet" type="text/css" href="/static/styles/main.css" />
-	<title>Login</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles/main.css"/>
+    <title>Login</title>
 {% endblock %}
 
 {% block main %}
 
-<div class = 'content-page'>
+    <div class='content-page'>
 
-	<div class = 'vertical-center'>
-	
-		<div class = 'well'>
+        <div class='vertical-center'>
 
-			<h1 class='middle-header'>ورود به سامانه</h1>
-				
-			<blockquote class='darkBlock'>
-				<p class='xPara justify'>برای ورود نام کاربری و رمز خود را وارد نمایید.
-				</p>
-			</blockquote>
-				
-			<form class = 'forms' method="post">
+            <div class='well'>
 
-				<p><label for="id_name">نام کاربری:</label> <input type="text" name="username" required id="user_name" /></p>
-				<p><label for="id_national_id">رمز عبور:</label> <input type="password" name="password" required id="user_password" /></p>
-				<input class = 'submitButton' type="submit" value="ثبت" />
-				
-			</form>
+                <h1 class='middle-header'>ورود به سامانه</h1>
 
-		</div>
-	</div>
-</div>
+                <blockquote class='darkBlock'>
+                    <p class='xPara justify'>برای ورود نام کاربری و رمز خود را وارد نمایید.
+                    </p>
+                </blockquote>
+
+                <form class='forms' method="post">
+
+                    <p><label for="id_name">نام کاربری:</label> <input type="text" name="username" required
+                                                                       id="user_name"/></p>
+                    <p><label for="id_national_id">رمز عبور:</label> <input type="password" name="password" required
+                                                                            id="user_password"/></p>
+                    <input class='submitButton' type="submit" value="ثبت"/>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
 
@@ -45,10 +47,19 @@
 
 
 
-    <form method="post">
-      {% csrf_token %}
-      <table>
-	{{ form.as_table }}
-      </table>
-      <input type="submit" value="ورود">
-    </form>
+<form method="post">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="ورود">
+</form>
+
+{% block script %}
+    <script>
+    console.log('{{ error }}');
+        function django_var_parse(string) {
+            return JSON.parse(string.replace(/&#39;/g, '"'));
+        }
+    </script>
+{% endblock %}
