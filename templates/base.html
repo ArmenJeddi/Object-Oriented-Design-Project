@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/static/styles/navbar.css">
     <link href='http://www.fontonline.ir/css/BYekan.css' rel='stylesheet' type='text/css'>
-    <!--	<link rel="stylesheet" type="text/css" href="static/styles/semantic.min.css">
-    <script
-      src="https://code.jquery.com/jquery-3.1.1.min.js"
-      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-      crossorigin="anonymous"></script>
-    <script src="static/styles/semantic.min.js"></script>
-    -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
+          integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+    <link href="/static/styles/notify.css" rel="stylesheet">
+
+
+
+
     {% block head %}
     {% endblock %}
 </head>
@@ -23,7 +23,7 @@
 <main>
     {% block main %}
     {% endblock %}
-<div style="height: 30px"></div>
+    <div style="height: 30px"></div>
 </main>
 </body>
 
@@ -66,7 +66,8 @@
     }
 
 </script>
-
+<script type="text/javascript" rel="script" src="../static/js/jquery-3.3.1.min.js"></script>
+<script src="/static/js/notify.js"></script>
 
 {% block script %}
 {% endblock %}

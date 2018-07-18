@@ -11,38 +11,36 @@
         <div class="vertical-center">
 
             {% if data.evaluations %}
-                {% for evaluation in data.evaluations %}
-                    <table id="quan_options">
-                        <col width="22%">
-                        <col width="23%">
-                        <col width="22%">
-                        <col width="23%">
-                        <col width="10%">
-                        <tr>
-                            <th>ارزیابی شونده</th>
-                            <th>ارزیاب</th>
-                            <th>معیار ارزیابی</th>
-                            <th>گزینه‌ی کمّی</th>
-                            <th>گزینه‌ی کیفی</th>
-                            <th>اقدام</th>
-                        </tr>
-                        {% for option in criterion.quantitative %}
-                            <tr>
-                                <td id="option_name">{{ data.evaluatee_name }}</td>
-                                <td id="start_value">{{ evaluation.evaluator_name }}</td>
-                                <td id="end_value">{{ evaluation.criterion }}</td>
-                                <td id="end_value">{{ evaluation.qualitative_result }}</td>
-                                <td id="end_value">{{ evaluation.quantitative_result }}</td>
-                            </tr>{% endfor %}
-                    </table>
 
-                {% endfor %}
+                <table id="quan_options">
+                    <col width="20%">
+                    <col width="20%">
+                    <col width="20%">
+                    <col width="20%">
+                    <col width="20%">
+                    <tr>
+                        <th>ارزیابی شونده</th>
+                        <th>ارزیاب</th>
+                        <th>معیار ارزیابی</th>
+                        <th>گزینه‌ی کمّی</th>
+                        <th>گزینه‌ی کیفی</th>
+                    </tr>
+                    {% for evaluation in data.evaluations %}
+                        <tr>
+                            <td id="option_name">{{ data.evaluatee_name }}</td>
+                            <td id="start_value">{{ evaluation.evaluator_name }}</td>
+                            <td id="end_value">{{ evaluation.criterion }}</td>
+                            <td id="end_value">{{ evaluation.qualitative_result }}</td>
+                            <td id="end_value">{{ evaluation.quantitative_result }}</td>
+                        </tr>{% endfor %}
+                </table>
+
             {% else %}
                 <div class="center-empty-tag container">تا کنون ارزیابی‌ای ثبت نشده است.</div>
             {% endif %}
 
 
-            <div class="button_holder">
+            <div class="button_holder container">
                 <a class="order-option-link red_back" onclick="go_back()"> بازگشت </a>
             </div>
 
