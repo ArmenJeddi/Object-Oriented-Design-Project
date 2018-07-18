@@ -26,12 +26,13 @@ class AddRNPMethodView(UserPassesTestMixin):
         return HttpResponse(html)
 
     def post(self, request):
-        json_data = json.loads(request.body)[0]
+        data = json.loads(request.body)
         criterion_catalog = CriterionCatalog.get_instance()
-        criterion_name = json_data['name']
-        reward_method = json_data['reward']
-        punishment_method = json_data['punishment']
-        criterion = criterion_catalog.get_by_name(criterion_name)
-        criterion.set_reward(reward_method)
-        criterion.set_punishment(punishment_method)
+        for json_data in data:
+            criterion_name = json_data['name']
+            reward_method = json_data['reward']
+            punishment_method = json_data['punishment']
+            criterion = criterion_catalog.get_by_name(criterion_name)
+            criterion.set_reward(reward_method)
+            criterion.set_punishment(punishment_method)
         return HttpResponseRedirect('/')
