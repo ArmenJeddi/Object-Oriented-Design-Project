@@ -43,8 +43,8 @@ class AssignmentCatalog(models.Manager):
 
 class Assignment(models.Model):
     objects = AssignmentCatalog.get_instance()
-    _evaluator = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='_evaluator_assignment')
-    _evaluatee = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='_evaluatee_assignment')
+    _evaluator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='_evaluator_assignment')
+    _evaluatee = models.ForeignKey(User, on_delete=models.CASCADE, related_name='_evaluatee_assignment')
 
     class Meta:
         unique_together = ('_evaluator', '_evaluatee')

@@ -18,15 +18,17 @@ class EvaluationResultView(UserPassesTestMixin):
 
     def get(self, request, username):
         user = request.user
-        username = request.user.get_username()
+        current_username = request.user.get_username()
         if user.get_job_title() == Employee.get_title():
             if user.get_username() != username:
                 return HttpResponseForbidden()
             data = EvaluationCatalog.get_instance().dump_by_username(username)
-            html = self.user_template.render({'data': data, 'username': username}, request)
+            print(data)
+            html = self.user_template.render({'data': data, 'username': current_username}, request)
         elif user.get_job_title() == Manager.get_title():
             data = EvaluationCatalog.get_instance().dump_by_username(username)
-            html = self.manager_template.render({'data': data, 'username': username}, request)
+            print(data)
+            html = self.manager_template.render({'data': data, 'username': current_username}, request)
         else:
             return HttpResponseForbidden()
 
