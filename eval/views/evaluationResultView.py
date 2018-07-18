@@ -4,7 +4,7 @@ from django.views import View
 
 from auth.mixins import  UserPassesTestMixin
 from eval.models.evaluation import EvaluationCatalog
-from management.models import Employee
+from management.models import Employee, Manager
 from management.status import LoginRequired
 
 
