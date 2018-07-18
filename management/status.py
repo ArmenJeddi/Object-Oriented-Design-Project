@@ -2,7 +2,7 @@ from management.models import Manager, Employee
 
 
 class Status:
-    def test(self):
+    def test(self, view):
         raise NotImplementedError("Subclasses should implement this!")
 
 
