@@ -1,23 +1,23 @@
-{% extends "navbar_signedin.html" %}
+{% extends "manager_controls.html" %}
 
 {% block head %}
     <link rel="stylesheet" type="text/css" href="/static/styles/main.css"/>
-    <title>View Employees</title>
+    <title>RNP: Employees</title>
 {% endblock %}
 
 {% block main %}
 
     <div class='content-page'>
-
         <div class='vertical-center'>
+            <div class="page_title">
+                کارمندان
+            </div>
+
 
             <div class='well'>
 
-                <h1 class='middle-header'>لیست کارمندان</h1>
-
                 <blockquote class='darkBlock'>
-                    <p class='xPara justify'>لیست کارمندان را در زیر مشاهده می کنید. می توانید با کلیک کردن بر روی
-                        اطلاعات هر فرد، اطلاعات وی را ویرایش کنید.</p>
+                    <p class='xPara justify'>لیست کارمندان را در زیر مشاهده می کنید. می توانید به این لیست کارمندان جدیدی اضافه کنید یا کارمندانی را از آن حذف کنید.</p>
                 </blockquote>
 
                 <table id="quan_options">
@@ -34,7 +34,9 @@
                             <td>{{ employee.name }}</td>
                             <td>{{ employee.username }}</td>
                             <td class="center_text">
-                                <button class="order-option-link order_small red_back" onclick="delete_employee({{ forloop.counter0 }}, this.parentNode)">حذف</button>
+                                <button class="order-option-link order_small red_back"
+                                        onclick="delete_employee({{ forloop.counter0 }}, this.parentNode)">حذف
+                                </button>
                             </td>
                         </tr>{% endfor %}
                 </table>

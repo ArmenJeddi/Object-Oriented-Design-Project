@@ -1,16 +1,20 @@
-{% extends "navbar_signedin.html" %}
+{% extends "manager_controls.html" %}
 
 {% block head %}
     <link rel="stylesheet" type="text/css" href="/static/styles/main.css"/>
-    <title>Add Employee</title>
+    <title>RNP: Assignments</title>
 {% endblock %}
 
 {% block main %}
 
 
     <div class="content-page">
-
         <div class="vertical-center">
+
+            <div class="page_title">
+                انتصاب‌های ارزیابی
+            </div>
+
             <label for="evaluator_list">کارمند ارزیابی کننده</label>
             <select id="evaluator_list" onchange="select_change()">
                 {% for employee in evaluators %}

@@ -1,14 +1,21 @@
-{% extends "navbar_signedin.html" %}
+{% extends "custom_controls.html" %}
 
 {% block head %}
     <link rel="stylesheet" type="text/css" href="/static/styles/main.css"/>
-    <title>Add Employee</title>
+    <title>RNP: View Criteria</title>
+{% endblock %}
+
+{% block rightnav %}
+    <a class="order-option-link sidenav_item red_hover" onclick="go_back()">بازگشت</a>
 {% endblock %}
 
 {% block main %}
 
     <div class="content-page">
         <div class="vertical-center">
+            <div class="page_title">
+                معیار‌های ارزیابی
+            </div>
 
 
             {% for criterion in criteria %}

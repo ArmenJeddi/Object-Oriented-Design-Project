@@ -1,16 +1,16 @@
-{% extends "navbar_signedin.html" %}
+{% extends "manager_controls.html" %}
 
 {% block head %}
     <link rel="stylesheet" type="text/css" href="/static/styles/main.css"/>
-    <title>Add Employee</title>
+    <title>RNP: Employee Evaluations</title>
 {% endblock %}
 
 {% block main %}
-
-
     <div class="content-page">
-
         <div class="vertical-center">
+            <div class="page_title">
+                ارزیابی‌های کارمند
+            </div>
 
             {% for evaluation in evaluation_list %}
 

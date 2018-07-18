@@ -3,14 +3,13 @@ body {
 }
 
 .vertical-center {
-    width: 50%;
+    width: 70%;
     margin: 20px auto auto;
     background-color: #F4F4F4;
     border: 2px solid #B6B6B6;
     padding: 20px;
     border-radius: 5px;
     color: black;
-
 }
 
 .vertical-right {
@@ -38,7 +37,6 @@ body {
     font-size: 24px;
 }
 
-
 .center-empty-tag {
     margin-top: 20px;
     margin-bottom: 10px;
@@ -46,8 +44,6 @@ body {
     font-size: 20px;
     color: grey;
 }
-
-
 
 .task-option {
     padding-left: 15px;
@@ -75,7 +71,6 @@ body {
     transition-delay: 0s;
 }
 
-
 .order-option-link:hover {
     font-size: 18px;
     background-color: #0C25A4;
@@ -85,14 +80,12 @@ body {
 .order_small {
     width: 54px;
     font-size: 10px;
-    padding: 2px 14px 2px 14px ;
+    padding: 2px 14px 2px 14px;
 }
 
-.order_small:hover{
+.order_small:hover {
     font-size: 10px;
 }
-
-
 
 div a {
     text-decoration: none;
@@ -247,15 +240,73 @@ tr:nth-child(even) {
     background-color: #dddddd;
 }
 
-
 .criterion_label {
     width: 10%;
 }
 
-
-
-.center_text{
+.center_text {
     text-align: center;
 }
 
+.float-left-area {
+    width: 80%;
+    float: left;
+}
 
+.float-right-area {
+    width: 20%;
+    float: left;
+}
+
+.sidenav {
+    margin-top: 20px;
+}
+
+.sidenav_item {
+    width: 100%;
+    display: block;
+    padding-right: 10%;
+    margin-right: 20px;
+    vertical-align: center;
+
+    height: 40px;
+    line-height: 40px;
+    background-color: #F4F4F4;
+    border-color: #B6B6B6;
+    border-collapse: inherit;
+    box-shadow: none;
+}
+
+.sidenav_item:hover {
+
+    width: 100%;
+    display: block;
+    padding-right: 10%;
+    margin-right: 20px;
+    background-color: cornflowerblue;
+
+    border-color: slateblue;
+}
+
+.red_hover:hover {
+    background-color: tomato !important;
+}
+
+.page_title {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    color: darkblue;
+}
+
+.red {
+    color: red;
+    font-weight: bold;
+}
+
+.login-logo {
+    margin-top: 800px;
+    font-size: 500px;
+    background: -webkit-linear-gradient(-90deg, rebeccapurple, deepskyblue);
+git*/
+}

@@ -1,15 +1,23 @@
-{% extends "navbar_signedin.html" %}
+{% extends "manager_controls.html" %}
 
 {% block head %}
     <link rel="stylesheet" type="text/css" href="/static/styles/main.css"/>
-    <title>Evaluators</title>
+    <title>RNP: Evaluators</title>
 {% endblock %}
 
 {% block main %}
 
     <div class='content-page'>
-
         <div class='vertical-center'>
+            <div class="page_title">
+                ارزیاب‌ها
+            </div>
+
+            <blockquote class='darkBlock'>
+                <p class='xPara justify'>
+                    می‌توانید کارمندان خود را به عنوان ارزیاب تعیین کرده و یا کارمندان ارزیاب را از ارزیاب بودن بردارید.
+                </p>
+            </blockquote>
 
             <div class='well'>
 
@@ -32,7 +40,9 @@
                                 <td>
                                     <form class='evaluator-forms' action="/management/manageEvaluators/remove/"
                                           method="post">
-                                        <button class="order-option-link order_small red_back" onclick="this.parentNode.submit()">&nbsp;حذف&nbsp;</button>
+                                        <button class="order-option-link order_small red_back"
+                                                onclick="this.parentNode.submit()">&nbsp;حذف&nbsp;
+                                        </button>
                                         <input type="hidden" value="{{ employee.username }}" name="username">
                                     </form>
                                 </td>
@@ -61,7 +71,9 @@
                             <td>{{ employee.username }}</td>
                             <td>
                                 <form class='evaluator-forms' action="/management/manageEvaluators/add/" method="post">
-                                    <button class="order-option-link order_small green_back" onclick="this.parentNode.submit()">اضافه</button>
+                                    <button class="order-option-link order_small green_back"
+                                            onclick="this.parentNode.submit()">اضافه
+                                    </button>
                                     <input type="hidden" value="{{ employee.username }}" name="username">
                                 </form>
                             </td>
