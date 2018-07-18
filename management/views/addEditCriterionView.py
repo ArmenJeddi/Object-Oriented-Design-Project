@@ -4,12 +4,18 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import get_template
 from django.views import View
 
-from management.mixins import ManagerRequiredMixin
+from auth.mixins import UserPassesTestMixin
 from management.models import EvaluationCriterion
 from management.models.criterion import QuantitativeOption, QualitativeOptions, CriterionCatalog
+from management.status import ManagerRequired
 
 
-class AddEditCriterionView(ManagerRequiredMixin, View):
+class AddEditCriterionView(UserPassesTestMixin):
+
+    def __init__(self, *args, **kwargs):
+        test_object = ManagerRequired()
+        super().__init__(test_object, *args, **kwargs)
+
     def get(self, request, criterion_name=None):
         data = None
         if criterion_name is not None:

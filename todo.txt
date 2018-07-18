@@ -5,9 +5,6 @@ errors
 
 oneToOne
 
-افزودن روش تشویق و تنبیه
-ویرایش و حذف روش تشویق و تنبیه
-ارزیابی کارمندان
 
 redirections after actions
 

@@ -1,17 +1,18 @@
-{% extends "navbar_signedin.html" %}
+{% extends "manager_controls.html" %}
 
 {% block head %}
     <link rel="stylesheet" type="text/css" href="/static/styles/main.css"/>
-    <title>Add Employee</title>
+    <title>RNP: Criteria</title>
 {% endblock %}
 
 {% block main %}
 
 
     <div class="content-page">
-
         <div class="vertical-center">
-            <h3>معیارهای ارزیابی</h3>
+            <div class="page_title">
+                معیار‌های ارزیابی
+            </div>
 
             {% for criterion_name in criterion_names %}
 

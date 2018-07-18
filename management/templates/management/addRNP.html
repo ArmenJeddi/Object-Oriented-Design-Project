@@ -1,16 +1,26 @@
-{% extends "navbar_signedin.html" %}
+{% extends "manager_controls.html" %}
 
 {% block head %}
     <link rel="stylesheet" type="text/css" href="/static/styles/main.css"/>
-    <title>Add Employee</title>
+    <title>RNP: Methods</title>
 {% endblock %}
 
 {% block main %}
 
     <div class="content-page">
-
         <div class="vertical-center">
 
+            <div class="page_title">
+                روش‌های تشویق و تنبیه
+            </div>
+
+            <blockquote class='darkBlock'>
+                <p class='xPara justify'>
+                    می‌توانید روش‌های تشویق و تنبیه را برای معیار‌های ارزیابی مختلف اضافه کرده، تغییر داده و یا حذف کنید.
+                    <br>
+                    پس از اعمال تمامی تغییرات کافی‌است گزینه‌ی ثبت را انخاب کنید.
+                </p>
+            </blockquote>
 
             <div class="content-page">
                 <label for="criterion_list">معیار ارزیابی</label>
@@ -38,7 +48,8 @@
                             {% if criterion.punishment is None %}
                                 <input id='{{ criterion.name }}_punishment' type="text" value="">
                             {% else %}
-                                <input id='{{ criterion.name }}_punishment' type="text" value="{{ criterion.punishment }}">
+                                <input id='{{ criterion.name }}_punishment' type="text"
+                                       value="{{ criterion.punishment }}">
                             {% endif %}
 
                             <div id='{{ criterion.name }}_clear_button' class="button_holder container">
@@ -50,18 +61,18 @@
                             <label id='{{ criterion.name }}_reward_label' style="display: none">پاداش</label>
                             {% if criterion.reward is None %}
                                 <input id='{{ criterion.name }}_reward' type="text" style="display: none"
-                                   value="">
+                                       value="">
                             {% else %}
                                 <input id='{{ criterion.name }}_reward' type="text" style="display: none"
-                                   value="{{ criterion.reward }}">
+                                       value="{{ criterion.reward }}">
                             {% endif %}
                             <label id='{{ criterion.name }}_punishment_label' style="display: none">تنبیه</label>
                             {% if criterion.punishment is None %}
                                 <input id='{{ criterion.name }}_punishment' type="text" style="display: none"
-                                   value="">
+                                       value="">
                             {% else %}
                                 <input id='{{ criterion.name }}_punishment' type="text" style="display: none"
-                                   value="{{ criterion.reward }}">
+                                       value="{{ criterion.reward }}">
                             {% endif %}
 
 

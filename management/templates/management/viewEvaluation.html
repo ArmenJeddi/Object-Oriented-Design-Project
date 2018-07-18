@@ -1,8 +1,8 @@
-{% extends "navbar_signedin.html" %}
+{% extends "manager_controls.html" %}
 
 {% block head %}
     <link rel="stylesheet" type="text/css" href="/static/styles/main.css"/>
-    <title>View Employees</title>
+    <title>RNP: Employee Evaluations</title>
 {% endblock %}
 
 {% block main %}
@@ -10,14 +10,16 @@
     <div class='content-page'>
 
         <div class='vertical-center'>
+            <div class="page_title">
+                ارزیابی‌های کارمندان
+            </div>
 
             <div class='well'>
 
-                <h1 class='middle-header'>لیست کارمندان</h1>
-
                 <blockquote class='darkBlock'>
-                    <p class='xPara justify'>لیست کارمندان را در زیر مشاهده می کنید. می توانید با کلیک کردن بر روی
-                        اطلاعات هر فرد، اطلاعات وی را ویرایش کنید.</p>
+                    <p class='xPara justify'>
+                        کارمند مورد نظر خود را برای نمایش نتایج ارزیابی‌ها انتخاب کنید.
+                    </p>
                 </blockquote>
 
                 <table id="quan_options">

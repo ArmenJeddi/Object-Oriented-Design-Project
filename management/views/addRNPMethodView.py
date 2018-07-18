@@ -1,13 +1,17 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import get_template
 from django.views import View
-from management.mixins import ManagerRequiredMixin
+
+from auth.mixins import UserPassesTestMixin
 from management.models.criterion import CriterionCatalog
+from management.status import ManagerRequired
 
 
-class AddRNPMethodView(ManagerRequiredMixin, View):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+class AddRNPMethodView(UserPassesTestMixin):
+
+    def __init__(self, *args, **kwargs):
+        test_object = ManagerRequired()
+        super().__init__(test_object, *args, **kwargs)
         self.template = get_template('management/addRNP.html')
         self.select_evaluator_mode = False
 

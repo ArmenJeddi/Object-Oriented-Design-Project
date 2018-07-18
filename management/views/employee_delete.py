@@ -4,11 +4,16 @@ from django.http import HttpResponseRedirect, HttpResponseBadRequest
 from django.views import View
 
 from auth.models import UserCatalog, User
-from management.mixins import ManagerRequiredMixin
+from auth.mixins import UserPassesTestMixin
 from management.models.jobs import Employee
+from management.status import ManagerRequired
 
 
-class EmployeeDeleteView(ManagerRequiredMixin, View):
+class EmployeeDeleteView(UserPassesTestMixin):
+
+    def __init__(self, *args, **kwargs):
+        test_object = ManagerRequired()
+        super().__init__(test_object, *args, **kwargs)
 
     def post(self, request):
         nid = json.loads(request.body)['username']

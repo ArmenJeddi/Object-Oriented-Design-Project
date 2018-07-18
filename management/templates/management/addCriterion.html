@@ -1,18 +1,32 @@
-{% extends "navbar_signedin.html" %}
+{% extends "manager_controls.html" %}
 
 {% block head %}
     <link rel="stylesheet" type="text/css" href="/static/styles/main.css"/>
-    <title>Add Employee</title>
+    <title>RNP: Add Criterion</title>
 {% endblock %}
 
 {% block main %}
 
     <div class="content-page">
-
         <div class="vertical-center">
+            <div class="page_title">
+                افزودن معیار ارزیابی
+            </div>
 
+            <blockquote class='darkBlock'>
+                <p class='xPara justify'>
+                    ابتدا نام معیار ارزیابی را وارد کنید.<br>
+                    می‌توانید به معیار ارزیابی خود گزینه‌های کمّی و کیفی اضافه کنید.<br>
+                    برای گزینه‌های کمّی بایستی بازه‌ی تغییرات را نیز ارائه کنید.<br>
+                    با انتخاب گزینه‌ی افزودن گزینه می‌توانید
+                    گزینه‌های متعددی را به لیست بیفزایید.<br>
+                    در صورت تمایل می‌توانید گزینه‌های افزوده شده را با انتخاب گزینه‌ی حذف از ستون اقدام حذف کنید.<br>
+                    در نهایت برای ثبت معیار ارزیابی گزینه‌ی ثبت را انتخاب کنید.
+                </p>
+            </blockquote>
 
             <div class="darkBlock">
+
                 <label for="criterion_name">نام معیار ارزیابی</label>
                 <input type="text" required name="criterion_name" id="criterion_name" placeholder="نام معیار ارزیابی"
                        value="{{ name }}"><br>

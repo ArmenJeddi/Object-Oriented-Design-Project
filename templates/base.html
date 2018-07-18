@@ -8,9 +8,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
           integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
     <link href="/static/styles/notify.css" rel="stylesheet">
-
-
-
+    <link href="/static/styles/main.css" rel="stylesheet">
 
     {% block head %}
     {% endblock %}
@@ -20,13 +18,23 @@
     {% block nav %}
     {% endblock %}
 </nav>
-<main>
-    {% block main %}
-    {% endblock %}
-    <div style="height: 30px"></div>
-</main>
+<div class="main_wrapper">
+    <div class="float-left-area">
+        <main>
+            {% block main %}
+            {% endblock %}
+            <div style="height: 30px"></div>
+        </main>
+    </div>
+    <div class="sidenav float-right-area">
+        {% block rightnav %}
+        {% endblock %}
+    </div>
+</div>
 </body>
 
+<script type="text/javascript" rel="script" src="/static/js/jquery-3.3.1.min.js"></script>
+<script src="/static/js/notify.js"></script>
 <script>
 
     function go_back() {
@@ -65,9 +73,47 @@
         return JSON.parse(string.replace(/&#39;/g, '"'));
     }
 
+    function show_notification(style, title, body) {
+        let icon;
+
+        if (style === 'error') {
+            icon = 'fas fa-exclamation-circle';
+        } else if (style === 'success') {
+            icon = 'fas fa-check-circle';
+        } else {
+            icon = 'fas fa-info-circle';
+        }
+
+        let options = {
+
+
+            // success, info, error
+            style: style,
+
+            // notification title
+            title: title,
+
+            // notification message
+            message: body,
+
+            // custom Font Awesome icon
+            icon: icon,
+
+            // cutom theme
+            theme: null,
+
+            // timeout to close the notification automatically
+            timeout: 3000,
+
+            // shows close button
+            close_button: true
+        };
+
+        let n = new notify(options);
+        n.show();
+    }
+
 </script>
-<script type="text/javascript" rel="script" src="../static/js/jquery-3.3.1.min.js"></script>
-<script src="/static/js/notify.js"></script>
 
 {% block script %}
 {% endblock %}

@@ -1,11 +1,16 @@
 from django.shortcuts import render
 from django.views.generic.base import View
 
-from management.mixins import ManagerRequiredMixin
+from auth.mixins import UserPassesTestMixin
 from management.models.jobs import EmployeeCatalog
+from management.status import ManagerRequired
 
 
-class EmployeeListView(ManagerRequiredMixin, View):
+class EmployeeListView(UserPassesTestMixin):
+
+    def __init__(self, *args, **kwargs):
+        test_object = ManagerRequired()
+        super().__init__(test_object, *args, **kwargs)
 
     http_method_names = ('get',)
     

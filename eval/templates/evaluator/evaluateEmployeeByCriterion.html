@@ -1,8 +1,13 @@
-{% extends "navbar_signedin.html" %}
+{% extends "custom_controls.html" %}
 
 {% block head %}
     <link rel="stylesheet" type="text/css" href="/static/styles/main.css"/>
     <title>Add Employee</title>
+{% endblock %}
+
+{% block rightnav %}
+    <a class="order-option-link sidenav_item" href="/eval/evaluate/">ارزیابی کارمندان</a>
+    <a class="order-option-link sidenav_item" href="/management/viewCriterionDetailed/">مشاهده‌ی معیار‌های ارزیابی</a>
 {% endblock %}
 
 {% block main %}
