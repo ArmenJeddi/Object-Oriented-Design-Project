@@ -51,3 +51,15 @@
     </div>
 
 {% endblock %}
+
+{% block script %}
+    <script>
+        var flag = localStorage.getItem('flag') || 0;
+        if (!flag){
+            show_notification('success', 'سلام', 'با موفقیت وارد شدید!');
+            localStorage.setItem('flag', '1');
+        }
+
+    </script>
+{% endblock %}
+
