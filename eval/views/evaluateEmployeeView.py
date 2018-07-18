@@ -4,17 +4,20 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template.loader import get_template
 from django.views import View
 
+from auth.mixins import UserPassesTestMixin
 from auth.models import UserCatalog
-from eval.mixins import EvaluatorRequiredMixin
+# from eval.mixins import EvaluatorRequiredMixin
 from eval.models.evaluation import EvaluationCatalog
 from management.models.assignment import AssignmentCatalog
 from management.models.criterion import CriterionCatalog
+from management.status import EvaluatorRequired
 
 
-class EvaluateEmployeeView(EvaluatorRequiredMixin):
+class EvaluateEmployeeView(UserPassesTestMixin):
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, *args, **kwargs):
+        test_object = EvaluatorRequired()
+        super().__init__(test_object, *args, **kwargs)
         self.template = get_template('evaluator/evaluateEmployeeByCriterion.html')
 
     def get(self, request):

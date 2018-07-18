@@ -2,10 +2,15 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 from django.views.generic import TemplateView
 
-from eval.mixins import EvaluatorRequiredMixin, EvaluateeRequiredMixin
+from auth.mixins import UserPassesTestMixin
+from management.status import EvaluateeRequired, EvaluatorRequired
 
 
-class EvaluateeIndexView(EvaluateeRequiredMixin):
+class EvaluateeIndexView(UserPassesTestMixin):
+    def __init__(self, *args, **kwargs):
+        test_object = EvaluateeRequired()
+        super().__init__(test_object, *args, **kwargs)
+
     def get(self, request):
         t = get_template('evaluatee/index.html')
         username = request.user.get_username()
@@ -13,5 +18,12 @@ class EvaluateeIndexView(EvaluateeRequiredMixin):
         return HttpResponse(html)
 
 
-class EvaluatorIndexView(EvaluatorRequiredMixin, TemplateView):
-    template_name = 'evaluator/index.html'
+class EvaluatorIndexView(UserPassesTestMixin):
+    def __init__(self, *args, **kwargs):
+        test_object = EvaluatorRequired()
+        super().__init__(test_object, *args, **kwargs)
+
+    def get(self, request):
+        t = get_template('evaluator/index.html')
+        html = t.render({}, request)
+        return HttpResponse(html)

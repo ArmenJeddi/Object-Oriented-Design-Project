@@ -69,25 +69,18 @@ class UserPassesTestMixin(View, AccessMixin):
     False.
     """
 
-    def test_func(self):
-        raise NotImplementedError(
-            '{0} is missing the implementation of the test_func() method.'.format(self.__class__.__name__)
-        )
+    def __init__(self, test_object, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._test_object = test_object
 
-    def get_test_func(self):
+    def get_test_object(self):
         """
         Override this method to use a different test_func method.
         """
-        return self.test_func
+        return self._test_object
 
     def dispatch(self, request, *args, **kwargs):
-        user_test_result = self.get_test_func()()
+        user_test_result = self.get_test_object().test(self)
         if not user_test_result:
             return self.handle_no_permission()
         return super().dispatch(request, *args, **kwargs)
-
-
-class LoginRequiredMixin(UserPassesTestMixin):
-
-    def test_func(self):
-        return self.request.user

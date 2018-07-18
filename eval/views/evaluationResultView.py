@@ -2,15 +2,17 @@ from django.http import HttpResponse, HttpResponseForbidden
 from django.template.loader import get_template
 from django.views import View
 
-from auth.mixins import LoginRequiredMixin
+from auth.mixins import  UserPassesTestMixin
 from eval.models.evaluation import EvaluationCatalog
 from management.models import Employee
+from management.status import LoginRequired
 
 
-class EvaluationResultView(LoginRequiredMixin):
+class EvaluationResultView(UserPassesTestMixin):
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, *args, **kwargs):
+        test_object = LoginRequired()
+        super().__init__(test_object, *args, **kwargs)
         self.template = get_template('viewEvaluationResult.html')
 
     def get(self, request, username):

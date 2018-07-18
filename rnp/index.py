@@ -2,13 +2,18 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.views.generic import View
 
-from auth.mixins import LoginRequiredMixin
+from auth.mixins import UserPassesTestMixin
 
 from management.models.jobs import Manager, Employee
+from management.status import LoginRequired
 
 
-class IndexRedirectView(LoginRequiredMixin):
+class IndexRedirectView(UserPassesTestMixin):
     http_method_names = ('get',)
+
+    def __init__(self, **kwargs):
+        test_object = LoginRequired()
+        super().__init__(test_object, **kwargs)
 
     def get(self, request, *args, **kwargs):
         user_job = request.user.get_job()

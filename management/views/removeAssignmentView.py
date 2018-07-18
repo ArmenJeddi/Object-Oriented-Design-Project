@@ -3,11 +3,16 @@ import json
 from django.http import HttpResponseRedirect
 from django.views import View
 
-from management.mixins import ManagerRequiredMixin
+from auth.mixins import UserPassesTestMixin
 from management.models.assignment import AssignmentCatalog
+from management.status import ManagerRequired
 
 
-class RemoveAssignmentView(ManagerRequiredMixin):
+class RemoveAssignmentView(UserPassesTestMixin):
+
+    def __init__(self, *args, **kwargs):
+        test_object = ManagerRequired()
+        super().__init__(test_object, *args, **kwargs)
 
     def post(self, request):
         json_data = json.loads(request.body)
