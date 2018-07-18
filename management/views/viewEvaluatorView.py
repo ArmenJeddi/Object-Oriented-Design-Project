@@ -8,7 +8,6 @@ from management.models.jobs import EmployeeCatalog
 
 class ViewEvaluatorView(ManagerRequiredMixin, View):
 
-    # GET method used for listing all evaluatee and evaluators
     def get(self, request):
         employee_catalog = EmployeeCatalog.get_instance()
         t = get_template('management/addEvaluator.html')

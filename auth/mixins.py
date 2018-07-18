@@ -28,16 +28,16 @@ class AccessMixin:
     Abstract CBV mixin that gives access mixins the same customizable
     functionality.
     """
-    login_url = None
-    permission_denied_message = ''
-    raise_exception = False
-    redirect_field_name = REDIRECT_FIELD_NAME
+    _login_url = None
+    _permission_denied_message = ''
+    _raise_exception = False
+    _redirect_field_name = REDIRECT_FIELD_NAME
 
     def get_login_url(self):
         """
         Override this method to override the login_url attribute.
         """
-        login_url = self.login_url or settings.LOGIN_URL
+        login_url = self._login_url or settings.LOGIN_URL
         if not login_url:
             raise ImproperlyConfigured(
                 '{0} is missing the login_url attribute. Define {0}.login_url, settings.LOGIN_URL, or override '
@@ -49,16 +49,16 @@ class AccessMixin:
         """
         Override this method to override the permission_denied_message attribute.
         """
-        return self.permission_denied_message
+        return self._permission_denied_message
 
     def get_redirect_field_name(self):
         """
         Override this method to override the redirect_field_name attribute.
         """
-        return self.redirect_field_name
+        return self._redirect_field_name
 
     def handle_no_permission(self):
-        if self.raise_exception:
+        if self._raise_exception:
             raise PermissionDenied(self.get_permission_denied_message())
         return redirect_to_login(self.request.get_full_path(), self.get_login_url(), self.get_redirect_field_name())
 
