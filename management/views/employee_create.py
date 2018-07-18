@@ -1,5 +1,6 @@
 import json
 
+from django.core.exceptions import ValidationError
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views import View
@@ -17,7 +18,7 @@ class EmployeeCreateView(UserPassesTestMixin):
         super().__init__(test_object, *args, **kwargs)
 
     def get(self, request):
-        return render(request, 'management/addEmployee.html')
+        return render(request, 'management/addEmployee.html', errors)
 
     def post(self, request):
         json_data = json.loads(request.body)
@@ -26,5 +27,9 @@ class EmployeeCreateView(UserPassesTestMixin):
         name = json_data['name']
         unit = json_data['unit']
         user = UserCatalog.get_instance().create(username, password, name)
+        if user == 'unique':
+            return HttpResponse(status=555)
+        elif user == 'invalid':
+            return HttpResponse(status=556)
         EmployeeCatalog.get_instance().create(user, unit)
         return HttpResponseRedirect('/management/listEmployees/')
