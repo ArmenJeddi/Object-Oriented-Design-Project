@@ -115,34 +115,6 @@
 
 {% block script %}
     <script>
-        debugger;
-
-        let options = {
-
-            // success, info, error
-            style: 'error',
-
-            // notification title
-            title: 'نام کاربری اشتباه',
-
-            // notification message
-            message: 'نام کاربری اشتباه است',
-
-            // custom Font Awesome icon
-            icon: 'fa-error',
-
-            // cutom theme
-            theme: null,
-
-            // timeout to close the notification automatically
-            timeout: null,
-
-            // shows close button
-            close_button: true
-        };
-
-        let n = new notify(options);
-        n.show();
-
+        show_notification('success', 'سلام', 'با موفقیت وارد شدید!');
     </script>
 {% endblock %}

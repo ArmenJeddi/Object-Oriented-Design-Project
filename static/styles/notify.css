@@ -55,8 +55,12 @@
     position: relative;
 }
 
-.notify.notify-with-icon .notify-body {
+.notify-body {
     padding-left: 74px;
+}
+
+.notify.notify-with-icon {
+    padding-left: 0;
 }
 
 .notify-body-text {

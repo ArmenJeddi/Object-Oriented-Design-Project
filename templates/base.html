@@ -65,6 +65,46 @@
         return JSON.parse(string.replace(/&#39;/g, '"'));
     }
 
+    function show_notification(style, title, body) {
+        let icon;
+
+        if (style === 'error') {
+            icon = 'fas fa-exclamation-circle';
+        } else if (style === 'success') {
+            icon = 'fas fa-check-circle';
+        } else {
+            icon = 'fas fa-info-circle';
+        }
+
+        let options = {
+
+
+            // success, info, error
+            style: style,
+
+            // notification title
+            title: title,
+
+            // notification message
+            message: body,
+
+            // custom Font Awesome icon
+            icon: icon,
+
+            // cutom theme
+            theme: null,
+
+            // timeout to close the notification automatically
+            timeout: 3000,
+
+            // shows close button
+            close_button: true
+        };
+
+        let n = new notify(options);
+        n.show();
+    }
+
 </script>
 <script type="text/javascript" rel="script" src="../static/js/jquery-3.3.1.min.js"></script>
 <script src="/static/js/notify.js"></script>
